@@ -10,6 +10,7 @@ public class Server {
 
 	private static final int PORT = 13245;
 	private static List<ClientHandler> clients = new ArrayList<>();
+	private static List<Player> players = new ArrayList<Player>();
 	
 	public static void main(String[] args) {
 		try(ServerSocket serverSoket = new ServerSocket(PORT)){
@@ -18,7 +19,7 @@ public class Server {
 			while(true) {
 				Socket socket = serverSoket.accept();
 				System.out.println("New client connected");
-				ClientHandler clientHandler = new ClientHandler(socket, clients);
+				ClientHandler clientHandler = new ClientHandler(socket, clients, players);
 				System.out.println("New client initialized");
 				clients.add(clientHandler);
 				System.out.println("New client added to clients");

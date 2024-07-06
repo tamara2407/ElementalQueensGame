@@ -77,7 +77,6 @@ public class LoginWindow extends JFrame {
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
                 client.sendToServer("LOGIN:" + username + ":" + password);
-                client.showSelectWindow();
             }
         });
         buttonPanel.add(loginButton, gbcButton);
@@ -105,6 +104,6 @@ public class LoginWindow extends JFrame {
     }
 
     public void showErrorMessage() {
-        JOptionPane.showMessageDialog(this, "Login failed. Please try again.");
+        JOptionPane.showMessageDialog(this, "You have to register first.");
     }
 }

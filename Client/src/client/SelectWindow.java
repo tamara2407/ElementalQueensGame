@@ -88,6 +88,12 @@ public class SelectWindow extends JFrame {
             queenButton.setMaximumSize(new Dimension(230, 230));
             queenButton.setMinimumSize(new Dimension(230, 230));
             queenButton.setIcon(new ImageIcon(imagePaths[i]));
+//            queenButton.addActionListener(new ActionListener() {
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//                   logika za izbor kraljice
+//                }
+//            });
             queenPanel.add(queenButton, BorderLayout.CENTER);
 
             gbcInner.gridx = i;

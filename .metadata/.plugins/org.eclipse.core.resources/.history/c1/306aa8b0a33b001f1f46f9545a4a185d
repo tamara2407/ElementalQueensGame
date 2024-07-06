@@ -1,0 +1,97 @@
+package client;
+
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class RegisterWindow extends JFrame {
+    
+    private Client client;
+    private JTextField usernameField;
+    private JPasswordField passwordField;
+    private JTextField emailField;
+
+    public RegisterWindow(Client client) {
+        this.client = client;
+        setTitle("Elemental Queens");
+        setSize(500, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setResizable(false);
+
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.insets = new Insets(10, 10, 10, 10);
+        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.gridwidth = 2;
+
+        JLabel titleLabel = new JLabel("Elemental Queens");
+        panel.add(titleLabel, constraints);
+
+        constraints.gridy++;
+        constraints.gridwidth = 1;
+        panel.add(new JLabel("Username:"), constraints);
+        constraints.gridx++;
+        usernameField = new JTextField(20);
+        panel.add(usernameField, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy++;
+        panel.add(new JLabel("Password:"), constraints);
+        constraints.gridx++;
+        passwordField = new JPasswordField(20);
+        panel.add(passwordField, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy++;
+        panel.add(new JLabel("Email:"), constraints);
+        constraints.gridx++;
+        emailField = new JTextField(20);
+        panel.add(emailField, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy++;
+        constraints.gridwidth = 2;
+        JButton registerButton = new JButton("Register");
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = usernameField.getText();
+                String password = new String(passwordField.getPassword());
+                String email = emailField.getText();
+                client.sendToServer("REGISTER:" + username + ":" + password + ":" + email);
+                setVisible(false);
+                client.showLoginWindow();
+            }
+        });
+        panel.add(registerButton, constraints);
+
+        constraints.gridy++;
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                client.showLoginWindow();
+            }
+        });
+        panel.add(backButton, constraints);
+
+        add(panel);
+    }
+
+    public void showErrorMessage() {
+        JOptionPane.showMessageDialog(this, "Registration failed. Please try again.");
+    }
+}
