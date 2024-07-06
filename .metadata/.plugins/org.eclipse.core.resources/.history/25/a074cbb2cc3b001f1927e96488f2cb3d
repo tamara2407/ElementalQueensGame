@@ -8,7 +8,6 @@ public class ClientMain {
         String serverAddress = "localhost"; 
         int serverPort = 13245;
         
-        
 
         Client client = new Client(serverAddress, serverPort);
 
