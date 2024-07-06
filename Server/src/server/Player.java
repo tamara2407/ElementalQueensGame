@@ -30,7 +30,6 @@ public class Player {
 		return password;
 	}
 
-
 	public int getHealth() {
 		return health;
 	}

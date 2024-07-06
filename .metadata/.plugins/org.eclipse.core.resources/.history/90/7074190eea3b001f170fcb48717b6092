@@ -1,0 +1,11 @@
+package client;
+
+import javax.swing.JFrame;
+
+public class WaitingForTheOpponentWindow extends JFrame{
+	
+	public WaitingForTheOpponentWindow(Client client) {
+		
+	}
+
+}

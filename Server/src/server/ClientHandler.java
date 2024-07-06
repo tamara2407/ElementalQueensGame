@@ -88,7 +88,7 @@ public class ClientHandler implements Runnable{
 					return;
 				}
 			}
-			out.println("LOGIN_FAILURE:fail");
+			out.println("LOGIN_FAILURE:failure");
 		}
 	}
 

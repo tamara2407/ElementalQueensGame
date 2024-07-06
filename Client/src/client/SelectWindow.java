@@ -9,6 +9,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -28,6 +30,7 @@ public class SelectWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
+        
 
         BackgroundPanel mainPanel = new BackgroundPanel(new ImageIcon("images/bg5.jpg").getImage());
         mainPanel.setLayout(new GridBagLayout());
@@ -73,7 +76,7 @@ public class SelectWindow extends JFrame {
             "images/Terra.png"
         };
 
-       
+        
         for (int i = 0; i < queenNames.length; i++) {
             JPanel queenPanel = new JPanel(new BorderLayout());
             queenPanel.setOpaque(false); 
@@ -88,12 +91,19 @@ public class SelectWindow extends JFrame {
             queenButton.setMaximumSize(new Dimension(230, 230));
             queenButton.setMinimumSize(new Dimension(230, 230));
             queenButton.setIcon(new ImageIcon(imagePaths[i]));
-//            queenButton.addActionListener(new ActionListener() {
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//                   logika za izbor kraljice
-//                }
-//            });
+            
+            int queenIndex = i + 1; 
+
+            queenButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    client.sendToServer("QUEEN_SELECTION:" + queenIndex);
+                    setVisible(false);
+                    client.showWaitingForOpponentWindow();
+                }
+            });
+            
+            
             queenPanel.add(queenButton, BorderLayout.CENTER);
 
             gbcInner.gridx = i;

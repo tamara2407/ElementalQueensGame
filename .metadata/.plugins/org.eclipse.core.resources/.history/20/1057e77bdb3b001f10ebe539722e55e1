@@ -1,0 +1,104 @@
+package client;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class BattleWindow extends JFrame {
+
+    public BattleWindow() {
+        setTitle("Elemental Queens");
+        setSize(800, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setResizable(false);
+
+        // Main panel
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setBackground(Color.WHITE);
+        setContentPane(mainPanel);
+
+        // Title label
+        JLabel titleLabel = new JLabel("Elemental Queens", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Serif", Font.BOLD, 30));
+        mainPanel.add(titleLabel, BorderLayout.NORTH);
+
+        // Center panel with character images
+        JPanel centerPanel = new JPanel(new GridLayout(1, 2));
+        centerPanel.setOpaque(false);
+
+        JLabel leftCharacter = new JLabel();
+        leftCharacter.setIcon(new ImageIcon("path/to/leftCharacterImage.jpg"));
+        leftCharacter.setHorizontalAlignment(SwingConstants.CENTER);
+        centerPanel.add(leftCharacter);
+
+        JLabel rightCharacter = new JLabel();
+        rightCharacter.setIcon(new ImageIcon("path/to/rightCharacterImage.jpg"));
+        rightCharacter.setHorizontalAlignment(SwingConstants.CENTER);
+        centerPanel.add(rightCharacter);
+
+        mainPanel.add(centerPanel, BorderLayout.CENTER);
+
+        // Bottom panel with buttons
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        buttonPanel.setOpaque(false);
+
+        JButton button1 = new JButton();
+        button1.setPreferredSize(new Dimension(80, 80));
+        buttonPanel.add(button1);
+
+        JButton button2 = new JButton();
+        button2.setPreferredSize(new Dimension(80, 80));
+        buttonPanel.add(button2);
+
+        JButton button3 = new JButton();
+        button3.setPreferredSize(new Dimension(80, 80));
+        buttonPanel.add(button3);
+
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        // Top left corner panel with health and mana bars
+        JPanel topLeftPanel = new JPanel();
+        topLeftPanel.setLayout(new BoxLayout(topLeftPanel, BoxLayout.Y_AXIS));
+        topLeftPanel.setOpaque(false);
+
+        JLabel leftHealthBar = new JLabel();
+        leftHealthBar.setOpaque(true);
+        leftHealthBar.setBackground(Color.GREEN);
+        leftHealthBar.setPreferredSize(new Dimension(150, 20));
+        topLeftPanel.add(leftHealthBar);
+
+        JLabel leftManaBar = new JLabel();
+        leftManaBar.setOpaque(true);
+        leftManaBar.setBackground(Color.BLUE);
+        leftManaBar.setPreferredSize(new Dimension(150, 20));
+        topLeftPanel.add(leftManaBar);
+
+        mainPanel.add(topLeftPanel, BorderLayout.WEST);
+
+        // Top right corner panel with health and mana bars
+        JPanel topRightPanel = new JPanel();
+        topRightPanel.setLayout(new BoxLayout(topRightPanel, BoxLayout.Y_AXIS));
+        topRightPanel.setOpaque(false);
+
+        JLabel rightHealthBar = new JLabel();
+        rightHealthBar.setOpaque(true);
+        rightHealthBar.setBackground(Color.GREEN);
+        rightHealthBar.setPreferredSize(new Dimension(150, 20));
+        topRightPanel.add(rightHealthBar);
+
+        JLabel rightManaBar = new JLabel();
+        rightManaBar.setOpaque(true);
+        rightManaBar.setBackground(Color.BLUE);
+        rightManaBar.setPreferredSize(new Dimension(150, 20));
+        topRightPanel.add(rightManaBar);
+
+        mainPanel.add(topRightPanel, BorderLayout.EAST);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            BattleWindow battleWindow = new BattleWindow();
+            battleWindow.setVisible(true);
+        });
+    }
+}
