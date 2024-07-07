@@ -1,51 +1,57 @@
 package server;
 
 public class Player {
-	
-	private int id;
-	private String username;
-	private String password;
-	private String email;
-	private int health;
-	private int mana;
-	private int queenId;
-	
-	public Player(String username, String password, String email) {
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.health = 100;
-		this.mana = 100;
-	}
+    
+    private int id;
+    private String username;
+    private String password;
+    private String email;
+    private int wins;
+    private int losses;
 
-	public int getId() {
-		return id;
-	}
+    public Player(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.wins = 0; 
+        this.losses = 0; 
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getUsername() {
+        return username;
+    }
 
+    public String getPassword() {
+        return password;
+    }
 
-	public int getHealth() {
-		return health;
-	}
+    public String getEmail() {
+        return email;
+    }
+    
+    public int getWins() {
+        return wins;
+    }
+    
+    public int getLosses() {
+        return losses;
+    }
 
-	public int getMana() {
-		return mana;
-	}
+    public void incrementWins() {
+        this.wins++;
+    }
 
-	public void setQueenId(int queenId) {
-		this.queenId = queenId;
-	}
+    public void incrementLosses() {
+        this.losses++;
+    }
 
-	
-
-	
-	
-
+    public void resetStats() {
+        this.wins = 0;
+        this.losses = 0;
+    }
 }
+

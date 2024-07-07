@@ -1,0 +1,73 @@
+package server;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.File;
+
+public class Server {
+
+	private static final int PORT = 13245;
+	private static List<ClientHandler> clients = new ArrayList<>();
+	private static List<Player> players = new ArrayList<Player>();
+	 private static final String CSV_FILE_PATH = "players.csv";
+	
+	public static void main(String[] args) {
+		createCSVFile(CSV_FILE_PATH);
+		
+		
+		
+		try(ServerSocket serverSoket = new ServerSocket(PORT)){
+			System.out.println("Server started on port "+PORT );
+			
+			
+			
+			while(true) {
+				Socket socket = serverSoket.accept();
+				System.out.println("New client connected");
+				ClientHandler clientHandler = new ClientHandler(socket, clients, players);
+				System.out.println("New client initialized");
+				clients.add(clientHandler);
+				System.out.println("New client added to clients");
+				new Thread(clientHandler).start();
+				System.out.println("New client thread created");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static void loadPlayersFromCSV() {
+        try (BufferedReader br = new BufferedReader(new FileReader(CSV_FILE_PATH))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                players.add(new Player(values[0], values[1], values[2]));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+	
+	 private static void createCSVFile(String filePath) {
+	        File csvFile = new File(filePath);
+	        if (!csvFile.exists()) {
+	            try (FileWriter writer = new FileWriter(csvFile)) {
+	                // Write header
+	                writer.append("username,password,email\n");
+	                // Write initial data if needed
+	                writer.append("player1,password1,player1@example.com\n");
+	                writer.append("player2,password2,player2@example.com\n");
+	                System.out.println("CSV file created with initial data.");
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+	
+}

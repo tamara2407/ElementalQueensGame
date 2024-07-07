@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.List;
+import java.io.FileWriter;
 
 public class ClientHandler implements Runnable{
 	
@@ -15,6 +16,7 @@ public class ClientHandler implements Runnable{
 	private PrintWriter out;
 	private List<Player> players;
 	private Player player;
+	private static final String CSV_FILE_PATH = "players.csv";
 	
 	
 	public ClientHandler(Socket socket, List<ClientHandler> clients, List<Player> players) {
@@ -75,6 +77,7 @@ public class ClientHandler implements Runnable{
 			}
 			Player newPlayer = new Player(username, password, email);
 			players.add(newPlayer);
+			writePlayerToCSV(newPlayer);
 			out.println("REGISTER_SUCCESS:success");
 		}
 	}
@@ -91,5 +94,18 @@ public class ClientHandler implements Runnable{
 			out.println("LOGIN_FAILURE:fail");
 		}
 	}
+	
+	 private void writePlayerToCSV(Player player) {
+	        try (FileWriter writer = new FileWriter(CSV_FILE_PATH, true)) {
+	            writer.append(player.getUsername())
+	                  .append(",")
+	                  .append(player.getPassword())
+	                  .append(",")
+	                  .append(player.getEmail())
+	                  .append("\n");
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
 
 }

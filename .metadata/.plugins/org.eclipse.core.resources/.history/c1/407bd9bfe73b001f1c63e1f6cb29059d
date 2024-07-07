@@ -1,0 +1,22 @@
+package server;
+
+public class Spell {
+	
+	private String name;
+    private int effect; 
+
+    public Spell(String name, int effect) {
+        this.name = name;
+        this.effect = effect;
+    }
+
+    
+    public String getName() {
+        return name;
+    }
+
+    public int getEffect() {
+        return effect;
+    }
+
+}

@@ -1,0 +1,112 @@
+package server;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.File;
+
+public class Server {
+
+	private static final int PORT = 13245;
+	private static List<ClientHandler> clients = new ArrayList<>();
+	private static List<Player> players = new ArrayList<Player>();
+	 private static List<Queen> queens = new ArrayList<>();
+	 private static final String CSV_FILE_NAME = "players.csv";
+	 private static final String QUEENS_FILE_NAME = "queens.json";
+	
+	public static void main(String[] args) {
+		
+		 String currentDirectory = Paths.get("").toAbsolutePath().toString();
+	     String csvFilePath = currentDirectory + File.separator + CSV_FILE_NAME;
+		
+	     String queensFilePath = currentDirectory + File.separator + QUEENS_FILE_NAME;
+
+		
+		 createCSVFile(csvFilePath);
+
+	        
+		 loadPlayersFromCSV(csvFilePath);	
+		 
+		 loadQueensFromJSON(queensFilePath);
+		 
+		 
+		try(ServerSocket serverSoket = new ServerSocket(PORT)){
+			System.out.println("Server started on port "+PORT );
+			
+			
+			
+			while(true) {
+				Socket socket = serverSoket.accept();
+				System.out.println("New client connected");
+				ClientHandler clientHandler = new ClientHandler(socket, clients, players);
+				System.out.println("New client initialized");
+				clients.add(clientHandler);
+				System.out.println("New client added to clients");
+				new Thread(clientHandler).start();
+				System.out.println("New client thread created");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+
+	 private static void createCSVFile(String filePath) {
+	        File csvFile = new File(filePath);
+	        if(!(csvFile.exists())) {
+	            try (FileWriter writer = new FileWriter(csvFile)) {
+	                
+	                writer.append("username,password,email\n");
+	             
+	               
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        
+	       
+	    }
+	 
+	 private static void loadPlayersFromCSV(String filePath) {
+	        File csvFile = new File(filePath);
+	        if (csvFile.exists()) {
+	            try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+	                String line;
+	                // Skip the header line
+	                br.readLine();
+	                while ((line = br.readLine()) != null) {
+	                    String[] values = line.split(",");
+	                    if (values.length == 3) {
+	                        players.add(new Player(values[0], values[1], values[2]));
+	                    }
+	                }
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
+	        } else {
+	            System.out.println("CSV file not found, skipping loading players.");
+	        }
+	    }
+	 
+	 private static void loadQueensFromJSON(String filePath) {
+	        File jsonFile = new File(filePath);
+	        if (jsonFile.exists()) {
+	            ObjectMapper objectMapper = new ObjectMapper();
+	            try {
+	                queens = objectMapper.readValue(jsonFile, new TypeReference<List<Queen>>() {});
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
+	        } else {
+	            System.out.println("JSON file not found, skipping loading queens.");
+	        }
+	    }
+	
+}

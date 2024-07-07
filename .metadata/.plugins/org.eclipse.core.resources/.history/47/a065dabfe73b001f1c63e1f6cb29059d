@@ -1,0 +1,80 @@
+package server;
+
+public class Queen {
+	
+	
+
+	    private int id;
+	    private String name;
+	    private int health;
+	    private int mana;
+
+	    
+	    public Queen(int id, String name) {
+	        this.id = id;
+	        this.name = name;
+	        this.health = 100; 
+	        this.mana = 100; 
+	    }
+
+	    
+	    public int getId() {
+	        return id;
+	    }
+
+	    public String getName() {
+	        return name;
+	    }
+
+	    public int getHealth() {
+	        return health;
+	    }
+
+	    public int getMana() {
+	        return mana;
+	    }
+
+	    
+	    public void setHealth(int health) {
+	        this.health = health;
+	    }
+
+	    public void setMana(int mana) {
+	        this.mana = mana;
+	    }
+
+	    
+	    public void reduceHealth(int amount) {
+	        this.health -= amount;
+	        if (this.health < 0) {
+	            this.health = 0; 
+	        }
+	    }
+
+	    
+	    public void reduceMana(int amount) {
+	        this.mana -= amount;
+	        if (this.mana < 0) {
+	            this.mana = 0; 
+	        }
+	    }
+
+	   
+	    public void restoreHealth(int amount) {
+	        this.health += amount;
+	        if (this.health > 100) {
+	            this.health = 100; 
+	        }
+	    }
+
+	    
+	    public void restoreMana(int amount) {
+	        this.mana += amount;
+	        if (this.mana > 100) {
+	            this.mana = 100; 
+	        }
+	    }
+	
+
+
+}
