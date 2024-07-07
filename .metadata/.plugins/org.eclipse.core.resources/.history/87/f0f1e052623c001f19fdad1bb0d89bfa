@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "name": "Blaze",
+        "spells": [
+            {"name": "Inferno Burst", "effect": -20, "manaCost": 30},
+            {"name": "Ember Storm", "effect": -5, "manaCost": 10},
+            {"name": "Flame Eruption", "effect": -30, "manaCost": 50}
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Aqua",
+        "spells": [
+            {"name": "Tsunami Wave", "effect": -20, "manaCost": 20},
+            {"name": "Aqua Surge", "effect": -30, "manaCost": 30},
+            {"name": "Healing Waters", "effect": 20, "manaCost": 30}
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Frost",
+        "spells": [
+            {"name": "Blizzard Blast", "effect": -10, "manaCost": 15},
+            {"name": "Icicle Spear", "effect": -15, "manaCost": 20},
+            {"name": "Frozen Touch", "effect": -20, "manaCost": 30}
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Ivy",
+        "spells": [
+            {"name": "Thorn Whip", "effect": -20, "manaCost": 30},
+            {"name": "Bloom Heal", "effect": 20, "manaCost": 30},
+            {"name": "Poison Spore", "effect": -10, "manaCost": 15}
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Terra",
+        "spells": [
+            {"name": "Earthquake Smash", "effect": -15, "manaCost": 20},
+            {"name": "Boulder Throw", "effect": -20, "manaCost": 30},
+            {"name": "Root Strike", "effect": -25, "manaCost": 40}
+        ]
+    }
+]
