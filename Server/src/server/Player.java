@@ -25,6 +25,7 @@ public class Player {
         return username;
     }
 
+
     public String getPassword() {
         return password;
     }
@@ -40,6 +41,7 @@ public class Player {
     public int getLosses() {
         return losses;
     }
+
 
     public void incrementWins() {
         this.wins++;

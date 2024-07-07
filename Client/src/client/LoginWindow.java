@@ -1,24 +1,12 @@
 package client;
 
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 public class LoginWindow extends JFrame {
-	
+
     private Client client;
     private JTextField usernameField;
     private JPasswordField passwordField;
@@ -26,25 +14,38 @@ public class LoginWindow extends JFrame {
     public LoginWindow(Client client) {
         this.client = client;
         setTitle("Login");
-        setSize(500, 400); 
+        setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
 
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setPreferredSize(new Dimension(600, 400));
         
+        ImageIcon backgroundImage = new ImageIcon("images/bglr.jpg");
+        JLabel backgroundLabel = new JLabel(backgroundImage);
+        backgroundLabel.setBounds(0, 0, 600, 400);
+        layeredPane.add(backgroundLabel, JLayeredPane.DEFAULT_LAYER);
+
         JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setBounds(0, 0, 600, 400);
+        mainPanel.setOpaque(false);  
 
         JLabel titleLabel = new JLabel("Elemental Queens", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Serif", Font.BOLD, 30)); 
+        titleLabel.setFont(new Font("Serif", Font.BOLD, 30));
+        titleLabel.setForeground(Color.WHITE);
         mainPanel.add(titleLabel, BorderLayout.NORTH);
 
         JPanel inputPanel = new JPanel(new GridBagLayout());
+        inputPanel.setOpaque(false);  
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        inputPanel.add(new JLabel("Username: "), gbc);
+        JLabel usernameLabel = new JLabel("Username: ");
+        usernameLabel.setForeground(Color.WHITE);
+        inputPanel.add(usernameLabel, gbc);
 
         gbc.gridx = 1;
         usernameField = new JTextField(15);
@@ -52,7 +53,9 @@ public class LoginWindow extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        inputPanel.add(new JLabel("Password: "), gbc);
+        JLabel passwordLabel = new JLabel("Password: ");
+        passwordLabel.setForeground(Color.WHITE);
+        inputPanel.add(passwordLabel, gbc);
 
         gbc.gridx = 1;
         passwordField = new JPasswordField(15);
@@ -64,6 +67,7 @@ public class LoginWindow extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         JPanel buttonPanel = new JPanel(new GridBagLayout());
+        buttonPanel.setOpaque(false);  
         GridBagConstraints gbcButton = new GridBagConstraints();
         gbcButton.insets = new Insets(5, 0, 5, 0);
         gbcButton.gridx = 0;
@@ -98,12 +102,15 @@ public class LoginWindow extends JFrame {
         gbc.gridwidth = 2;
         inputPanel.add(buttonPanel, gbc);
 
-        
         mainPanel.add(inputPanel, BorderLayout.CENTER);
-        add(mainPanel);
+
+        layeredPane.add(mainPanel, JLayeredPane.PALETTE_LAYER);
+
+        setContentPane(layeredPane);
+        pack();
     }
 
     public void showErrorMessage() {
-        JOptionPane.showMessageDialog(this, "You have to register first.");
+        JOptionPane.showMessageDialog(this, "You have to register first!");
     }
 }
