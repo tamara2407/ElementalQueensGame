@@ -8,7 +8,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,7 +29,7 @@ public class WaitingForTheOpponentWindow extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
-        BackgroundPanel mainPanel = new BackgroundPanel(new ImageIcon("images/bg5Original.jpg").getImage());
+        BackgroundPanel mainPanel = new BackgroundPanel(new ImageIcon("images/background/bg5Original.jpg").getImage());
         mainPanel.setLayout(new BorderLayout());
         add(mainPanel);
 
@@ -49,6 +52,27 @@ public class WaitingForTheOpponentWindow extends JFrame {
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.CENTER;
         centerPanel.add(waitingLabel, gbc);
+
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.setFont(new Font("Serif", Font.PLAIN, 20));
+        logoutButton.setForeground(Color.WHITE);
+        logoutButton.setContentAreaFilled(false);
+        logoutButton.setOpaque(false); 
+        logoutButton.setBorderPainted(false);
+        
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                client.sendToServer("LOGOUT:" + "logout");
+                dispose(); 
+                client.showLoginWindow();
+            }
+        });
+
+        JPanel bottomLeftPanel = new JPanel(new BorderLayout());
+        bottomLeftPanel.setOpaque(false);
+        bottomLeftPanel.add(logoutButton, BorderLayout.SOUTH);
+        mainPanel.add(bottomLeftPanel, BorderLayout.WEST);
     }
 
     class BackgroundPanel extends JPanel {

@@ -2,6 +2,8 @@ package client;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class BattleWindow extends JFrame {
 	
@@ -27,9 +29,9 @@ public class BattleWindow extends JFrame {
         centerPanel.setOpaque(false);
 
         JLabel leftCharacter = new JLabel();
+      //stavila sam sliku random kraljice za probu
         leftCharacter.setIcon(new ImageIcon(
-        		//stavila sam sliku random kraljice za probu
-                new ImageIcon("images/Blaze.png").getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH)));
+                new ImageIcon("images/queens/Blaze.png").getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH)));
         JPanel leftCharacterPanel = new JPanel(new BorderLayout());
         leftCharacterPanel.add(leftCharacter, BorderLayout.WEST);
         leftCharacterPanel.setOpaque(false);
@@ -41,7 +43,7 @@ public class BattleWindow extends JFrame {
 
         JLabel rightCharacter = new JLabel();
         rightCharacter.setIcon(new ImageIcon(
-                new ImageIcon("images/Ivy.png").getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH)));
+                new ImageIcon("images/queens/Ivy.png").getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH)));
         JPanel rightCharacterPanel = new JPanel(new BorderLayout());
         rightCharacterPanel.add(rightCharacter, BorderLayout.EAST);
         rightCharacterPanel.setOpaque(false);
@@ -57,9 +59,9 @@ public class BattleWindow extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 0;
 
-        JButton button1 = new JButton("Spell 1");
-        button1.setPreferredSize(new Dimension(100, 100));
-        buttonPanel.add(button1, gbc);
+        JButton spell1 = new JButton("Spell 1");
+        spell1.setPreferredSize(new Dimension(100, 100));
+        buttonPanel.add(spell1, gbc);
 
         gbc.gridy = 1;
         JTextArea spell1Description = new JTextArea("Ovo je Spell 1");
@@ -69,12 +71,20 @@ public class BattleWindow extends JFrame {
         spell1Description.setEditable(false);
         spell1Description.setFocusable(false);
         buttonPanel.add(spell1Description, gbc);
+        
+        spell1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //slanje serveru id kliknute magije
+            }
+        });
 
         gbc.gridx = 1;
         gbc.gridy = 0;
-        JButton button2 = new JButton("Spell 2");
-        button2.setPreferredSize(new Dimension(100, 100));
-        buttonPanel.add(button2, gbc);
+        JButton spell2 = new JButton("Spell 2");
+        spell2.setPreferredSize(new Dimension(100, 100));
+        buttonPanel.add(spell2, gbc);
+        
 
         gbc.gridy = 1;
         JTextArea spell2Description = new JTextArea("Ovo je Spell 2");
@@ -84,16 +94,25 @@ public class BattleWindow extends JFrame {
         spell2Description.setEditable(false);
         spell2Description.setFocusable(false);
         buttonPanel.add(spell2Description, gbc);
+        
+        spell1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            	//slanje serveru id kliknute magije
+            	
+            }
+        });
 
         gbc.gridx = 2;
         gbc.gridy = 0;
-        JButton button3 = new JButton("Spell 3");
-        button3.setPreferredSize(new Dimension(100, 100));
-        buttonPanel.add(button3, gbc);
+        JButton spell3 = new JButton("Spell 3");
+        spell3.setPreferredSize(new Dimension(100, 100));
+        buttonPanel.add(spell3, gbc);
 
         gbc.gridy = 1;
         //stavila sam random spell za probu
-        JTextArea spell3Description = new JTextArea("Inferno Burst – A powerful wave of fire that deals significant damage.\r\n"
+        JTextArea spell3Description = new JTextArea("Inferno Burst\nA powerful wave of fire that deals significant damage.\r\n"
         		+ "");
         spell3Description.setLineWrap(true);
         spell3Description.setWrapStyleWord(true);
@@ -101,6 +120,14 @@ public class BattleWindow extends JFrame {
         spell3Description.setEditable(false);
         spell3Description.setFocusable(false);
         buttonPanel.add(spell3Description, gbc);
+        
+        spell1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            	//slanje serveru id kliknute magije
+            }
+        });
 
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -141,5 +168,14 @@ public class BattleWindow extends JFrame {
         topRightPanel.add(rightManaBar);
 
         mainPanel.add(topRightPanel, BorderLayout.EAST);
+    }
+    
+    
+    //za probu
+    public static void main(String[] args) {
+
+        Client client = new Client("localhost", 13245);
+        BattleWindow window = new BattleWindow(client);
+        window.setVisible(true);
     }
 }

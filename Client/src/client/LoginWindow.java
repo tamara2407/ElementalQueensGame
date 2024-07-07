@@ -22,7 +22,7 @@ public class LoginWindow extends JFrame {
         JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(new Dimension(600, 400));
         
-        ImageIcon backgroundImage = new ImageIcon("images/bglr.jpg");
+        ImageIcon backgroundImage = new ImageIcon("images/background/bglr.jpg");
         JLabel backgroundLabel = new JLabel(backgroundImage);
         backgroundLabel.setBounds(0, 0, 600, 400);
         layeredPane.add(backgroundLabel, JLayeredPane.DEFAULT_LAYER);
@@ -112,5 +112,9 @@ public class LoginWindow extends JFrame {
 
     public void showErrorMessage() {
         JOptionPane.showMessageDialog(this, "You have to register first!");
+    }
+    
+    public void showErrorMessagePassword() {
+    	JOptionPane.showMessageDialog(this, "Wrong email or password!");
     }
 }
