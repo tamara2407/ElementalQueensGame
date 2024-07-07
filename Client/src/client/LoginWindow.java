@@ -115,6 +115,6 @@ public class LoginWindow extends JFrame {
     }
     
     public void showErrorMessagePassword() {
-    	JOptionPane.showMessageDialog(this, "Wrong email or password!");
+    	JOptionPane.showMessageDialog(this, "Wrong username or password!");
     }
 }

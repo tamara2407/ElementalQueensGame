@@ -90,6 +90,10 @@ public class ClientHandler implements Runnable{
 					out.println("LOGIN_SUCCESS:success");
 					return;
 				}
+				if(p.getUsername().equals(username) && !(p.getPassword().equals(password))) {
+					out.println("LOGIN_FAILURE_PASSWORD:failure");
+					return;
+				}
 			}
 			out.println("LOGIN_FAILURE:failure");
 		}

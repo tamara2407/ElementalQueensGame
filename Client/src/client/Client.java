@@ -81,6 +81,9 @@ public class Client {
 		case "LOGIN_FAILURE":
 			loginWindow.showErrorMessage();
 			break;
+		case "LOGIN_FAILURE_PASSWORD":
+			loginWindow.showErrorMessagePassword();
+			break;
 		case "REGISTER_SUCCESS":
 			registerWindow.setVisible(false);
 			showLoginWindow();
