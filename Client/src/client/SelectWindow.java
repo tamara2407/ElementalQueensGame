@@ -32,7 +32,7 @@ public class SelectWindow extends JFrame {
         setResizable(false);
         
 
-        BackgroundPanel mainPanel = new BackgroundPanel(new ImageIcon("images/bg5.jpg").getImage());
+        BackgroundPanel mainPanel = new BackgroundPanel(new ImageIcon("images/background/bg5.jpg").getImage());
         mainPanel.setLayout(new GridBagLayout());
         add(mainPanel);
 
@@ -69,11 +69,11 @@ public class SelectWindow extends JFrame {
 
         String[] queenNames = {"Blaze", "Aqua", "Frost", "Ivy", "Terra"};
         String[] imagePaths = {
-            "images/Blaze.png",
-            "images/Aqua.png",
-            "images/Frost.jpg",
-            "images/Ivy.png",
-            "images/Terra.png"
+            "images/queens/Blaze.png",
+            "images/queens/Aqua.png",
+            "images/queens/Frost.png",
+            "images/queens/Ivy.png",
+            "images/queens/Terra.png"
         };
 
         
@@ -87,13 +87,12 @@ public class SelectWindow extends JFrame {
             queenPanel.add(queenLabel, BorderLayout.NORTH);
 
             JButton queenButton = new JButton();
-            queenButton.setPreferredSize(new Dimension(230, 230));
-            queenButton.setMaximumSize(new Dimension(230, 230));
-            queenButton.setMinimumSize(new Dimension(230, 230));
+            queenButton.setPreferredSize(new Dimension(235, 235));
+            queenButton.setMaximumSize(new Dimension(235, 235));
+            queenButton.setMinimumSize(new Dimension(235, 235));
             queenButton.setIcon(new ImageIcon(imagePaths[i]));
             
             int queenIndex = i + 1; 
-
             queenButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -102,8 +101,7 @@ public class SelectWindow extends JFrame {
                     client.showWaitingForOpponentWindow();
                 }
             });
-            
-            
+          
             queenPanel.add(queenButton, BorderLayout.CENTER);
 
             gbcInner.gridx = i;
@@ -129,6 +127,15 @@ public class SelectWindow extends JFrame {
             super.paintComponent(g);
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
+    }
+    
+    
+    //za probu
+    public static void main(String[] args) {
+
+        Client client = new Client("localhost", 13245);
+        SelectWindow window = new SelectWindow(client);
+        window.setVisible(true);
     }
 
 }

@@ -23,7 +23,7 @@ public class RegisterWindow extends JFrame {
         JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(new Dimension(600, 400));
 
-        ImageIcon backgroundImage = new ImageIcon("images/bglr.jpg");
+        ImageIcon backgroundImage = new ImageIcon("images/background/bglr.jpg");
         JLabel backgroundLabel = new JLabel(backgroundImage);
         backgroundLabel.setBounds(0, 0, 600, 400);
         layeredPane.add(backgroundLabel, JLayeredPane.DEFAULT_LAYER);
