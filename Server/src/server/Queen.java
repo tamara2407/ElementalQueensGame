@@ -2,8 +2,7 @@ package server;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 public class Queen {
 	
@@ -13,32 +12,18 @@ public class Queen {
 	    private String name;
 	    private int health;
 	    private int mana;
-	    private List<Spell> spells;
+	    private List<Spell> spells= new ArrayList<>();
 
 	    
-	    public Queen(int id, String name) {
+	    public Queen(int id, String name, List<Spell> spells, int health,int mana) {
 	        this.id = id;
 	        this.name = name;
-	        this.health = 100; 
-	        this.mana = 100; 
-	        this.spells = new ArrayList<>();
+	        this.health = health; 
+	        this.mana = mana; 
+	        this.spells = spells;
 	    }
 	    
-	    public Queen() {
-	    }
-	    
-	    public Queen(@JsonProperty("id") int id,
-                @JsonProperty("name") String name,
-                @JsonProperty("spells") List<Spell> spells,
-                @JsonProperty("health") int health,
-                @JsonProperty("mana") int mana) {
-       this.id = id;
-       this.name = name;
-       this.spells = spells;
-       this.health = health;
-       this.mana = mana;
-   }
-
+	
 	    
 	    public int getId() {
 	        return id;
@@ -58,6 +43,10 @@ public class Queen {
 	    
 	    public List<Spell> getSpells() {
 	        return spells;
+	    }
+	    
+	    public Spell getSpell(int i) {
+	    	return spells.get(i);
 	    }
 
 	    
@@ -129,9 +118,10 @@ public class Queen {
 	                ", name='" + name + '\'' +
 	                ", health=" + health +
 	                ", mana=" + mana +
-	                ", spells=" + spells +
+	                ", spells=" + getSpell(0)+getSpell(1)+getSpell(2)+
 	                '}';
 	    }
+
 	
 
 

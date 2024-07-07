@@ -1,6 +1,5 @@
 package server;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -19,14 +18,14 @@ public class Server {
 	private static List<Player> players = new ArrayList<Player>();
 	 private static List<Queen> queens = new ArrayList<>();
 	 private static final String CSV_FILE_NAME = "players.csv";
-	 private static final String QUEENS_FILE_NAME = "queens.json";
+	 
 	
 	public static void main(String[] args) {
 		
 		 String currentDirectory = Paths.get("").toAbsolutePath().toString();
 	     String csvFilePath = currentDirectory + File.separator + CSV_FILE_NAME;
 		
-	     String queensFilePath = currentDirectory + File.separator + QUEENS_FILE_NAME;
+	    
 
 		
 		 createCSVFile(csvFilePath);
@@ -34,19 +33,9 @@ public class Server {
 	        
 		 loadPlayersFromCSV(csvFilePath);	
 		 
-		 loadQueensFromJSON(queensFilePath);
+		 queens=createQueens();
 		 
-		 ObjectMapper objectMapper = new ObjectMapper();
-
-	        try {
-	            List<Queen> queens = objectMapper.readValue(new File(queensFilePath), new TypeReference<List<Queen>>() {});
-	            for (Queen queen : queens) {
-	                System.out.println(queen);
-	            }
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    
+		
 		 
 		try(ServerSocket serverSoket = new ServerSocket(PORT)){
 			System.out.println("Server started on port "+PORT );
@@ -106,18 +95,66 @@ public class Server {
 	        }
 	    }
 	 
-	 private static void loadQueensFromJSON(String filePath) {
-	        File jsonFile = new File(filePath);
-	        if (jsonFile.exists()) {
-	            ObjectMapper objectMapper = new ObjectMapper();
-	            try {
-	                queens = objectMapper.readValue(jsonFile, new TypeReference<List<Queen>>() {});
-	            } catch (IOException e) {
-	                e.printStackTrace();
-	            }
-	        } else {
-	            System.out.println("JSON file not found, skipping loading queens.");
-	        }
+	 public static List<Queen> createQueens() {
+	        List<Queen> queens = new ArrayList<>();
+
+
+	        Queen blaze = new Queen(1, "Blaze", createBlazeSpells(), 100, 100);
+	        Queen aqua = new Queen(2, "Aqua", createAquaSpells(), 100, 100);
+	        Queen frost = new Queen(3, "Frost", createFrostSpells(), 100, 100);
+	        Queen ivy = new Queen(4, "Ivy", createIvySpells(), 100, 100);
+	        Queen terra = new Queen(5, "Terra", createTerraSpells(), 100, 100);
+
+	        queens.add(blaze);
+	        queens.add(aqua);
+	        queens.add(frost);
+	        queens.add(ivy);
+	        queens.add(terra);
+
+	        return queens;
 	    }
-	
+	 
+	 private static List<Spell> createBlazeSpells() {
+		    List<Spell> spells = new ArrayList<>();
+		    spells.add(new Spell("Inferno Burst", 20, "A powerful wave of fire that deals significant damage, Effect: 20 damage, Mana: 30", 30));
+		    spells.add(new Spell("Ember Storm", 5, "A quick attack with fiery particles that scorch enemies, Effect: 5 damage, Mana: 10", 10));
+		    spells.add(new Spell("Flame Eruption", 30, "An explosion of fire that deals damage to all nearby enemies, Effect: 30 damage, Mana: 50", 50));
+		    return spells;
+		}
+
+		private static List<Spell> createAquaSpells() {
+		    List<Spell> spells = new ArrayList<>();
+		    spells.add(new Spell("Tsunami Wave", 20, "A massive wave that hits all enemies in its path, Effect: 20 damage, Mana: 20", 20));
+		    spells.add(new Spell("Aqua Surge", 30, "A strong water strike that deals damage to an enemy, Effect: 30 damage, Mana: 30", 30));
+		    spells.add(new Spell("Healing Waters", 20, "Heals herself or an ally by regenerating HP, Effect: 20 heal, Mana: 30", 30));
+		    return spells;
+		}
+
+		private static List<Spell> createFrostSpells() {
+		    List<Spell> spells = new ArrayList<>();
+		    spells.add(new Spell("Blizzard Blast", 10, "A powerful snowstorm that freezes and damages enemies, Effect: 10 damage, Mana: 15", 15));
+		    spells.add(new Spell("Icicle Spear", 15, "Ice projectiles that pierce through enemies, Effect: 15 damage, Mana: 20", 20));
+		    spells.add(new Spell("Frozen Touch", 20, "Freezes an enemy, Effect: 20 damage, Mana: 30", 30));
+		    return spells;
+		}
+
+		private static List<Spell> createIvySpells() {
+		    List<Spell> spells = new ArrayList<>();
+		    spells.add(new Spell("Thorn Whip", 20, "Uses thorny vines to attack enemies, Effect: 20 damage, Mana: 30", 30));
+		    spells.add(new Spell("Bloom Heal", 20, "Heals herself or an ally using powerful plants, Effect: 20 heal, Mana: 30", 30));
+		    spells.add(new Spell("Poison Spore", 10, "Releases toxic spores that deal damage to enemies, Effect: 10 damage, Mana: 15", 15));
+		    return spells;
+		}
+
+		private static List<Spell> createTerraSpells() {
+		    List<Spell> spells = new ArrayList<>();
+		    spells.add(new Spell("Earthquake Smash", 15, "Causes a powerful earthquake that hits all nearby enemies, Effect: 15 damage, Mana: 20", 20));
+		    spells.add(new Spell("Boulder Throw", 20, "Throws a massive boulder that deals damage to an enemy, Effect: 20 damage, Mana: 30", 30));
+		    spells.add(new Spell("Root Strike", 25, "Attacks enemies with roots emerging from the ground, dealing damage, Effect: 25 damage, Mana: 40", 40));
+		    return spells;
+		}
+
+
+
+
 }

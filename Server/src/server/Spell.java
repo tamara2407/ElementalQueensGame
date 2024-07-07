@@ -1,7 +1,6 @@
 package server;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 public class Spell {
 	
@@ -16,18 +15,6 @@ public class Spell {
         this.description=description;
         this.manaCost=manaCost;
     }
-    
-    public Spell() {
-    }
-    
-    public Spell(@JsonProperty("name") String name,
-            @JsonProperty("effect") int effect,
-          
-            @JsonProperty("manaCost") int manaCost) {
-   this.name = name;
-   this.effect=effect;
-   this.manaCost = manaCost;
-}
 
     
     public String getName() {
@@ -50,6 +37,7 @@ public class Spell {
         return "Spell{" +
                 "name='" + name + '\'' +
                 ", effect=" + effect +
+                ", description='" + description + '\'' +
                 ", manaCost=" + manaCost +
                 '}';
     }
