@@ -8,6 +8,8 @@ public class Player {
     private String email;
     private int wins;
     private int losses;
+    private Queen selectedQueen;
+   
 
     public Player(String username, String password, String email) {
         this.username = username;
@@ -15,7 +17,10 @@ public class Player {
         this.email = email;
         this.wins = 0; 
         this.losses = 0; 
+        this.selectedQueen = null;
     }
+    
+  
 
     public int getId() {
         return id;
@@ -54,6 +59,13 @@ public class Player {
     public void resetStats() {
         this.wins = 0;
         this.losses = 0;
+    }
+    public Queen getSelectedQueen() {
+        return selectedQueen;
+    }
+
+    public void setSelectedQueen(Queen selectedQueen) {
+        this.selectedQueen = selectedQueen;
     }
 }
 

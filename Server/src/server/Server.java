@@ -5,6 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -45,7 +47,7 @@ public class Server {
 			while(true) {
 				Socket socket = serverSoket.accept();
 				System.out.println("New client connected");
-				ClientHandler clientHandler = new ClientHandler(socket, clients, players);
+				ClientHandler clientHandler = new ClientHandler(socket, clients, players,queens);
 				System.out.println("New client initialized");
 				clients.add(clientHandler);
 				System.out.println("New client added to clients");

@@ -8,13 +8,18 @@ import java.awt.event.ActionListener;
 public class BattleWindow extends JFrame {
 
     private Client client;
+    
+    private String playerQueenName;
+    private String opponentQueenName;
     private JProgressBar playerHealthBar;
     private JProgressBar playerManaBar;
     private JProgressBar opponentHealthBar;
     private JProgressBar opponentManaBar;
 
-    public BattleWindow(Client client) {
+    public BattleWindow(Client client, String playerQueenName, String opponentQueenName) {
         this.client = client;
+        this.playerQueenName = playerQueenName;
+        this.opponentQueenName = opponentQueenName;
         setTitle("Elemental Queens");
         setSize(1200, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,7 +57,7 @@ public class BattleWindow extends JFrame {
 
         JLabel playerCharacter = new JLabel();
         playerCharacter.setIcon(new ImageIcon(
-                new ImageIcon("images/queens/Blaze.png").getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH)));
+                new ImageIcon("images/queens/" + playerQueenName + ".png").getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH)));
 
         playerCharacterPanel.add(playerHealthBar);
         playerCharacterPanel.add(playerManaBar);
@@ -89,7 +94,7 @@ public class BattleWindow extends JFrame {
 
         JLabel opponentCharacter = new JLabel();
         opponentCharacter.setIcon(new ImageIcon(
-                new ImageIcon("images/queens/Ivy.png").getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH)));
+                new ImageIcon("images/queens/" + opponentQueenName + ".png").getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH)));
 
         opponentCharacterPanel.add(opponentHealthBar);
         opponentCharacterPanel.add(opponentManaBar);
@@ -216,7 +221,7 @@ public class BattleWindow extends JFrame {
 
     // za probu
     public static void main(String[] args) {
-        Client client = new Client("localhost", 13245);
+       /* Client client = new Client("localhost", 13245);
         BattleWindow window = new BattleWindow(client);
         window.setVisible(true);
 
@@ -224,7 +229,7 @@ public class BattleWindow extends JFrame {
         window.updateLeftHealth(100); 
         window.updateLeftMana(60);   
         window.updateRightHealth(14); 
-        window.updateRightMana(70);   
+        window.updateRightMana(70);   */
     }
     
     public class BackgroundPanel extends JPanel {

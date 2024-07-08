@@ -38,7 +38,7 @@ public class Client {
 			loginWindow = new LoginWindow(this);
 			registerWindow = new RegisterWindow(this);
 			selectWindow = new SelectWindow(this);
-			battleWindow = new BattleWindow(this);
+			//battleWindow = new BattleWindow(this);
 			waitingForTheOpponentWindow = new WaitingForTheOpponentWindow(this);
 			
 		} catch (UnknownHostException e) {
@@ -91,6 +91,16 @@ public class Client {
 		case "REGISTER_FAILURE":
 			registerWindow.showErrorMessage();
 			break;
+		case "SELECT_QUEEN_SUCCESS":
+            selectWindow.setVisible(false);
+            showWaitingForOpponentWindow();
+            break;
+		case "MATCH_FOUND":
+		    String opponentQueenName = parts[2]; 
+		    String playerQueenName=parts[1];
+		    waitingForTheOpponentWindow.setVisible(false);
+		    showBattleWindow(playerQueenName, opponentQueenName);
+		    break;
 		}
 		
 	}
@@ -108,9 +118,15 @@ public class Client {
 		selectWindow.setVisible(true);
 	}
 	
-	public void showBattleWindow() {
+	/*public void showBattleWindow() {
 		battleWindow.setVisible(true);
+	}*/
+	
+	public void showBattleWindow(String playerQueenName, String opponentQueenName) {
+	    BattleWindow battleWindow = new BattleWindow(this, playerQueenName, opponentQueenName);
+	    battleWindow.setVisible(true);
 	}
+	
 	
 	public void showWaitingForOpponentWindow(){
 		waitingForTheOpponentWindow.setVisible(true);
