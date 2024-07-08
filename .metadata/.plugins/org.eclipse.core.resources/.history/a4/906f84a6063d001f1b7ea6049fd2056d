@@ -1,0 +1,256 @@
+package client;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class BattleWindow extends JFrame {
+
+    private Client client;
+    
+    private String playerQueenName;
+    private String opponentQueenName;
+    String spell1Name;
+    String spell2Name;
+    String spell3Name;
+    String description1;
+    String description2;
+    String description3;
+    private JProgressBar playerHealthBar;
+    private JProgressBar playerManaBar;
+    private JProgressBar opponentHealthBar;
+    private JProgressBar opponentManaBar;
+
+    public BattleWindow(Client client, String playerQueenName, String opponentQueenName, String spell1N, String spell2N, String spell3N) {
+        this.client = client;
+        this.playerQueenName = playerQueenName;
+        this.opponentQueenName = opponentQueenName;
+        this.spell1Name = spell1N;
+        this.spell2Name = spell2N;
+        this.spell3Name = spell3N;
+        setTitle("Elemental Queens");
+        setSize(1200, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setResizable(false);
+
+        JPanel mainPanel = new BackgroundPanel("images/background/bg7.jpg");
+        mainPanel.setLayout(new BorderLayout());
+        setContentPane(mainPanel);
+
+        JLabel titleLabel = new JLabel("Elemental Queens", SwingConstants.CENTER);
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setFont(new Font("Serif", Font.BOLD, 30));
+        mainPanel.add(titleLabel, BorderLayout.NORTH);
+
+        JPanel centerPanel = new JPanel(new BorderLayout());
+        centerPanel.setOpaque(false);
+
+        JPanel playerCharacterPanel = new JPanel();
+        playerCharacterPanel.setLayout(new BoxLayout(playerCharacterPanel, BoxLayout.Y_AXIS));
+        playerCharacterPanel.setOpaque(false);
+        playerCharacterPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10)); 
+
+        playerHealthBar = new JProgressBar(0, 100);
+        playerHealthBar.setValue(100);
+        playerHealthBar.setForeground(Color.GREEN);
+        playerHealthBar.setStringPainted(true);
+        playerHealthBar.setPreferredSize(new Dimension(200, 20)); 
+
+        playerManaBar = new JProgressBar(0, 100);
+        playerManaBar.setValue(100);
+        playerManaBar.setForeground(Color.BLUE);
+        playerManaBar.setStringPainted(true);
+        playerManaBar.setPreferredSize(new Dimension(200, 20)); 
+
+        JLabel playerCharacter = new JLabel();
+        playerCharacter.setIcon(new ImageIcon(
+                new ImageIcon("images/queens/" + playerQueenName + ".png").getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH)));
+
+        playerCharacterPanel.add(playerHealthBar);
+        playerCharacterPanel.add(playerManaBar);
+        playerCharacterPanel.add(Box.createRigidArea(new Dimension(0, 10))); 
+        playerCharacterPanel.add(playerCharacter);
+
+        JPanel leftWrapper = new JPanel(new BorderLayout());
+        leftWrapper.setOpaque(false);
+        leftWrapper.add(playerCharacterPanel, BorderLayout.WEST);
+
+        centerPanel.add(leftWrapper, BorderLayout.WEST);
+
+        JLabel middleText = new JLabel("My Turn", SwingConstants.CENTER);
+        middleText.setForeground(Color.WHITE);
+        middleText.setFont(new Font("Serif", Font.BOLD, 24));
+        centerPanel.add(middleText, BorderLayout.CENTER);
+
+        JPanel opponentCharacterPanel = new JPanel();
+        opponentCharacterPanel.setLayout(new BoxLayout(opponentCharacterPanel, BoxLayout.Y_AXIS));
+        opponentCharacterPanel.setOpaque(false);
+        opponentCharacterPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10)); 
+
+        opponentHealthBar = new JProgressBar(0, 100);
+        opponentHealthBar.setValue(100);
+        opponentHealthBar.setForeground(Color.GREEN);
+        opponentHealthBar.setStringPainted(true);
+        opponentHealthBar.setPreferredSize(new Dimension(200, 20)); 
+
+        opponentManaBar = new JProgressBar(0, 100);
+        opponentManaBar.setValue(100);
+        opponentManaBar.setForeground(Color.BLUE);
+        opponentManaBar.setStringPainted(true);
+        opponentManaBar.setPreferredSize(new Dimension(200, 20)); 
+
+        JLabel opponentCharacter = new JLabel();
+        opponentCharacter.setIcon(new ImageIcon(
+                new ImageIcon("images/queens/" + opponentQueenName + ".png").getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH)));
+
+        opponentCharacterPanel.add(opponentHealthBar);
+        opponentCharacterPanel.add(opponentManaBar);
+        opponentCharacterPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        opponentCharacterPanel.add(opponentCharacter);
+
+        JPanel rightWrapper = new JPanel(new BorderLayout());
+        rightWrapper.setOpaque(false);
+        rightWrapper.add(opponentCharacterPanel, BorderLayout.EAST);
+
+        centerPanel.add(rightWrapper, BorderLayout.EAST);
+
+        mainPanel.add(centerPanel, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
+        buttonPanel.setOpaque(false);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 20, 10, 20);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+
+        JButton spell1 = new JButton(new ImageIcon("images/spells/"+spell1Name+".png"));
+        spell1.setPreferredSize(new Dimension(100, 100));
+        buttonPanel.add(spell1, gbc);
+
+        gbc.gridy = 1;
+        JTextArea spell1Description = new JTextArea(spell1Name+"\n"+description1);
+        spell1Description.setForeground(Color.WHITE);
+        spell1Description.setLineWrap(true);
+        spell1Description.setWrapStyleWord(true);
+        spell1Description.setOpaque(false);
+        spell1Description.setEditable(false);
+        spell1Description.setFocusable(false);
+        buttonPanel.add(spell1Description, gbc);
+
+        spell1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	
+                // slanje serveru id kliknute magije
+            }
+        });
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        JButton spell2 = new JButton(new ImageIcon("images/spells/"+spell2Name+".png"));
+        spell2.setPreferredSize(new Dimension(100, 100));
+        buttonPanel.add(spell2, gbc);
+
+        gbc.gridy = 1;
+        JTextArea spell2Description = new JTextArea(spell2Name+"\n"+description2);
+        spell2Description.setForeground(Color.WHITE);
+        spell2Description.setLineWrap(true);
+        spell2Description.setWrapStyleWord(true);
+        spell2Description.setOpaque(false);
+        spell2Description.setEditable(false);
+        spell2Description.setFocusable(false);
+        buttonPanel.add(spell2Description, gbc);
+
+        spell2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	
+                // slanje serveru id kliknute magije
+            }
+        });
+
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        JButton spell3 = new JButton(new ImageIcon("images/spells/"+spell3Name+".png"));
+        spell3.setPreferredSize(new Dimension(100, 100));
+        buttonPanel.add(spell3, gbc);
+
+        gbc.gridy = 1;
+        JTextArea spell3Description = new JTextArea(spell3Name+"\n"+description3);
+        spell3Description.setForeground(Color.WHITE);
+        spell3Description.setLineWrap(true);
+        spell3Description.setWrapStyleWord(true);
+        spell3Description.setOpaque(false);
+        spell3Description.setEditable(false);
+        spell3Description.setFocusable(false);
+        buttonPanel.add(spell3Description, gbc);
+
+        spell3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	
+                // slanje serveru id kliknute magije
+            }
+        });
+
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    private void updateBarColor(JProgressBar bar, int value) {
+        if (value > 50) {
+            bar.setForeground(Color.GREEN);
+        } else if (value > 15) {
+            bar.setForeground(Color.YELLOW);
+        } else {
+            bar.setForeground(Color.RED);
+        }
+    }
+
+    public void updatePlayerHealth(int value) {
+        playerHealthBar.setValue(value);
+        updateBarColor(playerHealthBar, value);
+    }
+
+    public void updatePlayerMana(int value) {
+        playerManaBar.setValue(value);
+    }
+
+    public void updateOpponentHealth(int value) {
+        opponentHealthBar.setValue(value);
+        updateBarColor(opponentHealthBar, value);
+    }
+
+    public void updateOpponentMana(int value) {
+        opponentManaBar.setValue(value);
+    }
+
+    // za probu
+    public static void main(String[] args) {
+       /* Client client = new Client("localhost", 13245);
+        BattleWindow window = new BattleWindow(client);
+        window.setVisible(true);
+
+        // Za testiranje azuriranja health i mana barova
+        window.updatePLayerHealth(100); 
+        window.updatePlayerMana(60);   
+        window.updateOpponentHealth(14); 
+        window.updateOpponentMana(70);   */
+    }
+    
+    public class BackgroundPanel extends JPanel {
+        private Image backgroundImage;
+
+        public BackgroundPanel(String fileName) {
+            backgroundImage = new ImageIcon(fileName).getImage();
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
+    }
+}
