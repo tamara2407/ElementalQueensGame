@@ -193,25 +193,25 @@ public class ClientHandler implements Runnable{
 
 		            if (castingQueen.getMana() >= manaCost) {
 		                castingQueen.reduceMana(manaCost);
-		                ClientHandler opponentHandler = opponentMap.get(clientHandler);
-	                    Queen opponentQueen = clientQueenMap.get(opponentHandler);
+		                
 		                if(spellEffect>0) {
 		                	castingQueen.setHealth(castingQueen.getHealth()+spellEffect);
 		                	out.println("SPELL_CAST_SUCCESS_H:" + spellName + ":" + castingQueen.getMana() +":"+castingQueen.getHealth());
-		                	opponentHandler.out.println("SPELL_CAST_SUCCESS_HO:" + spellName + ":" + castingQueen.getMana() +":"+castingQueen.getHealth());
-		                	return;
 		                }
-		                
+		                ClientHandler opponentHandler = opponentMap.get(clientHandler);
+	                    Queen opponentQueen = clientQueenMap.get(opponentHandler);
 	                    
 		                
 		                if (opponentQueen != null && spellEffect<0) {
 		                	
 		                    opponentQueen.reduceHealth(spellEffect);
 		                    opponentHandler.out.println("SPELL_CAST_TAKEN:" + spellName + ":" + opponentQueen.getHealth() + ":" + castingQueen.getMana());
-		                    out.println("SPELL_CAST_SUCCESS:" + spellName + ":" + castingQueen.getMana() +":"+opponentQueen.getHealth());
 		                }
 		                
-		              
+		                if(spellEffect<0) {
+		                	 out.println("SPELL_CAST_SUCCESS:" + spellName + ":" + castingQueen.getMana() +":"+opponentQueen.getHealth());
+		                } 
+
 		               
 		                
 		                

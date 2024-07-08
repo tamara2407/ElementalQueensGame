@@ -132,17 +132,8 @@ public class Client {
 	            battleWindow.updatePlayerMana(playerMana1);
 	            break;
 	            
-		 case "SPELL_CAST_SUCCESS_HO":
-	            
-		      
-	            int opponentHealth1 = Integer.parseInt(parts[3]);
-	            int opponentMana1 = Integer.parseInt(parts[2]);
-	            battleWindow.updateOpponentHealth(opponentHealth1);
-	            battleWindow.updateOpponentMana(opponentMana1);
-	            break;
-	            
 		 case "SPELL_CAST_FAIL":
-			 battleWindow.showErrorMessage("Not enough mana to cast the spell!");
+			 battleWindow.showErrorMessage();
 			 break;
 		}
 		

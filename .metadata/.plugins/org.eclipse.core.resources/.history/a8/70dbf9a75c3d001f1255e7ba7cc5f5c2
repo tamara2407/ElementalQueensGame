@@ -32,7 +32,7 @@ public class BattleWindow extends JFrame {
         setSize(1200, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        
+        setResizable(false);
 
         JPanel mainPanel = new BackgroundPanel("images/background/bg7.jpg");
         mainPanel.setLayout(new BorderLayout());
@@ -251,10 +251,6 @@ public class BattleWindow extends JFrame {
         window.updatePlayerMana(60);
         window.updateOpponentHealth(14);
         window.updateOpponentMana(70); */
-    }
-    
-    public void showErrorMessage(String message) {
-    	JOptionPane.showMessageDialog(this, message);
     }
 
     public class BackgroundPanel extends JPanel {

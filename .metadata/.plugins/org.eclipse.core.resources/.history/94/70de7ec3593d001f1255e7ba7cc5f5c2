@@ -69,7 +69,7 @@ public class Queen {
 
 	    
 	    public void reduceHealth(int amount) {
-	        this.health += amount;
+	        this.health -= amount;
 	        if (this.health < 0) {
 	            this.health = 0; 
 	        }
