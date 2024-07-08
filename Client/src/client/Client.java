@@ -101,9 +101,12 @@ public class Client {
 		    String spell1 = removeSpaces(parts[3]);
 		    String spell2 = removeSpaces(parts[4]);
 		    String spell3 = removeSpaces(parts[5]);
+		    String descriptionSpell1 = parts[6];
+		    String descriptionSpell2 = parts[7];
+		    String descriptionSpell3 = parts[8];
 		    waitingForTheOpponentWindow.setVisible(false);
-		    battleWindow=new BattleWindow(this,playerQueenName, opponentQueenName,spell1,spell2,spell3);
-		    showBattleWindow(battleWindow,playerQueenName, opponentQueenName,spell1,spell2,spell3);
+		    battleWindow=new BattleWindow(this,playerQueenName, opponentQueenName,spell1,spell2,spell3,descriptionSpell1,descriptionSpell2,descriptionSpell3);
+		    showBattleWindow(battleWindow,playerQueenName, opponentQueenName,spell1,spell2,spell3,descriptionSpell1,descriptionSpell2,descriptionSpell3);
 		    break;
 		    
 		case "SPELL_CAST_SUCCESS":
@@ -165,7 +168,7 @@ public class Client {
 		battleWindow.setVisible(true);
 	}*/
 	
-	public void showBattleWindow(BattleWindow bw,String playerQueenName, String opponentQueenName, String spell1, String spell2, String spell3) {
+	public void showBattleWindow(BattleWindow bw,String playerQueenName, String opponentQueenName, String spell1, String spell2, String spell3, String desc1, String desc2, String desc3) {
 	    
 	    bw.setVisible(true);
 	}

@@ -121,17 +121,17 @@ public class Server {
 	 
 	 private static List<Spell> createBlazeSpells() {
 		    List<Spell> spells = new ArrayList<>();
-		    spells.add(new Spell("Inferno Burst", -20, "A powerful wave of fire that deals significant damage, Effect: 20 damage, Mana: 30", 30));
-		    spells.add(new Spell("Ember Storm", -5, "A quick attack with fiery particles that scorch enemies, Effect: 5 damage, Mana: 10", 10));
-		    spells.add(new Spell("Flame Eruption", -30, "An explosion of fire that deals damage to all nearby enemies, Effect: 30 damage, Mana: 50", 50));
+		    spells.add(new Spell("Inferno Burst", -20, "Effect: 20 damage, Mana: 30", 30));
+		    spells.add(new Spell("Ember Storm", -5, "Effect: 5 damage, Mana: 10", 10));
+		    spells.add(new Spell("Flame Eruption", -30, "Effect: 30 damage, Mana: 50", 50));
 		    return spells;
 		}
 
 		private static List<Spell> createAquaSpells() {
 		    List<Spell> spells = new ArrayList<>();
-		    spells.add(new Spell("Tsunami Wave", -20, "A massive wave that hits all enemies in its path, Effect: 20 damage, Mana: 20", 20));
-		    spells.add(new Spell("Aqua Surge", -30, "A strong water strike that deals damage to an enemy, Effect: 30 damage, Mana: 30", 30));
-		    spells.add(new Spell("Healing Waters", 20, "Heals herself or an ally by regenerating HP, Effect: 20 heal, Mana: 30", 30));
+		    spells.add(new Spell("Tsunami Wave", -20, "Effect: 20 damage, Mana: 20", 20));
+		    spells.add(new Spell("Aqua Surge", -30, "Effect: 30 damage, Mana: 30", 30));
+		    spells.add(new Spell("Healing Waters", 20, "Effect: 20 heal, Mana: 30", 30));
 		    return spells;
 		}
 
