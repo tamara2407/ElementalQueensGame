@@ -117,7 +117,7 @@ public class BattleWindow extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 0;
 
-        JButton spell1 = new JButton("Spell 1");
+        JButton spell1 = new JButton(new ImageIcon("images/spells/EmberStorm.png"));
         spell1.setPreferredSize(new Dimension(100, 100));
         buttonPanel.add(spell1, gbc);
 
@@ -141,7 +141,7 @@ public class BattleWindow extends JFrame {
 
         gbc.gridx = 1;
         gbc.gridy = 0;
-        JButton spell2 = new JButton("Spell 2");
+        JButton spell2 = new JButton(new ImageIcon("images/spells/FlameEruption.png"));
         spell2.setPreferredSize(new Dimension(100, 100));
         buttonPanel.add(spell2, gbc);
 
@@ -165,7 +165,7 @@ public class BattleWindow extends JFrame {
 
         gbc.gridx = 2;
         gbc.gridy = 0;
-        JButton spell3 = new JButton("Spell 3");
+        JButton spell3 = new JButton(new ImageIcon("images/spells/InfernoBurst.png"));
         spell3.setPreferredSize(new Dimension(100, 100));
         buttonPanel.add(spell3, gbc);
 
@@ -201,21 +201,21 @@ public class BattleWindow extends JFrame {
         }
     }
 
-    public void updateLeftHealth(int value) {
+    public void updatePlayerHealth(int value) {
         playerHealthBar.setValue(value);
         updateBarColor(playerHealthBar, value);
     }
 
-    public void updateLeftMana(int value) {
+    public void updatePlayerMana(int value) {
         playerManaBar.setValue(value);
     }
 
-    public void updateRightHealth(int value) {
+    public void updateOpponentHealth(int value) {
         opponentHealthBar.setValue(value);
         updateBarColor(opponentHealthBar, value);
     }
 
-    public void updateRightMana(int value) {
+    public void updateOpponentMana(int value) {
         opponentManaBar.setValue(value);
     }
 
@@ -226,10 +226,10 @@ public class BattleWindow extends JFrame {
         window.setVisible(true);
 
         // Za testiranje azuriranja health i mana barova
-        window.updateLeftHealth(100); 
-        window.updateLeftMana(60);   
-        window.updateRightHealth(14); 
-        window.updateRightMana(70);   */
+        window.updatePLayerHealth(100); 
+        window.updatePlayerMana(60);   
+        window.updateOpponentHealth(14); 
+        window.updateOpponentMana(70);   */
     }
     
     public class BackgroundPanel extends JPanel {
