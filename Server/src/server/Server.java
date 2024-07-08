@@ -121,41 +121,41 @@ public class Server {
 	 
 	 private static List<Spell> createBlazeSpells() {
 		    List<Spell> spells = new ArrayList<>();
-		    spells.add(new Spell("Inferno Burst", -20, "Effect: 20 damage, Mana: 30", 30));
-		    spells.add(new Spell("Ember Storm", -5, "Effect: 5 damage, Mana: 10", 10));
-		    spells.add(new Spell("Flame Eruption", -30, "Effect: 30 damage, Mana: 50", 50));
+		    spells.add(new Spell("Inferno Burst", -20, "20 damage,30 mana", 30));
+		    spells.add(new Spell("Ember Storm", -5, "5 damag,10 mana", 10));
+		    spells.add(new Spell("Flame Eruption", -30, "30 damage,50 mana", 50));
 		    return spells;
 		}
 
 		private static List<Spell> createAquaSpells() {
 		    List<Spell> spells = new ArrayList<>();
-		    spells.add(new Spell("Tsunami Wave", -20, "Effect: 20 damage, Mana: 20", 20));
-		    spells.add(new Spell("Aqua Surge", -30, "Effect: 30 damage, Mana: 30", 30));
-		    spells.add(new Spell("Healing Waters", 20, "Effect: 20 heal, Mana: 30", 30));
+		    spells.add(new Spell("Tsunami Wave", -20, "20 damage,20 mana", 20));
+		    spells.add(new Spell("Aqua Surge", -30, "30 damage,30 mana", 30));
+		    spells.add(new Spell("Healing Waters", 20, "20 heal,30 mana", 30));
 		    return spells;
 		}
 
 		private static List<Spell> createFrostSpells() {
 		    List<Spell> spells = new ArrayList<>();
-		    spells.add(new Spell("Blizzard Blast", -10, "A powerful snowstorm that freezes and damages enemies, Effect: 10 damage, Mana: 15", 15));
-		    spells.add(new Spell("Icicle Spear", -15, "Ice projectiles that pierce through enemies, Effect: 15 damage, Mana: 20", 20));
-		    spells.add(new Spell("Frozen Touch", -20, "Freezes an enemy, Effect: 20 damage, Mana: 30", 30));
+		    spells.add(new Spell("Blizzard Blast", -10, "10 damage,15 mana", 15));
+		    spells.add(new Spell("Icicle Spear", -15, "15 damage,20 mana", 20));
+		    spells.add(new Spell("Frozen Touch", -20, "20 damage,30 mana", 30));
 		    return spells;
 		}
 
 		private static List<Spell> createIvySpells() {
 		    List<Spell> spells = new ArrayList<>();
-		    spells.add(new Spell("Thorn Whip", -20, "Uses thorny vines to attack enemies, Effect: 20 damage, Mana: 30", 30));
-		    spells.add(new Spell("Bloom Heal", 20, "Heals herself or an ally using powerful plants, Effect: 20 heal, Mana: 30", 30));
-		    spells.add(new Spell("Poison Spore", -10, "Releases toxic spores that deal damage to enemies, Effect: 10 damage, Mana: 15", 15));
+		    spells.add(new Spell("Thorn Whip", -20, "20 damage,30 mana", 30));
+		    spells.add(new Spell("Bloom Heal", 20, "20 heal,30 mana", 30));
+		    spells.add(new Spell("Poison Spore", -10, "10 damage,15 mana", 15));
 		    return spells;
 		}
 
 		private static List<Spell> createTerraSpells() {
 		    List<Spell> spells = new ArrayList<>();
-		    spells.add(new Spell("Earthquake Smash", -15, "Causes a powerful earthquake that hits all nearby enemies, Effect: 15 damage, Mana: 20", 20));
-		    spells.add(new Spell("Boulder Throw", -20, "Throws a massive boulder that deals damage to an enemy, Effect: 20 damage, Mana: 30", 30));
-		    spells.add(new Spell("Root Strike", -25, "Attacks enemies with roots emerging from the ground, dealing damage, Effect: 25 damage, Mana: 40", 40));
+		    spells.add(new Spell("Earthquake Smash", -15, "15 damage,20 mana", 20));
+		    spells.add(new Spell("Boulder Throw", -20, "20 damage,30 mana", 30));
+		    spells.add(new Spell("Root Strike", -25, "25 damage,40 mana", 40));
 		    return spells;
 		}
 

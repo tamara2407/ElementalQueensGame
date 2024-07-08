@@ -163,10 +163,10 @@ public class ClientHandler implements Runnable{
 	                String player1Spell1 = player1Spells.get(0).getName();
 	                String player1Spell2 = player1Spells.get(1).getName();
 	                String player1Spell3 = player1Spells.get(2).getName();
-	                String player1DescritionSpell1 = player1Spells.get(0).getDescription();
-	                String player1DescritionSpell2 = player1Spells.get(1).getDescription();
-	                String player1DdescritionSpell3 = player1Spells.get(2).getDescription();
 	                
+	                String player1DescSpell1 = player1Spells.get(0).getDescription();
+	                String player1DescSpell2 = player1Spells.get(1).getDescription();
+	                String player1DescSpell3 = player1Spells.get(2).getDescription();
 
 	                
 	                String player2QueenName = player2.player.getSelectedQueen().getName();
@@ -174,14 +174,15 @@ public class ClientHandler implements Runnable{
 	                String player2Spell1 = player2Spells.get(0).getName();
 	                String player2Spell2 = player2Spells.get(1).getName();
 	                String player2Spell3 = player2Spells.get(2).getName();
-	                String player2DescritionSpell1 = player2Spells.get(0).getDescription();
-	                String player2DescritionSpell2 = player2Spells.get(1).getDescription();
-	                String player3DdescritionSpell3 = player2Spells.get(2).getDescription();
+
+	                String player2DescSpell1 = player2Spells.get(0).getDescription();
+	                System.out.println(player2DescSpell1);
+	                String player2DescSpell2 = player2Spells.get(1).getDescription();
+	                System.out.println(player2DescSpell2);
+	                String player2DescSpell3 = player2Spells.get(2).getDescription();
 	                
-	                player1.out.println("MATCH_FOUND:" +player1QueenName+":"+ player2QueenName+":"+player1Spell1+":"+player1Spell2+":"+player1Spell3
-	                		+":"+player1DescritionSpell1+":"+player1DescritionSpell2+":"+player1DdescritionSpell3);
-	                player2.out.println("MATCH_FOUND:" +player2QueenName+":" +player1QueenName+":"+player2Spell1+":"+player2Spell2+":"+player2Spell3
-	                		+":"+player2DescritionSpell1+":"+player2DescritionSpell2+":"+player3DdescritionSpell3);
+	                player1.out.println("MATCH_FOUND:" +player1QueenName+":"+ player2QueenName+":"+player1Spell1+":"+player1Spell2+":"+player1Spell3+":"+player1DescSpell1+":"+player1DescSpell2+":"+player1DescSpell3);
+	                player2.out.println("MATCH_FOUND:" +player2QueenName+":" +player1QueenName+":"+player2Spell1+":"+player2Spell2+":"+player2Spell3+":"+player2DescSpell1+":"+player2DescSpell2+":"+player2DescSpell3);
 	            }
 	        }
 	    }
