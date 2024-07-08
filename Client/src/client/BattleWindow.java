@@ -8,18 +8,26 @@ import java.awt.event.ActionListener;
 public class BattleWindow extends JFrame {
 
     private Client client;
-    
     private String playerQueenName;
     private String opponentQueenName;
+    private String spell1Name;
+    private String spell2Name;
+    private String spell3Name;
+    private String description1;
+    private String description2;
+    private String description3;
     private JProgressBar playerHealthBar;
     private JProgressBar playerManaBar;
     private JProgressBar opponentHealthBar;
     private JProgressBar opponentManaBar;
 
-    public BattleWindow(Client client, String playerQueenName, String opponentQueenName) {
+    public BattleWindow(Client client, String playerQueenName, String opponentQueenName, String spell1N, String spell2N, String spell3N) {
         this.client = client;
         this.playerQueenName = playerQueenName;
         this.opponentQueenName = opponentQueenName;
+        this.spell1Name = spell1N;
+        this.spell2Name = spell2N;
+        this.spell3Name = spell3N;
         setTitle("Elemental Queens");
         setSize(1200, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,19 +49,19 @@ public class BattleWindow extends JFrame {
         JPanel playerCharacterPanel = new JPanel();
         playerCharacterPanel.setLayout(new BoxLayout(playerCharacterPanel, BoxLayout.Y_AXIS));
         playerCharacterPanel.setOpaque(false);
-        playerCharacterPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10)); 
+        playerCharacterPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10));
 
         playerHealthBar = new JProgressBar(0, 100);
         playerHealthBar.setValue(100);
         playerHealthBar.setForeground(Color.GREEN);
         playerHealthBar.setStringPainted(true);
-        playerHealthBar.setPreferredSize(new Dimension(200, 20)); 
+        playerHealthBar.setPreferredSize(new Dimension(200, 20));
 
         playerManaBar = new JProgressBar(0, 100);
         playerManaBar.setValue(100);
         playerManaBar.setForeground(Color.BLUE);
         playerManaBar.setStringPainted(true);
-        playerManaBar.setPreferredSize(new Dimension(200, 20)); 
+        playerManaBar.setPreferredSize(new Dimension(200, 20));
 
         JLabel playerCharacter = new JLabel();
         playerCharacter.setIcon(new ImageIcon(
@@ -61,7 +69,7 @@ public class BattleWindow extends JFrame {
 
         playerCharacterPanel.add(playerHealthBar);
         playerCharacterPanel.add(playerManaBar);
-        playerCharacterPanel.add(Box.createRigidArea(new Dimension(0, 10))); 
+        playerCharacterPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         playerCharacterPanel.add(playerCharacter);
 
         JPanel leftWrapper = new JPanel(new BorderLayout());
@@ -78,19 +86,19 @@ public class BattleWindow extends JFrame {
         JPanel opponentCharacterPanel = new JPanel();
         opponentCharacterPanel.setLayout(new BoxLayout(opponentCharacterPanel, BoxLayout.Y_AXIS));
         opponentCharacterPanel.setOpaque(false);
-        opponentCharacterPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10)); 
+        opponentCharacterPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10));
 
         opponentHealthBar = new JProgressBar(0, 100);
         opponentHealthBar.setValue(100);
         opponentHealthBar.setForeground(Color.GREEN);
         opponentHealthBar.setStringPainted(true);
-        opponentHealthBar.setPreferredSize(new Dimension(200, 20)); 
+        opponentHealthBar.setPreferredSize(new Dimension(200, 20));
 
         opponentManaBar = new JProgressBar(0, 100);
         opponentManaBar.setValue(100);
         opponentManaBar.setForeground(Color.BLUE);
         opponentManaBar.setStringPainted(true);
-        opponentManaBar.setPreferredSize(new Dimension(200, 20)); 
+        opponentManaBar.setPreferredSize(new Dimension(200, 20));
 
         JLabel opponentCharacter = new JLabel();
         opponentCharacter.setIcon(new ImageIcon(
@@ -117,12 +125,17 @@ public class BattleWindow extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 0;
 
-        JButton spell1 = new JButton(new ImageIcon("images/spells/EmberStorm.png"));
+        JLabel spell1Label = new JLabel(spell1Name, SwingConstants.CENTER);
+        spell1Label.setForeground(Color.WHITE);
+        buttonPanel.add(spell1Label, gbc);
+
+        gbc.gridy = 1;
+        JButton spell1 = new JButton(new ImageIcon("images/spells/" + spell1Name + ".png"));
         spell1.setPreferredSize(new Dimension(100, 100));
         buttonPanel.add(spell1, gbc);
 
-        gbc.gridy = 1;
-        JTextArea spell1Description = new JTextArea("Ovo je Spell 1");
+        gbc.gridy = 2;
+        JTextArea spell1Description = new JTextArea("ovo je spell1");
         spell1Description.setForeground(Color.WHITE);
         spell1Description.setLineWrap(true);
         spell1Description.setWrapStyleWord(true);
@@ -134,19 +147,24 @@ public class BattleWindow extends JFrame {
         spell1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	
                 // slanje serveru id kliknute magije
             }
         });
 
         gbc.gridx = 1;
         gbc.gridy = 0;
-        JButton spell2 = new JButton(new ImageIcon("images/spells/FlameEruption.png"));
+
+        JLabel spell2Label = new JLabel(spell2Name, SwingConstants.CENTER);
+        spell2Label.setForeground(Color.WHITE);
+        buttonPanel.add(spell2Label, gbc);
+
+        gbc.gridy = 1;
+        JButton spell2 = new JButton(new ImageIcon("images/spells/" + spell2Name + ".png"));
         spell2.setPreferredSize(new Dimension(100, 100));
         buttonPanel.add(spell2, gbc);
 
-        gbc.gridy = 1;
-        JTextArea spell2Description = new JTextArea("Ovo je Spell 2");
+        gbc.gridy = 2;
+        JTextArea spell2Description = new JTextArea("Ovo je spell2");
         spell2Description.setForeground(Color.WHITE);
         spell2Description.setLineWrap(true);
         spell2Description.setWrapStyleWord(true);
@@ -158,20 +176,24 @@ public class BattleWindow extends JFrame {
         spell2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	
                 // slanje serveru id kliknute magije
             }
         });
 
         gbc.gridx = 2;
         gbc.gridy = 0;
-        JButton spell3 = new JButton(new ImageIcon("images/spells/InfernoBurst.png"));
+
+        JLabel spell3Label = new JLabel(spell3Name, SwingConstants.CENTER);
+        spell3Label.setForeground(Color.WHITE);
+        buttonPanel.add(spell3Label, gbc);
+
+        gbc.gridy = 1;
+        JButton spell3 = new JButton(new ImageIcon("images/spells/" + spell3Name + ".png"));
         spell3.setPreferredSize(new Dimension(100, 100));
         buttonPanel.add(spell3, gbc);
 
-        gbc.gridy = 1;
-        JTextArea spell3Description = new JTextArea(
-                "Inferno Burst\nA powerful wave of fire that deals significant damage.\r\n" + "");
+        gbc.gridy = 2;
+        JTextArea spell3Description = new JTextArea("ovo je spell3");
         spell3Description.setForeground(Color.WHITE);
         spell3Description.setLineWrap(true);
         spell3Description.setWrapStyleWord(true);
@@ -183,7 +205,6 @@ public class BattleWindow extends JFrame {
         spell3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	
                 // slanje serveru id kliknute magije
             }
         });
@@ -221,17 +242,17 @@ public class BattleWindow extends JFrame {
 
     // za probu
     public static void main(String[] args) {
-       /* Client client = new Client("localhost", 13245);
-        BattleWindow window = new BattleWindow(client);
+        /* Client client = new Client("localhost", 13245);
+        BattleWindow window = new BattleWindow(client, "playerQueen", "opponentQueen", "spell1", "spell2", "spell3");
         window.setVisible(true);
 
         // Za testiranje azuriranja health i mana barova
-        window.updatePLayerHealth(100); 
-        window.updatePlayerMana(60);   
-        window.updateOpponentHealth(14); 
-        window.updateOpponentMana(70);   */
+        window.updatePlayerHealth(100);
+        window.updatePlayerMana(60);
+        window.updateOpponentHealth(14);
+        window.updateOpponentMana(70); */
     }
-    
+
     public class BackgroundPanel extends JPanel {
         private Image backgroundImage;
 

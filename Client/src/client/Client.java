@@ -98,8 +98,11 @@ public class Client {
 		case "MATCH_FOUND":
 		    String opponentQueenName = parts[2]; 
 		    String playerQueenName=parts[1];
+		    String spell1 = removeSpaces(parts[3]);
+		    String spell2 = removeSpaces(parts[4]);
+		    String spell3 = removeSpaces(parts[5]);
 		    waitingForTheOpponentWindow.setVisible(false);
-		    showBattleWindow(playerQueenName, opponentQueenName);
+		    showBattleWindow(playerQueenName, opponentQueenName,spell1,spell2,spell3);
 		    break;
 		}
 		
@@ -122,8 +125,8 @@ public class Client {
 		battleWindow.setVisible(true);
 	}*/
 	
-	public void showBattleWindow(String playerQueenName, String opponentQueenName) {
-	    BattleWindow battleWindow = new BattleWindow(this, playerQueenName, opponentQueenName);
+	public void showBattleWindow(String playerQueenName, String opponentQueenName, String spell1, String spell2, String spell3) {
+	    BattleWindow battleWindow = new BattleWindow(this, playerQueenName, opponentQueenName, spell1, spell2,spell3);
 	    battleWindow.setVisible(true);
 	}
 	
@@ -131,4 +134,11 @@ public class Client {
 	public void showWaitingForOpponentWindow(){
 		waitingForTheOpponentWindow.setVisible(true);
 	}
+	
+	public static String removeSpaces(String input) {
+        if (input == null) {
+            return null;
+        }
+        return input.replaceAll("\\s+", "");
+    }
 }

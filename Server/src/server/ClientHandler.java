@@ -151,11 +151,21 @@ public class ClientHandler implements Runnable{
 	                
 	                
 	                String player1QueenName = player1.player.getSelectedQueen().getName();
+	                List<Spell> player1Spells = player1.player.getSelectedQueen().getSpells();
+	                String player1Spell1 = player1Spells.get(0).getName();
+	                String player1Spell2 = player1Spells.get(1).getName();
+	                String player1Spell3 = player1Spells.get(2).getName();
+	                
+
 	                
 	                String player2QueenName = player2.player.getSelectedQueen().getName();
+	                List<Spell> player2Spells = player2.player.getSelectedQueen().getSpells();
+	                String player2Spell1 = player2Spells.get(0).getName();
+	                String player2Spell2 = player2Spells.get(1).getName();
+	                String player2Spell3 = player2Spells.get(2).getName();
 	                
-	                player1.out.println("MATCH_FOUND:" +player1QueenName+":"+ player2QueenName);
-	                player2.out.println("MATCH_FOUND:" +player2QueenName+":" +player1QueenName);
+	                player1.out.println("MATCH_FOUND:" +player1QueenName+":"+ player2QueenName+":"+player1Spell1+":"+player1Spell2+":"+player1Spell3);
+	                player2.out.println("MATCH_FOUND:" +player2QueenName+":" +player1QueenName+":"+player2Spell1+":"+player2Spell2+":"+player2Spell3);
 	            }
 	        }
 	    }
@@ -170,6 +180,7 @@ public class ClientHandler implements Runnable{
 	       
 	        
 	    }
+	    
 	    
 	  
 
