@@ -1,0 +1,70 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class ResultWindow extends JFrame {
+
+    private JLabel resultLabel;
+    private JLabel winsLabel;
+    private JLabel lossesLabel;
+    private JButton playAgainButton;
+    private JButton logOutButton;
+
+    public ResultWindow(boolean isWinner, int wins, int losses) {
+        setTitle("Game Result");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
+
+        JLabel titleLabel = new JLabel("Elemental Queens", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
+        add(titleLabel, BorderLayout.NORTH);
+
+        resultLabel = new JLabel(isWinner ? "You won" : "You lost", SwingConstants.CENTER);
+        resultLabel.setFont(new Font("Serif", Font.BOLD, 20));
+        add(resultLabel, BorderLayout.CENTER);
+
+        JPanel statsPanel = new JPanel();
+        statsPanel.setLayout(new GridLayout(2, 1));
+        winsLabel = new JLabel("Wins: " + wins, SwingConstants.CENTER);
+        lossesLabel = new JLabel("Losses: " + losses, SwingConstants.CENTER);
+        statsPanel.add(winsLabel);
+        statsPanel.add(lossesLabel);
+        add(statsPanel, BorderLayout.SOUTH);
+
+        JPanel buttonPanel = new JPanel();
+        playAgainButton = new JButton("Play Again");
+        logOutButton = new JButton("Log Out");
+        buttonPanel.add(playAgainButton);
+        buttonPanel.add(logOutButton);
+        add(buttonPanel, BorderLayout.SOUTH);
+
+        playAgainButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+
+        logOutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new ResultWindow(true, 10, 5);
+            }
+        });
+    }
+}
+

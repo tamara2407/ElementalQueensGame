@@ -81,7 +81,9 @@ public class ClientHandler implements Runnable{
 	            String queenName=tokens[1];
 	            String opponentQueenName=tokens[2];
 	            handleSpellCast(this,spellName);
-	            break;			
+	            break;
+		
+			
 		}
 	}
 	
