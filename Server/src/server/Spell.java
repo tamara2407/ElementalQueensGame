@@ -33,6 +33,8 @@ public class Spell {
     	return manaCost;
     }
     
+  
+    
     public String toString() {
         return "Spell{" +
                 "name='" + name + '\'' +

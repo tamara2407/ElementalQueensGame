@@ -1,0 +1,157 @@
+package server;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.List;
+import java.io.FileWriter;
+
+public class ClientHandler implements Runnable{
+	
+	private Socket socket;
+	private List<ClientHandler> clients;
+	private BufferedReader in;
+	private PrintWriter out;
+	private List<Player> players;
+	private List<Queen> queens;
+	private Player player;
+	private static final String CSV_FILE_PATH = "players.csv";
+	
+	
+/*	public ClientHandler(Socket socket, List<ClientHandler> clients, List<Player> players) {
+		this.socket = socket;
+		this.clients = clients;
+		this.players = players;
+	}
+	*/
+	 public ClientHandler(Socket socket, List<ClientHandler> clients, List<Player> players, List<Queen> queens) {
+	        this.socket = socket;
+	        this.clients = clients;
+	        this.players = players;
+	        this.queens = queens;
+	    }
+	
+	@Override
+	public void run() {
+
+		try {
+			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			out = new PrintWriter(socket.getOutputStream(), true);
+			
+			String inputLine;
+			while((inputLine = in.readLine())!= null) {
+				System.out.println("Received: "+ inputLine);
+				handleClientMessage(inputLine);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				socket.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private void handleClientMessage(String message) {
+		
+		String[] tokens = message.split(":");
+		String command = tokens[0];
+		System.out.println("command: "+ command);
+		
+		switch (command) {
+		case "REGISTER":
+			handleRegister(tokens[1], tokens[2], tokens[3]);
+			break;
+		case "LOGIN":
+			handleLogin(tokens[1], tokens[2]);
+			break;
+		case "SELECT_QUEEN":
+            handleSelectQueen(tokens[1]); 
+            break;
+        case "SELECT_SPELL":
+            handleSelectSpell(tokens[1]); 
+            break;
+        case "DAMAGE_TAKEN":
+            handleDamageTaken(Integer.parseInt(tokens[1])); 
+            break;
+			
+		}
+	}
+	
+	private void handleRegister(String username, String password, String email) {
+		synchronized (players) {
+			for(Player p : players) {
+				if(p.getUsername().equals(username)) {
+					out.println("REGISTER_FAILURE:failure");
+					return;
+				}
+			}
+			Player newPlayer = new Player(username, password, email);
+			players.add(newPlayer);
+			writePlayerToCSV(newPlayer);
+			out.println("REGISTER_SUCCESS:success");
+		}
+	}
+	
+	private void handleLogin(String username, String password) {
+		synchronized (players) {
+			for(Player p : players) {
+				if(p.getUsername().equals(username) && p.getPassword().equals(password)) {
+					player = p;
+					out.println("LOGIN_SUCCESS:success");
+					return;
+				}
+				if(p.getUsername().equals(username) && !(p.getPassword().equals(password))) {
+					out.println("LOGIN_FAILURE_PASSWORD:failure");
+					return;
+				}
+			}
+			out.println("LOGIN_FAILURE:failure");
+		}
+	}
+	
+	 private void writePlayerToCSV(Player player) {
+	        try (FileWriter writer = new FileWriter(CSV_FILE_PATH, true)) {
+	            writer.append(player.getUsername())
+	                  .append(",")
+	                  .append(player.getPassword())
+	                  .append(",")
+	                  .append(player.getEmail())
+	                  .append("\n");
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	 
+	 private void handleSelectQueen(String queenIdStr) {
+	        int queenId = Integer.parseInt(queenIdStr);
+	        for (Queen queen : queens) {
+	            if (queen.getId() == queenId) {
+	                // Assign the selected queen to the player
+	                player.setSelectedQueen(queen);
+	                out.println("SELECT_QUEEN_SUCCESS:success");
+	                return;
+	            }
+	        }
+	        out.println("SELECT_QUEEN_FAILURE:failure");
+	    }
+	    
+	    private void handleSelectSpell(String spellIdStr) {
+	        // Implement the logic to handle spell selection and execution
+	    }
+	    
+	    private void handleDamageTaken(int damageAmount) {
+	        // Process the damage received from the server
+	        System.out.println("You received " + damageAmount + " damage!");
+	        // Update client-side UI or game state accordingly
+	    }
+	    
+	  
+
+}

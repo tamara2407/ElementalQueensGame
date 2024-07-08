@@ -102,8 +102,26 @@ public class Client {
 		    String spell2 = removeSpaces(parts[4]);
 		    String spell3 = removeSpaces(parts[5]);
 		    waitingForTheOpponentWindow.setVisible(false);
-		    showBattleWindow(playerQueenName, opponentQueenName,spell1,spell2,spell3);
+		    battleWindow=new BattleWindow(this,playerQueenName, opponentQueenName,spell1,spell2,spell3);
+		    showBattleWindow(battleWindow,playerQueenName, opponentQueenName,spell1,spell2,spell3);
 		    break;
+		    
+		case "SPELL_CAST_SUCCESS":
+			String spellName = parts[1];
+            int playerMana = Integer.parseInt(parts[2]);
+            int opponentHealth = Integer.parseInt(parts[3]);
+            battleWindow.updatePlayerMana(playerMana);
+            battleWindow.updateOpponentHealth(opponentHealth);
+            break;
+            
+		 case "SPELL_CAST_TAKEN":
+	            String opponentSpellName = parts[1];
+	            //int damageTaken = Integer.parseInt(parts[2]);
+	            int playerHealth = Integer.parseInt(parts[2]);
+	            int opponentMana = Integer.parseInt(parts[3]);
+	            battleWindow.updatePlayerHealth(playerHealth);
+	            battleWindow.updateOpponentMana(opponentMana);
+	            break;
 		}
 		
 	}
@@ -125,10 +143,12 @@ public class Client {
 		battleWindow.setVisible(true);
 	}*/
 	
-	public void showBattleWindow(String playerQueenName, String opponentQueenName, String spell1, String spell2, String spell3) {
-	    BattleWindow battleWindow = new BattleWindow(this, playerQueenName, opponentQueenName, spell1, spell2,spell3);
-	    battleWindow.setVisible(true);
+	public void showBattleWindow(BattleWindow bw,String playerQueenName, String opponentQueenName, String spell1, String spell2, String spell3) {
+	    
+	    bw.setVisible(true);
 	}
+	
+	
 	
 	
 	public void showWaitingForOpponentWindow(){

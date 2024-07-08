@@ -56,10 +56,7 @@ public class Player {
         this.losses++;
     }
 
-    public void resetStats() {
-        this.wins = 0;
-        this.losses = 0;
-    }
+   
     public Queen getSelectedQueen() {
         return selectedQueen;
     }

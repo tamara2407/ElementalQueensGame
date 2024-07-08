@@ -7,7 +7,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -18,8 +20,9 @@ public class Server {
 	private static final int PORT = 13245;
 	private static List<ClientHandler> clients = new ArrayList<>();
 	private static List<Player> players = new ArrayList<Player>();
-	 private static List<Queen> queens = new ArrayList<>();
-	 private static final String CSV_FILE_NAME = "players.csv";
+	private static List<Queen> queens = new ArrayList<>();
+	private static final String CSV_FILE_NAME = "players.csv";
+	
 	 
 	
 	public static void main(String[] args) {
@@ -156,7 +159,5 @@ public class Server {
 		    return spells;
 		}
 
-
-
-
+		
 }

@@ -7,7 +7,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.io.FileWriter;
 
 public class ClientHandler implements Runnable{
@@ -21,14 +23,11 @@ public class ClientHandler implements Runnable{
 	private Player player;
 	private static final String CSV_FILE_PATH = "players.csv";
 	private static final List<ClientHandler> waitingPlayers = Collections.synchronizedList(new ArrayList<>());
+	private static Map<ClientHandler, Queen> clientQueenMap = new HashMap<>();
+	private static Map<ClientHandler, ClientHandler> opponentMap = new HashMap<>();
+
 	
-	
-/*	public ClientHandler(Socket socket, List<ClientHandler> clients, List<Player> players) {
-		this.socket = socket;
-		this.clients = clients;
-		this.players = players;
-	}
-	*/
+
 	 public ClientHandler(Socket socket, List<ClientHandler> clients, List<Player> players, List<Queen> queens) {
 	        this.socket = socket;
 	        this.clients = clients;
@@ -46,7 +45,7 @@ public class ClientHandler implements Runnable{
 			String inputLine;
 			while((inputLine = in.readLine())!= null) {
 				System.out.println("Received: "+ inputLine);
-				handleClientMessage(inputLine);
+				handleClientMessage(this,inputLine);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -61,7 +60,7 @@ public class ClientHandler implements Runnable{
 		}
 	}
 	
-	private void handleClientMessage(String message) {
+	private void handleClientMessage(ClientHandler clientHandler,String message) {
 		
 		String[] tokens = message.split(":");
 		String command = tokens[0];
@@ -77,6 +76,12 @@ public class ClientHandler implements Runnable{
 		 case "QUEEN_SELECTION":
              handleSelectQueen(tokens[1]);
              break;
+		 case "SPELL_CAST":
+	            String spellName = tokens[3];
+	            String queenName=tokens[1];
+	            String opponentQueenName=tokens[2];
+	            handleSpellCast(this,spellName);
+	            break;
 		
 			
 		}
@@ -134,6 +139,7 @@ public class ClientHandler implements Runnable{
 	            for (Queen queen : queens) {
 	                if (queen.getId() == queenId) {
 	                    player.setSelectedQueen(queen);
+	                    setClientQueen(this,queen);
 	                    out.println("SELECT_QUEEN_SUCCESS:success");
 	                    matchPlayers();
 	                    return;
@@ -149,6 +155,8 @@ public class ClientHandler implements Runnable{
 	                ClientHandler player1 = waitingPlayers.remove(0);
 	                ClientHandler player2 = waitingPlayers.remove(0);
 	                
+	                opponentMap.put(player1, player2);
+	                opponentMap.put(player2, player1);
 	                
 	                String player1QueenName = player1.player.getSelectedQueen().getName();
 	                List<Spell> player1Spells = player1.player.getSelectedQueen().getSpells();
@@ -170,18 +178,68 @@ public class ClientHandler implements Runnable{
 	        }
 	    }
 	 
-	    
-	    private void handleSelectSpell(String spellIdStr) {
-	       
+	 private void handleSpellCast(ClientHandler clientHandler, String spellName) {
+		    Queen castingQueen = clientQueenMap.get(clientHandler);
+		    System.out.println(castingQueen.getName());
+		    System.out.println(castingQueen.getMana());
+		    System.out.println();
+
+		    if (castingQueen != null) {
+		        Spell spellToCast = findSpellInQueen(spellName, castingQueen);
+		        if (spellToCast != null) {
+		        	System.out.println(spellToCast.getName());
+		            int manaCost = spellToCast.getManaCost();
+		            int spellEffect = spellToCast.getEffect();
+
+		            if (castingQueen.getMana() >= manaCost) {
+		                castingQueen.reduceMana(manaCost);
+
+		                
+		                ClientHandler opponentHandler = opponentMap.get(clientHandler);
+	                    Queen opponentQueen = clientQueenMap.get(opponentHandler);
+	                    
+		                
+		                if (opponentQueen != null) {
+		                    opponentQueen.reduceHealth(spellEffect);
+		                    opponentHandler.out.println("SPELL_CAST_TAKEN:" + spellName + ":" + opponentQueen.getHealth() + ":" + castingQueen.getMana());
+		                }
+
+		                out.println("SPELL_CAST_SUCCESS:" + spellName + ":" + castingQueen.getMana() +":"+opponentQueen.getHealth());
+		                
+		                
+		                
+		            } else {
+		                out.println("SPELL_CAST_FAIL:INSUFFICIENT_MANA");
+		            }
+		        }
+		    }
+		}
+	 
+	 private Spell findSpellInQueen(String spellName, Queen queen) {
+	        
+	        for (Spell spell : queen.getSpells()) {
+	            if (removeSpaces(spell.getName()).equals(spellName)) {
+	                return spell;
+	            }
+	        }
+	        return null; // Spell not found
 	    }
-	    
+	 public void setClientQueen(ClientHandler clientHandler, Queen queen) {
+		    clientQueenMap.put(clientHandler, queen);
+		}
+	
 	    private void handleDamageTaken(int damageAmount) {
 	        
 	       
 	        
 	    }
 	    
-	    
+	    public static String removeSpaces(String input) {
+	        if (input == null) {
+	            return null;
+	        }
+	        return input.replaceAll("\\s+", "");
+	    }
 	  
 
 }

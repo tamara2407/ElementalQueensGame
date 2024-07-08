@@ -147,7 +147,7 @@ public class BattleWindow extends JFrame {
         spell1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // slanje serveru id kliknute magije
+            	client.sendToServer("SPELL_CAST:" +playerQueenName+":"+opponentQueenName+":"+ spell1Name);
             }
         });
 
@@ -176,7 +176,7 @@ public class BattleWindow extends JFrame {
         spell2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // slanje serveru id kliknute magije
+            	 client.sendToServer("SPELL_CAST:" +playerQueenName+":"+opponentQueenName+":"+ spell2Name);
             }
         });
 
@@ -205,7 +205,7 @@ public class BattleWindow extends JFrame {
         spell3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // slanje serveru id kliknute magije
+            	client.sendToServer("SPELL_CAST:" +playerQueenName+":"+opponentQueenName+":"+ spell3Name);
             }
         });
 

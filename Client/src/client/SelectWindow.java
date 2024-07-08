@@ -97,8 +97,7 @@ public class SelectWindow extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     client.sendToServer("QUEEN_SELECTION:" + queenIndex);
-                    //setVisible(false);
-                    //client.showWaitingForOpponentWindow();
+                   
                 }
             });
           
