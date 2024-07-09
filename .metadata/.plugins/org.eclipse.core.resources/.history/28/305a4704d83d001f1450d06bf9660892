@@ -17,7 +17,6 @@ public class ClientMain {
             @Override
             public void run() {
                 client.showLoginWindow();
-
             }
         });
     }

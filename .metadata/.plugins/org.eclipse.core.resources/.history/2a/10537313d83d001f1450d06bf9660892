@@ -16,8 +16,9 @@ public class ClientMain {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+            	if(client!=null) {
                 client.showLoginWindow();
-
+            	}
             }
         });
     }

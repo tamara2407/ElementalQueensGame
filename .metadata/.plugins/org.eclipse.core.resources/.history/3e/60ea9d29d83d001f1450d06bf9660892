@@ -193,9 +193,7 @@ public class Client {
     }
 
 	public void showLoginWindow() {
-		if(loginWindow!=null) {
 		loginWindow.setVisible(true);
-		}
 	}
 
 	public void showRegisterWindow() {
