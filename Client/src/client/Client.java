@@ -110,6 +110,7 @@ public class Client {
 		    break;
 		    
 		case "SPELL_CAST_SUCCESS":
+			System.out.println("SUCCESSSSSSSSSSSS");
 			String spellName = parts[1];
             int playerMana = Integer.parseInt(parts[2]);
             int opponentHealth = Integer.parseInt(parts[3]);
@@ -128,7 +129,7 @@ public class Client {
 	            
 		 case "SPELL_CAST_SUCCESS_H":
 	            
-	      
+			 	System.out.println("ZDRAVOO ");
 	            int playerHealth1 = Integer.parseInt(parts[3]);
 	            int playerMana1 = Integer.parseInt(parts[2]);
 	            battleWindow.updatePlayerHealth(playerHealth1);
@@ -147,6 +148,15 @@ public class Client {
 		 case "SPELL_CAST_FAIL":
 			 battleWindow.showErrorMessage("Not enough mana to cast the spell!");
 			 break;
+			 
+		 case "YOUR_TURN":
+			 
+	            battleWindow.setTurn(true);
+	            break;
+	      case "WAIT_YOUR_TURN":
+	            battleWindow.setTurn(false);
+	            break;
+	        
 		}
 		
 	}
@@ -169,8 +179,9 @@ public class Client {
 	}*/
 	
 	public void showBattleWindow(BattleWindow bw,String playerQueenName, String opponentQueenName, String spell1, String spell2, String spell3, String desc1, String desc2, String desc3) {
-	    
-	    bw.setVisible(true);
+		 
+		    
+		    bw.setVisible(true);
 	}
 	
 	

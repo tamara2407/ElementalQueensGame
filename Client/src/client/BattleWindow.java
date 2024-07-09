@@ -20,6 +20,8 @@ public class BattleWindow extends JFrame {
     private JProgressBar playerManaBar;
     private JProgressBar opponentHealthBar;
     private JProgressBar opponentManaBar;
+    private boolean isTurn;
+    JLabel middleText;
 
     public BattleWindow(Client client, String playerQueenName, String opponentQueenName, String spell1N, String spell2N, String spell3N, String desc1, String desc2, String desc3) {
         this.client = client;
@@ -81,7 +83,7 @@ public class BattleWindow extends JFrame {
 
         centerPanel.add(leftWrapper, BorderLayout.WEST);
 
-        JLabel middleText = new JLabel("My Turn", SwingConstants.CENTER);
+        middleText = new JLabel(isTurn? "Your turn":"Opponents turn", SwingConstants.CENTER);
         middleText.setForeground(Color.WHITE);
         middleText.setFont(new Font("Serif", Font.BOLD, 24));
         centerPanel.add(middleText, BorderLayout.CENTER);
@@ -150,7 +152,11 @@ public class BattleWindow extends JFrame {
         spell1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	if(isTurn) {
             	client.sendToServer("SPELL_CAST:" +playerQueenName+":"+opponentQueenName+":"+ spell1Name);
+            	}else {
+                    showErrorMessage("It's not your turn!");
+                }
             }
         });
 
@@ -179,7 +185,11 @@ public class BattleWindow extends JFrame {
         spell2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	 client.sendToServer("SPELL_CAST:" +playerQueenName+":"+opponentQueenName+":"+ spell2Name);
+            	 if (isTurn) {
+                     client.sendToServer("SPELL_CAST:" + playerQueenName + ":" + opponentQueenName + ":" + spell2Name);
+                 } else {
+                     showErrorMessage("It's not your turn!");
+                 }
             }
         });
 
@@ -208,12 +218,29 @@ public class BattleWindow extends JFrame {
         spell3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	client.sendToServer("SPELL_CAST:" +playerQueenName+":"+opponentQueenName+":"+ spell3Name);
+            	 if (isTurn) {
+                     client.sendToServer("SPELL_CAST:" + playerQueenName + ":" + opponentQueenName + ":" + spell3Name);
+                 } else {
+                     showErrorMessage("It's not your turn!");
+                 }
             }
         });
 
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
     }
+    
+    public void setTurn(boolean isTurn) {
+        this.isTurn = isTurn;
+        System.out.println("SUPER JE STO SI TU!");
+        if (isTurn) {
+            middleText.setText("My Turn");
+        } else {
+            middleText.setText("Opponent's Turn");
+        }
+    }
+    
+   
+    
 
     private void updateBarColor(JProgressBar bar, int value) {
         if (value > 50) {
@@ -258,7 +285,7 @@ public class BattleWindow extends JFrame {
     }
     
     public void showErrorMessage(String message) {
-    	JOptionPane.showMessageDialog(this, message);
+        JOptionPane.showMessageDialog(this, message);
     }
 
     public class BackgroundPanel extends JPanel {
