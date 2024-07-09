@@ -20,7 +20,7 @@ public class Client {
 	private BattleWindow battleWindow;
 	private WaitingForTheOpponentWindow waitingForTheOpponentWindow;
 	private ResultWindow resultWindow;
-	private String username;
+	
 	
 	 public void sendToServer(String message) {
 	        out.println(message);
@@ -51,10 +51,6 @@ public class Client {
 		}
 		
 	}
-	
-	 public String getUsername() {
-	        return username;
-	    }
 	
 	private class ServerListener implements Runnable{
 		@Override

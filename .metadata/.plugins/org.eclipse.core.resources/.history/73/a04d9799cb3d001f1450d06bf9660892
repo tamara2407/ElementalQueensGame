@@ -114,7 +114,6 @@ public class ClientHandler implements Runnable{
 			for(Player p : players) {
 				if(p.getUsername().equals(username) && p.getPassword().equals(password)) {
 					player = p;
-					this.username = username;
 					out.println("LOGIN_SUCCESS:success");
 					
 					return;

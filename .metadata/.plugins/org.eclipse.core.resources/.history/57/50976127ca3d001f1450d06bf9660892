@@ -21,7 +21,6 @@ public class ClientHandler implements Runnable{
 	private List<Player> players;
 	private List<Queen> queens;
 	private Player player;
-	private String username;
 	private static final String CSV_FILE_PATH = "players.csv";
 	private static final List<ClientHandler> waitingPlayers = Collections.synchronizedList(new ArrayList<>());
 	private static Map<ClientHandler, Queen> clientQueenMap = new HashMap<>();
@@ -87,10 +86,7 @@ public class ClientHandler implements Runnable{
              } else {
                  out.println("NOT_YOUR_TURN");
              }
-             break;	
-		 case "LOGOUT":
-	            handleLogout();
-	            break;
+             break;			
 		}
 	}
 	
@@ -114,7 +110,6 @@ public class ClientHandler implements Runnable{
 			for(Player p : players) {
 				if(p.getUsername().equals(username) && p.getPassword().equals(password)) {
 					player = p;
-					this.username = username;
 					out.println("LOGIN_SUCCESS:success");
 					
 					return;
@@ -247,13 +242,6 @@ public class ClientHandler implements Runnable{
 		            }
 		        }
 		    }
-		}
-	 
-	 private void handleLogout() {
-		    synchronized (waitingPlayers) {
-		        waitingPlayers.remove(this);
-		    }
-		    System.out.println(username + " has logged out.");
 		}
 	 
 	 private Spell findSpellInQueen(String spellName, Queen queen) {

@@ -63,7 +63,7 @@ public class WaitingForTheOpponentWindow extends JFrame {
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                client.sendToServer("LOGOUT:" + client.getUsername());
+                client.sendToServer("LOGOUT:" + "logout");
                 dispose(); 
                 client.showLoginWindow();
             }
