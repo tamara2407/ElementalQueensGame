@@ -28,9 +28,7 @@ public class ResultWindow extends JFrame {
     private JButton logOutButton;
     private Client client;
 
-    public ResultWindow(Client client,boolean isWinner, int wins, int losses) {
-    	
-    	this.client =client;
+    public ResultWindow(boolean isWinner, int wins, int losses) {
         setTitle("Game Result");
         setSize(1000, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -93,4 +91,13 @@ public class ResultWindow extends JFrame {
         setVisible(true);
     }
 
+    //proba
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new ResultWindow(true, 10, 5);
+            }
+        });
+    }
 }
