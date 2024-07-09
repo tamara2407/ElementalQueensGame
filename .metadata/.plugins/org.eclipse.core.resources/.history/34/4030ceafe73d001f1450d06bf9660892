@@ -126,7 +126,7 @@ public class LoginWindow extends JFrame {
 	    JOptionPane.showMessageDialog(this, "This account is already logged in!");
 	}
 	
-	private void showErrorMessageEmptyFields() {
+	public void showErrorMessageEmptyFields() {
 	    JOptionPane.showMessageDialog(this, "All fields must be filled in!");
 	}
 }

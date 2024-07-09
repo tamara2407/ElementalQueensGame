@@ -80,11 +80,7 @@ public class LoginWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String username = usernameField.getText();
 				String password = new String(passwordField.getPassword());
-				if (username.isEmpty() || password.isEmpty()) {
-                    showErrorMessageEmptyFields();
-                } else {
-                    client.sendToServer("LOGIN:" + username + ":" + password);
-                }
+				client.sendToServer("LOGIN:" + username + ":" + password);
 			}
 		});
 		buttonPanel.add(loginButton, gbcButton);
@@ -126,7 +122,7 @@ public class LoginWindow extends JFrame {
 	    JOptionPane.showMessageDialog(this, "This account is already logged in!");
 	}
 	
-	private void showErrorMessageEmptyFields() {
+	public void showErrorMessageEmptyFields() {
 	    JOptionPane.showMessageDialog(this, "All fields must be filled in!");
 	}
 }

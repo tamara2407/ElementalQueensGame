@@ -123,7 +123,7 @@ public class ClientHandler implements Runnable {
 		synchronized (players) {
 			
 			if (loggedInUsers.contains(username)) {
-	            out.println("LOGIN_FAILURE_ALREADY_LOGGEDIN:already_logged_in");
+	            out.println("LOGIN_FAILURE:already_logged_in");
 	            return;
 	        }
 			

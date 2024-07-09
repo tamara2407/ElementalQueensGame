@@ -29,7 +29,6 @@ public class ClientHandler implements Runnable {
 	private static Map<ClientHandler, ClientHandler> opponentMap = new HashMap<>();
 
 	private boolean isTurn;
-	private static final List<String> loggedInUsers = Collections.synchronizedList(new ArrayList<>());
 
 	public ClientHandler(Socket socket, List<ClientHandler> clients, List<Player> players, List<Queen> queens) {
 		this.socket = socket;
@@ -121,17 +120,10 @@ public class ClientHandler implements Runnable {
 
 	private void handleLogin(String username, String password) {
 		synchronized (players) {
-			
-			if (loggedInUsers.contains(username)) {
-	            out.println("LOGIN_FAILURE_ALREADY_LOGGEDIN:already_logged_in");
-	            return;
-	        }
-			
 			for (Player p : players) {
 				if (p.getUsername().equals(username) && p.getPassword().equals(password)) {
 					player = p;
 					this.username = username;
-					loggedInUsers.add(username);
 					out.println("LOGIN_SUCCESS:success");
 
 					return;

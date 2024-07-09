@@ -127,7 +127,13 @@ public class ClientHandler implements Runnable {
 	            return;
 	        }
 			
+			if(username.equals(null) || password.equals(null)) {
+				out.println("LOGIN_FAILURE_EMPTY_FIELDS:empty_fields");
+				return;
+			}
+			
 			for (Player p : players) {
+				
 				if (p.getUsername().equals(username) && p.getPassword().equals(password)) {
 					player = p;
 					this.username = username;

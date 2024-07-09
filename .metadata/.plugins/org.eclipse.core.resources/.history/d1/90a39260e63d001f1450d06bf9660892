@@ -86,7 +86,7 @@ public class Client {
 		case "LOGIN_FAILURE_PASSWORD":
 			loginWindow.showErrorMessagePassword();
 			break;
-		case "LOGIN_FAILURE_ALREADY_LOGGEDIN:already_logged_in":
+		case "LOGIN_FAILURE_ALREADY_LOGGEDIN":
 		    loginWindow.showErrorMessageAlreadyLoggedIn();
 		    break;
 		case "REGISTER_SUCCESS":
