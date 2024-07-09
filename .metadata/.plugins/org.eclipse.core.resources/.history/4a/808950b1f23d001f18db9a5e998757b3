@@ -23,13 +23,6 @@ public class Queen {
 	        this.spells = spells;
 	    }
 	    
-	    public void resetHealth() {
-	    	this.health=100;
-	    }
-	    
-	    public void resetMana() {
-	    	this.mana=100;
-	    }
 	
 	    
 	    public int getId() {

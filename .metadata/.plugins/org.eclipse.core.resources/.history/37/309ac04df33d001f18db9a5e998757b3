@@ -354,7 +354,9 @@ public class ClientHandler implements Runnable {
 		return null;
 	}
 
-	
+	public void setClientQueen(ClientHandler clientHandler, Queen queen) {
+		clientQueenMap.put(clientHandler, queen);
+	}
 
 	private void toggleTurn() {
 		ClientHandler opponent = opponentMap.get(this);

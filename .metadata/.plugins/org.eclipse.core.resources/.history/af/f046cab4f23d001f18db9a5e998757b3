@@ -27,7 +27,7 @@ public class ClientHandler implements Runnable {
 	private String username;
 	private static final String CSV_FILE_PATH = "players.csv";
 	private static final List<ClientHandler> waitingPlayers = Collections.synchronizedList(new ArrayList<>());
-	
+	private static Map<ClientHandler, Queen> clientQueenMap = new HashMap<>();
 	private static Map<ClientHandler, ClientHandler> opponentMap = new HashMap<>();
 
 	private boolean isTurn;
@@ -165,8 +165,7 @@ public class ClientHandler implements Runnable {
 			for (Queen queen : queens) {
 				if (queen.getId() == queenId) {
 					player.setSelectedQueen(queen);
-					 resetQueenStats(player.getSelectedQueen());
-					
+					//setClientQueen(this, queen);
 					out.println("SELECT_QUEEN_SUCCESS:success");
 					matchPlayers();
 					return;
@@ -174,12 +173,6 @@ public class ClientHandler implements Runnable {
 			}
 		}
 	}
-	
-    private void resetQueenStats(Queen queen) {
-        queen.resetMana();
-        queen.resetHealth();
-    }
-
 
 	private void matchPlayers() {
 		synchronized (waitingPlayers) {
@@ -230,7 +223,8 @@ public class ClientHandler implements Runnable {
 	}
 
 	private void handleSpellCast(ClientHandler clientHandler, String spellName) {
-		
+		//Queen castingQueen = clientQueenMap.get(clientHandler);
+		//clientHandler.player.setSelectedQueen(null);
 		Queen castingQueen=clientHandler.player.getSelectedQueen();
 
 		if (castingQueen != null) {
@@ -243,7 +237,7 @@ public class ClientHandler implements Runnable {
 				if (castingQueen.getMana() >= manaCost) {
 					castingQueen.reduceMana(manaCost);
 					ClientHandler opponentHandler = opponentMap.get(clientHandler);
-					
+					//Queen opponentQueen = clientQueenMap.get(opponentHandler);
 					Queen opponentQueen=opponentHandler.player.getSelectedQueen();
 					if (spellEffect > 0) {
 						castingQueen.setHealth(castingQueen.getHealth() + spellEffect);
@@ -354,7 +348,9 @@ public class ClientHandler implements Runnable {
 		return null;
 	}
 
-	
+	public void setClientQueen(ClientHandler clientHandler, Queen queen) {
+		clientQueenMap.put(clientHandler, queen);
+	}
 
 	private void toggleTurn() {
 		ClientHandler opponent = opponentMap.get(this);
