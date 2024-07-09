@@ -80,7 +80,7 @@ public class Server {
 
 	}
 
-	private static void loadPlayersFromCSV(String filePath) {
+/*	private static void loadPlayersFromCSV(String filePath) {
 	    File csvFile = new File(filePath);
 	    if (csvFile.exists()) {
 	        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -114,7 +114,28 @@ public class Server {
 	        System.out.println("CSV file not found, skipping loading players.");
 	    }
 	}
+*/
+	private static void loadPlayersFromCSV(String filePath) {
+	    File csvFile = new File(filePath);
+	    if (csvFile.exists()) {
+	        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+	            String line;
+	            br.readLine();
+	            while ((line = br.readLine()) != null) {
+	                String[] values = line.split(",");
+	                if (values.length == 5) {
+	                    players.add(new Player(values[0], values[1], values[2], Integer.parseInt(values[3]), Integer.parseInt(values[4])));
+	                }
+	            }
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    } else {
+	        System.out.println("CSV file not found, skipping loading players.");
+	    }
+	}
 
+	
 	public static List<Queen> createQueens() {
 		List<Queen> queens = new ArrayList<>();
 

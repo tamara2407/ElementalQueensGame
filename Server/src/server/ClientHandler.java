@@ -122,35 +122,34 @@ public class ClientHandler implements Runnable {
 	}
 
 	private void handleLogin(String username, String password) {
-		synchronized (players) {
-			
-			if (loggedInUsers.contains(username)) {
+	    synchronized (players) {
+	        if (loggedInUsers.contains(username)) {
 	            out.println("LOGIN_FAILURE_ALREADY_LOGGEDIN:already_logged_in");
 	            return;
 	        }
-			
-			for (Player p : players) {
-				if (p.getUsername().equals(username) && p.getPassword().equals(password)) {
-					player = p;
-					this.username = username;
-					loggedInUsers.add(username);
-					out.println("LOGIN_SUCCESS:success");
 
-					return;
-				}
-				if (p.getUsername().equals(username) && !(p.getPassword().equals(password))) {
-					out.println("LOGIN_FAILURE_PASSWORD:failure");
-					return;
-				}
-			}
-			out.println("LOGIN_FAILURE:failure");
-		}
+	        for (Player p : players) {
+	            if (p.getUsername().equals(username)) {
+	                if (p.checkPassword(password)) {
+	                    player = p;
+	                    this.username = username;
+	                    loggedInUsers.add(username);
+	                    out.println("LOGIN_SUCCESS:success");
+	                    return;
+	                } else {
+	                    out.println("LOGIN_FAILURE_PASSWORD:failure");
+	                    return;
+	                }
+	            }
+	        }
+	        out.println("LOGIN_FAILURE:failure");
+	    }
 	}
 
 	private void writePlayerToCSV(Player player) {
 		try (FileWriter writer = new FileWriter(CSV_FILE_PATH, true)) {
 			  writer.append(player.getUsername()).append(",")
-              .append(player.getPassword()).append(",")
+              .append(player.getHashedPassword()).append(",")
               .append(player.getEmail()).append(",")
               .append(String.valueOf(player.getWins())).append(",")
               .append(String.valueOf(player.getLosses())).append("\n");
@@ -331,7 +330,7 @@ public class ClientHandler implements Runnable {
 
 	        for (Player player : playerList) {
 	            writer.println(player.getUsername() + "," +
-	                           player.getPassword() + "," +
+	            			player.getHashedPassword() + "," +
 	                           player.getEmail() + "," +
 	                           player.getWins() + "," +
 	                           player.getLosses());

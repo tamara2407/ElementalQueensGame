@@ -1,6 +1,3 @@
 username,password,email,wins,losses
-tasa,tasa,tasa,3,4
-mica,mica,mica,2,7
-maja,maja,maja,5,0
-ana,ana,ana,2,1
-tamara,tamara,tamara@gmail.com,0,0
+mica,$2a$10$gEBWAaOOdZXIjVEz01s2f.rrabR2Yg4rKUoSGrX10S1ugAG8baF7q,mica@gmail,1,0
+tamara,$2a$10$lM84OohjkcRsl9OziD9X0.rWSKUDYp1R/kTuohXVMThOEqbu.Pv4W,tamara@gmail,0,1
