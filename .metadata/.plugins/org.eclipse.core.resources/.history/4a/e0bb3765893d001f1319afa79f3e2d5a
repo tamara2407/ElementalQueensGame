@@ -231,7 +231,7 @@ public class BattleWindow extends JFrame {
     
     public void setTurn(boolean isTurn) {
         this.isTurn = isTurn;
-        
+        System.out.println("SUPER JE STO SI TU!");
         if (isTurn) {
             middleText.setText("My Turn");
         } else {

@@ -194,7 +194,7 @@ public class ClientHandler implements Runnable{
 		    if (castingQueen != null) {
 		        Spell spellToCast = findSpellInQueen(spellName, castingQueen);
 		        if (spellToCast != null) {
-		        	
+		        	System.out.println(spellToCast.getName());
 		            int manaCost = spellToCast.getManaCost();
 		            int spellEffect = spellToCast.getEffect();
 
@@ -237,7 +237,7 @@ public class ClientHandler implements Runnable{
 	                return spell;
 	            }
 	        }
-	        return null; 
+	        return null; // Spell not found
 	    }
 	 public void setClientQueen(ClientHandler clientHandler, Queen queen) {
 		    clientQueenMap.put(clientHandler, queen);

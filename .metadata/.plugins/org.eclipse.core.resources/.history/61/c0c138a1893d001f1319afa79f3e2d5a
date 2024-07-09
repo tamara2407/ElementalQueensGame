@@ -110,7 +110,7 @@ public class Client {
 		    break;
 		    
 		case "SPELL_CAST_SUCCESS":
-			
+			System.out.println("SUCCESSSSSSSSSSSS");
 			String spellName = parts[1];
             int playerMana = Integer.parseInt(parts[2]);
             int opponentHealth = Integer.parseInt(parts[3]);
@@ -129,7 +129,7 @@ public class Client {
 	            
 		 case "SPELL_CAST_SUCCESS_H":
 	            
-			 	
+			 	System.out.println("ZDRAVOO ");
 	            int playerHealth1 = Integer.parseInt(parts[3]);
 	            int playerMana1 = Integer.parseInt(parts[2]);
 	            battleWindow.updatePlayerHealth(playerHealth1);
