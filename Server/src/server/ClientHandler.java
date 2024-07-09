@@ -79,7 +79,7 @@ public class ClientHandler implements Runnable{
              handleSelectQueen(tokens[1]);
              break;
 		 case "SPELL_CAST":
-             if (isTurn) { // Check if it's the player's turn
+             if (isTurn) { 
                  String spellName = tokens[3];
                  handleSpellCast(this, spellName);
                  toggleTurn();
@@ -223,6 +223,11 @@ public class ClientHandler implements Runnable{
 		                if (opponentQueen != null && spellEffect<0) {
 		                	
 		                    opponentQueen.reduceHealth(spellEffect);
+		                    if(opponentQueen.getHealth()<=0) {
+		                    	out.println("RESULT:" + "won");
+		                    	opponentHandler.out.println("RESULT:"+"lost");
+		                    }
+		                    
 		                    opponentHandler.out.println("SPELL_CAST_TAKEN:" + spellName + ":" + opponentQueen.getHealth() + ":" + castingQueen.getMana());
 		                    out.println("SPELL_CAST_SUCCESS:" + spellName + ":" + castingQueen.getMana() +":"+opponentQueen.getHealth());
 		                }

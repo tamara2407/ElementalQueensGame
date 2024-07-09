@@ -89,13 +89,13 @@ public class ResultWindow extends JFrame {
         setVisible(true);
     }
 
-//    //proba
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                new ResultWindow(true, 10, 5);
-//            }
-//        });
-//    }
+    //proba
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new ResultWindow(true, 10, 5);
+            }
+        });
+    }
 }

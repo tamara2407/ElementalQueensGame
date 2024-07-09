@@ -19,6 +19,7 @@ public class Client {
 	private SelectWindow selectWindow;
 	private BattleWindow battleWindow;
 	private WaitingForTheOpponentWindow waitingForTheOpponentWindow;
+	private ResultWindow resultWindow;
 	
 	
 	 public void sendToServer(String message) {
@@ -156,7 +157,21 @@ public class Client {
 	      case "WAIT_YOUR_TURN":
 	            battleWindow.setTurn(false);
 	            break;
-	        
+	      case "RESULT":
+	    	  String result = parts[1];
+	    	  boolean isWinner;
+	    	  if(result.equals("won")) {
+	    		  isWinner = true;
+	    		  resultWindow = new ResultWindow(isWinner, 6, 6);
+	    		  battleWindow.setVisible(false);
+	    		  showResultWindow(resultWindow, isWinner, 6, 6);
+	    	  }else {
+	    		  isWinner=false;
+	    		  resultWindow = new ResultWindow(isWinner, 5, 5);
+	    		  battleWindow.setVisible(false);
+	    		  showResultWindow(resultWindow, isWinner, 5, 5);
+	    	  }
+	    	  break;
 		}
 		
 	}
@@ -184,7 +199,9 @@ public class Client {
 		    bw.setVisible(true);
 	}
 	
-	
+	public void showResultWindow(ResultWindow rw, Boolean isWinner, int wins, int losses) {
+		rw.setVisible(true);
+	}
 	
 	
 	public void showWaitingForOpponentWindow(){
