@@ -25,8 +25,7 @@ public class ClientHandler implements Runnable{
 	private static final List<ClientHandler> waitingPlayers = Collections.synchronizedList(new ArrayList<>());
 	private static Map<ClientHandler, Queen> clientQueenMap = new HashMap<>();
 	private static Map<ClientHandler, ClientHandler> opponentMap = new HashMap<>();
-	
-	 private boolean isTurn;
+
 	
 
 	 public ClientHandler(Socket socket, List<ClientHandler> clients, List<Player> players, List<Queen> queens) {
@@ -34,7 +33,6 @@ public class ClientHandler implements Runnable{
 	        this.clients = clients;
 	        this.players = players;
 	        this.queens = queens;
-	        this.isTurn = false; 
 	    }
 	
 	@Override
@@ -78,24 +76,12 @@ public class ClientHandler implements Runnable{
 		 case "QUEEN_SELECTION":
              handleSelectQueen(tokens[1]);
              break;
-		/* case "SPELL_CAST":
+		 case "SPELL_CAST":
 	            String spellName = tokens[3];
 	            String queenName=tokens[1];
 	            String opponentQueenName=tokens[2];
 	            handleSpellCast(this,spellName);
-	            break;
-	            */
-		 case "SPELL_CAST":
-             if (isTurn) {
-                 String spellName = tokens[3];
-                 handleSpellCast(this, spellName);
-                 toggleTurn();
-             } else {
-                 out.println("NOT_YOUR_TURN");
-             }
-             break;
-		
-			
+	            break;			
 		}
 	}
 	
@@ -170,18 +156,15 @@ public class ClientHandler implements Runnable{
 	                opponentMap.put(player1, player2);
 	                opponentMap.put(player2, player1);
 	                
-	                player1.isTurn=true;
-	                player2.isTurn=false;
-	                
 	                String player1QueenName = player1.player.getSelectedQueen().getName();
 	                List<Spell> player1Spells = player1.player.getSelectedQueen().getSpells();
 	                String player1Spell1 = player1Spells.get(0).getName();
 	                String player1Spell2 = player1Spells.get(1).getName();
 	                String player1Spell3 = player1Spells.get(2).getName();
-	                String player1DescritionSpell1 = player1Spells.get(0).getDescription();
-	                String player1DescritionSpell2 = player1Spells.get(1).getDescription();
-	                String player1DdescritionSpell3 = player1Spells.get(2).getDescription();
 	                
+	                String player1DescSpell1 = player1Spells.get(0).getDescription();
+	                String player1DescSpell2 = player1Spells.get(1).getDescription();
+	                String player1DescSpell3 = player1Spells.get(2).getDescription();
 
 	                
 	                String player2QueenName = player2.player.getSelectedQueen().getName();
@@ -189,16 +172,15 @@ public class ClientHandler implements Runnable{
 	                String player2Spell1 = player2Spells.get(0).getName();
 	                String player2Spell2 = player2Spells.get(1).getName();
 	                String player2Spell3 = player2Spells.get(2).getName();
-	                String player2DescritionSpell1 = player2Spells.get(0).getDescription();
-	                String player2DescritionSpell2 = player2Spells.get(1).getDescription();
-	                String player3DdescritionSpell3 = player2Spells.get(2).getDescription();
+
+	                String player2DescSpell1 = player2Spells.get(0).getDescription();
+	                System.out.println(player2DescSpell1);
+	                String player2DescSpell2 = player2Spells.get(1).getDescription();
+	                System.out.println(player2DescSpell2);
+	                String player2DescSpell3 = player2Spells.get(2).getDescription();
 	                
-	                player1.out.println("MATCH_FOUND:" +player1QueenName+":"+ player2QueenName+":"+player1Spell1+":"+player1Spell2+":"+player1Spell3
-	                		+":"+player1DescritionSpell1+":"+player1DescritionSpell2+":"+player1DdescritionSpell3);
-	                player2.out.println("MATCH_FOUND:" +player2QueenName+":" +player1QueenName+":"+player2Spell1+":"+player2Spell2+":"+player2Spell3
-	                		+":"+player2DescritionSpell1+":"+player2DescritionSpell2+":"+player3DdescritionSpell3);
-	                player1.out.println("YOUR_TURN");
-	                player2.out.println("WAIT_YOUR_TURN");
+	                player1.out.println("MATCH_FOUND:" +player1QueenName+":"+ player2QueenName+":"+player1Spell1+":"+player1Spell2+":"+player1Spell3+":"+player1DescSpell1+":"+player1DescSpell2+":"+player1DescSpell3);
+	                player2.out.println("MATCH_FOUND:" +player2QueenName+":" +player1QueenName+":"+player2Spell1+":"+player2Spell2+":"+player2Spell3+":"+player2DescSpell1+":"+player2DescSpell2+":"+player2DescSpell3);
 	            }
 	        }
 	    }
@@ -217,14 +199,10 @@ public class ClientHandler implements Runnable{
 		            int spellEffect = spellToCast.getEffect();
 
 		            if (castingQueen.getMana() >= manaCost) {
-		            	System.out.println("hellloou");
 		                castingQueen.reduceMana(manaCost);
-		                
 		                ClientHandler opponentHandler = opponentMap.get(clientHandler);
 	                    Queen opponentQueen = clientQueenMap.get(opponentHandler);
-	                    System.out.println(opponentQueen.getName());
 		                if(spellEffect>0) {
-		                	System.out.println("zdravo");
 		                	castingQueen.setHealth(castingQueen.getHealth()+spellEffect);
 		                	out.println("SPELL_CAST_SUCCESS_H:" + spellName + ":" + castingQueen.getMana() +":"+castingQueen.getHealth());
 		                	opponentHandler.out.println("SPELL_CAST_SUCCESS_HO:" + spellName + ":" + castingQueen.getMana() +":"+castingQueen.getHealth());
@@ -234,9 +212,8 @@ public class ClientHandler implements Runnable{
 	                    
 		                
 		                if (opponentQueen != null && spellEffect<0) {
-		                	System.out.println("hhhhhhh");
+		                	
 		                    opponentQueen.reduceHealth(spellEffect);
-		                    System.out.println(opponentQueen.getHealth());
 		                    opponentHandler.out.println("SPELL_CAST_TAKEN:" + spellName + ":" + opponentQueen.getHealth() + ":" + castingQueen.getMana());
 		                    out.println("SPELL_CAST_SUCCESS:" + spellName + ":" + castingQueen.getMana() +":"+opponentQueen.getHealth());
 		                }
@@ -260,25 +237,16 @@ public class ClientHandler implements Runnable{
 	                return spell;
 	            }
 	        }
-	        return null; 
+	        return null; // Spell not found
 	    }
 	 public void setClientQueen(ClientHandler clientHandler, Queen queen) {
 		    clientQueenMap.put(clientHandler, queen);
 		}
 	
-	 private void toggleTurn() {
-	        ClientHandler opponent = opponentMap.get(this);
-	        if (opponent != null) {
-	            this.isTurn = !this.isTurn;
-	            opponent.isTurn = !opponent.isTurn;
-	            if(opponent.isTurn) {
-	            opponent.out.println("YOUR_TURN");
-	            this.out.println("WAIT_YOUR_TURN");
-	            }else {
-	            	this.out.println("YOUR_TURN");
-	            	opponent.out.println("WAIT_YOUR_TURN");
-	            }
-	        }
+	    private void handleDamageTaken(int damageAmount) {
+	        
+	       
+	        
 	    }
 	    
 	    public static String removeSpaces(String input) {

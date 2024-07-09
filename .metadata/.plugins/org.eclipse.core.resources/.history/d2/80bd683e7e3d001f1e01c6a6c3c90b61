@@ -1,0 +1,91 @@
+package client;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+class BackgroundPanel extends JPanel {
+    private Image backgroundImage;
+
+    public BackgroundPanel(String fileName) {
+        backgroundImage = new ImageIcon(fileName).getImage();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+    }
+}
+
+public class ResultWindow extends JFrame {
+
+    private JLabel resultLabel;
+    private JLabel winsLabel;
+    private JLabel lossesLabel;
+    private JButton playAgainButton;
+    private JButton logOutButton;
+
+    public ResultWindow(boolean isWinner, int wins, int losses) {
+        setTitle("Game Result");
+        setSize(1000, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        BackgroundPanel backgroundPanel = new BackgroundPanel("images/background/bg7.jpg");
+        backgroundPanel.setLayout(new BorderLayout());
+        setContentPane(backgroundPanel);
+
+        JLabel titleLabel = new JLabel("Elemental Queens", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Serif", Font.BOLD, 36));
+        backgroundPanel.add(titleLabel, BorderLayout.NORTH);
+        titleLabel.setForeground(Color.WHITE);
+
+        resultLabel = new JLabel(isWinner ? "You won!" : "You lost!", SwingConstants.CENTER);
+        resultLabel.setFont(new Font("Serif", Font.BOLD, 28)); 
+        backgroundPanel.add(resultLabel, BorderLayout.CENTER);
+        resultLabel.setForeground(Color.WHITE);
+
+        JPanel statsPanel = new JPanel(new GridLayout(2, 1));
+        statsPanel.setOpaque(false);
+        winsLabel = new JLabel("Wins: " + wins, SwingConstants.CENTER);
+        lossesLabel = new JLabel("Losses: " + losses, SwingConstants.CENTER);
+        statsPanel.add(winsLabel);
+        statsPanel.add(lossesLabel);
+        backgroundPanel.add(statsPanel, BorderLayout.SOUTH);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setOpaque(false); 
+        playAgainButton = new JButton("Play Again");
+        logOutButton = new JButton("Log Out");
+        buttonPanel.add(playAgainButton);
+        buttonPanel.add(logOutButton);
+        backgroundPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        playAgainButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+
+        logOutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new ResultWindow(true, 10, 5);
+            }
+        });
+    }
+}

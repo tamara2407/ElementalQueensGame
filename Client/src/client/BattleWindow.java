@@ -13,9 +13,9 @@ public class BattleWindow extends JFrame {
     private String spell1Name;
     private String spell2Name;
     private String spell3Name;
-    private String description1;
-    private String description2;
-    private String description3;
+    private String desc1;
+    private String desc2;
+    private String desc3;
     private JProgressBar playerHealthBar;
     private JProgressBar playerManaBar;
     private JProgressBar opponentHealthBar;
@@ -23,18 +23,18 @@ public class BattleWindow extends JFrame {
     private boolean isTurn;
     JLabel middleText;
 
-    public BattleWindow(Client client, String playerQueenName, String opponentQueenName, String spell1N, String spell2N, String spell3N, String desc1, String desc2, String desc3) {
+    public BattleWindow(Client client, String playerQueenName, String opponentQueenName, String spell1N, String spell2N, String spell3N, String desc1,String desc2,String desc3) {
         this.client = client;
         this.playerQueenName = playerQueenName;
         this.opponentQueenName = opponentQueenName;
         this.spell1Name = spell1N;
         this.spell2Name = spell2N;
         this.spell3Name = spell3N;
-        description1=desc1;
-        description2=desc2;
-        description3=desc3;
+        this.desc1 = desc1;
+        this.desc2 = desc2;
+        this.desc3 = desc3;
         setTitle("Elemental Queens");
-        setSize(1200, 600);
+        setSize(1200, 650);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
@@ -140,7 +140,7 @@ public class BattleWindow extends JFrame {
         buttonPanel.add(spell1, gbc);
 
         gbc.gridy = 2;
-        JTextArea spell1Description = new JTextArea(description1);
+        JTextArea spell1Description = new JTextArea(desc1);
         spell1Description.setForeground(Color.WHITE);
         spell1Description.setLineWrap(true);
         spell1Description.setWrapStyleWord(true);
@@ -173,7 +173,7 @@ public class BattleWindow extends JFrame {
         buttonPanel.add(spell2, gbc);
 
         gbc.gridy = 2;
-        JTextArea spell2Description = new JTextArea(description2);
+        JTextArea spell2Description = new JTextArea(desc2);
         spell2Description.setForeground(Color.WHITE);
         spell2Description.setLineWrap(true);
         spell2Description.setWrapStyleWord(true);
@@ -206,7 +206,7 @@ public class BattleWindow extends JFrame {
         buttonPanel.add(spell3, gbc);
 
         gbc.gridy = 2;
-        JTextArea spell3Description = new JTextArea(description3);
+        JTextArea spell3Description = new JTextArea(desc3);
         spell3Description.setForeground(Color.WHITE);
         spell3Description.setLineWrap(true);
         spell3Description.setWrapStyleWord(true);
@@ -281,7 +281,6 @@ public class BattleWindow extends JFrame {
         window.updatePlayerMana(60);
         window.updateOpponentHealth(14);
         window.updateOpponentMana(70); */
-    	
     }
     
     public void showErrorMessage(String message) {
