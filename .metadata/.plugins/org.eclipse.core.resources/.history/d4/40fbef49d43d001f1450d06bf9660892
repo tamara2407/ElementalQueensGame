@@ -29,6 +29,7 @@ public class ClientHandler implements Runnable {
 	private static Map<ClientHandler, ClientHandler> opponentMap = new HashMap<>();
 
 	private boolean isTurn;
+	private ClientHandler opponent;
 
 	public ClientHandler(Socket socket, List<ClientHandler> clients, List<Player> players, List<Queen> queens) {
 		this.socket = socket;
@@ -71,6 +72,12 @@ public class ClientHandler implements Runnable {
 			}
 		}
 	}
+	
+	private void notifyOpponentOfVictory() {
+        if (opponent != null) {
+            opponent.out.println("RESULT:won");
+        }
+    }
 
 	private void handleClientMessage(ClientHandler clientHandler, String message) {
 

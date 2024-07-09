@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -50,24 +49,15 @@ public class ClientHandler implements Runnable {
 				System.out.println("Received: " + inputLine);
 				handleClientMessage(this, inputLine);
 			}
-		} catch(SocketException e){
-			System.out.println("Socket closed by client");
-			synchronized (waitingPlayers) {
-				waitingPlayers.remove(this);
-			}
-			
-		}
-		catch (IOException e) {
-			System.out.println("AN ERROR OCCURRED!");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			try {
-				if (in != null) in.close();
-                if (out != null) out.close();
-                socket.close();
-                clients.remove(this);
-                System.out.println("Client disconnected!");
+				socket.close();
 			} catch (IOException e) {
-				System.out.println("Error closing resources");
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}

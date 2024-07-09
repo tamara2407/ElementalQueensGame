@@ -49,21 +49,22 @@ public class Server {
 				System.out.println("New client thread created");
 			}
 		} catch (SocketException e) {
-            if (e.getMessage().equals("Socket closed")) {
-                System.out.println("The socket has been closed on the client side!");
-            } else if (e.getMessage().equals("Connection reset")) {
-                System.out.println("The connection with the client side has been lost!");
-            } else {
-                System.out.println("There was an error while working with the socket!");
-                
-            }
-        } catch (IOException e) {
-            System.out.println("There was an error while starting the server!");
-            
-        } catch (Exception e) {
-            System.out.println("AN ERROR OCCURRED!");
-           
-        }
+
+			if(e.getMessage().equals("Socket closed")) {
+				System.out.println("The socket has been closed on the client side!");
+			}
+			else if(e.getMessage().equals("Connection reset")) {
+				System.out.println("The connection with the client side has been lost!");
+			}
+			else {
+				System.out.println("There was an error while working with the socket!");
+			
+		}
+		}catch (IOException e) {
+			System.out.println("There was an error while starting the server!");
+		}catch(Exception e){
+			System.out.println("AN ERROR OCCURRED!");
+		}
 	}
 
 	private static void createCSVFile(String filePath) {

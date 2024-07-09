@@ -54,7 +54,6 @@ public class ClientHandler implements Runnable {
 			System.out.println("Socket closed by client");
 			synchronized (waitingPlayers) {
 				waitingPlayers.remove(this);
-			}
 			
 		}
 		catch (IOException e) {

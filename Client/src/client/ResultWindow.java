@@ -6,91 +6,91 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 class BackgroundPanel extends JPanel {
-    private Image backgroundImage;
+	private Image backgroundImage;
 
-    public BackgroundPanel(String fileName) {
-        backgroundImage = new ImageIcon(fileName).getImage();
-    }
+	public BackgroundPanel(String fileName) {
+		backgroundImage = new ImageIcon(fileName).getImage();
+	}
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-    }
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+	}
 }
 
 public class ResultWindow extends JFrame {
 
-    private JLabel resultLabel;
-    private JLabel winsLabel;
-    private JLabel lossesLabel;
-    private JButton playAgainButton;
-    private JButton logOutButton;
-    private Client client;
+	private JLabel resultLabel;
+	private JLabel winsLabel;
+	private JLabel lossesLabel;
+	private JButton playAgainButton;
+	private JButton logOutButton;
+	private Client client;
 
-    public ResultWindow(Client client,boolean isWinner, int wins, int losses) {
-    	
-    	this.client =client;
-        setTitle("Game Result");
-        setSize(1000, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+	public ResultWindow(Client client, boolean isWinner, int wins, int losses) {
 
-        BackgroundPanel backgroundPanel = new BackgroundPanel("images/background/bg7.jpg");
-        backgroundPanel.setLayout(new BorderLayout());
-        setContentPane(backgroundPanel);
+		this.client = client;
+		setTitle("Game Result");
+		setSize(1000, 600);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 
-        JLabel titleLabel = new JLabel("Elemental Queens", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Serif", Font.BOLD, 36));
-        titleLabel.setForeground(Color.WHITE);
-        backgroundPanel.add(titleLabel, BorderLayout.NORTH);
+		BackgroundPanel backgroundPanel = new BackgroundPanel("images/background/bg7.jpg");
+		backgroundPanel.setLayout(new BorderLayout());
+		setContentPane(backgroundPanel);
 
-        resultLabel = new JLabel(isWinner ? "You won!" : "You lost!", SwingConstants.CENTER);
-        resultLabel.setFont(new Font("Serif", Font.BOLD, 28)); 
-        resultLabel.setForeground(Color.WHITE);
-        backgroundPanel.add(resultLabel, BorderLayout.CENTER);
+		JLabel titleLabel = new JLabel("Elemental Queens", SwingConstants.CENTER);
+		titleLabel.setFont(new Font("Serif", Font.BOLD, 36));
+		titleLabel.setForeground(Color.WHITE);
+		backgroundPanel.add(titleLabel, BorderLayout.NORTH);
 
-        JPanel statsPanel = new JPanel(new GridLayout(2, 1));
-        statsPanel.setOpaque(false);
-        winsLabel = new JLabel("Wins: " + wins, SwingConstants.CENTER);
-        lossesLabel = new JLabel("Losses: " + losses, SwingConstants.CENTER);
-        winsLabel.setForeground(Color.WHITE);
-        lossesLabel.setForeground(Color.WHITE);
-        statsPanel.add(winsLabel);
-        statsPanel.add(lossesLabel);
+		resultLabel = new JLabel(isWinner ? "You won!" : "You lost!", SwingConstants.CENTER);
+		resultLabel.setFont(new Font("Serif", Font.BOLD, 28));
+		resultLabel.setForeground(Color.WHITE);
+		backgroundPanel.add(resultLabel, BorderLayout.CENTER);
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setOpaque(false); 
-        playAgainButton = new JButton("Play Again");
-        logOutButton = new JButton("Log Out");
-        buttonPanel.add(playAgainButton);
-        buttonPanel.add(logOutButton);
+		JPanel statsPanel = new JPanel(new GridLayout(2, 1));
+		statsPanel.setOpaque(false);
+		winsLabel = new JLabel("Wins: " + wins, SwingConstants.CENTER);
+		lossesLabel = new JLabel("Losses: " + losses, SwingConstants.CENTER);
+		winsLabel.setForeground(Color.WHITE);
+		lossesLabel.setForeground(Color.WHITE);
+		statsPanel.add(winsLabel);
+		statsPanel.add(lossesLabel);
 
-        JPanel southPanel = new JPanel();
-        southPanel.setLayout(new BorderLayout());
-        southPanel.setOpaque(false);
-        southPanel.add(statsPanel, BorderLayout.NORTH);
-        southPanel.add(buttonPanel, BorderLayout.SOUTH);
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setOpaque(false);
+		playAgainButton = new JButton("Play Again");
+		logOutButton = new JButton("Log Out");
+		buttonPanel.add(playAgainButton);
+		buttonPanel.add(logOutButton);
 
-        backgroundPanel.add(southPanel, BorderLayout.SOUTH);
+		JPanel southPanel = new JPanel();
+		southPanel.setLayout(new BorderLayout());
+		southPanel.setOpaque(false);
+		southPanel.add(statsPanel, BorderLayout.NORTH);
+		southPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        playAgainButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	setVisible(false);
-            	client.showSelectWindow();
-            }
-        });
+		backgroundPanel.add(southPanel, BorderLayout.SOUTH);
 
-        logOutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	setVisible(false);
-            	client.showLoginWindow();
-            }
-        });
+		playAgainButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				client.showSelectWindow();
+			}
+		});
 
-        setVisible(true);
-    }
+		logOutButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				client.showLoginWindow();
+			}
+		});
+
+		setVisible(true);
+	}
 
 }

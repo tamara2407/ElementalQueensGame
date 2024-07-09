@@ -19,73 +19,73 @@ import javax.swing.SwingConstants;
 
 public class WaitingForTheOpponentWindow extends JFrame {
 
-    private Client client;
+	private Client client;
 
-    public WaitingForTheOpponentWindow(Client client) {
-        this.client = client;
-        setTitle("Elemental Queens");
-        setSize(1200, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setResizable(false);
+	public WaitingForTheOpponentWindow(Client client) {
+		this.client = client;
+		setTitle("Elemental Queens");
+		setSize(1200, 600);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		setResizable(false);
 
-        BackgroundPanel mainPanel = new BackgroundPanel(new ImageIcon("images/background/bg5Original.jpg").getImage());
-        mainPanel.setLayout(new BorderLayout());
-        add(mainPanel);
+		BackgroundPanel mainPanel = new BackgroundPanel(new ImageIcon("images/background/bg5Original.jpg").getImage());
+		mainPanel.setLayout(new BorderLayout());
+		add(mainPanel);
 
-        JLabel titleLabel = new JLabel("Elemental Queens", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Serif", Font.BOLD, 50));
-        titleLabel.setForeground(Color.WHITE);
-        mainPanel.add(titleLabel, BorderLayout.NORTH);
+		JLabel titleLabel = new JLabel("Elemental Queens", SwingConstants.CENTER);
+		titleLabel.setFont(new Font("Serif", Font.BOLD, 50));
+		titleLabel.setForeground(Color.WHITE);
+		mainPanel.add(titleLabel, BorderLayout.NORTH);
 
-        JPanel centerPanel = new JPanel(new GridBagLayout());
-        centerPanel.setOpaque(false);
-        mainPanel.add(centerPanel, BorderLayout.CENTER);
+		JPanel centerPanel = new JPanel(new GridBagLayout());
+		centerPanel.setOpaque(false);
+		mainPanel.add(centerPanel, BorderLayout.CENTER);
 
-        JLabel waitingLabel = new JLabel("Waiting for the opponent...", SwingConstants.CENTER);
-        waitingLabel.setFont(new Font("Serif", Font.PLAIN, 40));
-        waitingLabel.setForeground(Color.WHITE);
+		JLabel waitingLabel = new JLabel("Waiting for the opponent...", SwingConstants.CENTER);
+		waitingLabel.setFont(new Font("Serif", Font.PLAIN, 40));
+		waitingLabel.setForeground(Color.WHITE);
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.CENTER;
-        centerPanel.add(waitingLabel, gbc);
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(10, 10, 10, 10);
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.anchor = GridBagConstraints.CENTER;
+		centerPanel.add(waitingLabel, gbc);
 
-        JButton logoutButton = new JButton("Logout");
-        logoutButton.setFont(new Font("Serif", Font.PLAIN, 20));
-        logoutButton.setForeground(Color.WHITE);
-        logoutButton.setContentAreaFilled(false);
-        logoutButton.setOpaque(false); 
-        logoutButton.setBorderPainted(false);
-        
-        logoutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                client.sendToServer("LOGOUT:" + client.getUsername());
-                dispose(); 
-                client.showLoginWindow();
-            }
-        });
+		JButton logoutButton = new JButton("Logout");
+		logoutButton.setFont(new Font("Serif", Font.PLAIN, 20));
+		logoutButton.setForeground(Color.WHITE);
+		logoutButton.setContentAreaFilled(false);
+		logoutButton.setOpaque(false);
+		logoutButton.setBorderPainted(false);
 
-        JPanel bottomLeftPanel = new JPanel(new BorderLayout());
-        bottomLeftPanel.setOpaque(false);
-        bottomLeftPanel.add(logoutButton, BorderLayout.SOUTH);
-        mainPanel.add(bottomLeftPanel, BorderLayout.WEST);
-    }
+		logoutButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				client.sendToServer("LOGOUT:" + client.getUsername());
+				dispose();
+				client.showLoginWindow();
+			}
+		});
 
-    class BackgroundPanel extends JPanel {
-        private Image backgroundImage;
+		JPanel bottomLeftPanel = new JPanel(new BorderLayout());
+		bottomLeftPanel.setOpaque(false);
+		bottomLeftPanel.add(logoutButton, BorderLayout.SOUTH);
+		mainPanel.add(bottomLeftPanel, BorderLayout.WEST);
+	}
 
-        public BackgroundPanel(Image backgroundImage) {
-            this.backgroundImage = backgroundImage;
-        }
+	class BackgroundPanel extends JPanel {
+		private Image backgroundImage;
 
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-        }
-    }
+		public BackgroundPanel(Image backgroundImage) {
+			this.backgroundImage = backgroundImage;
+		}
+
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+		}
+	}
 }

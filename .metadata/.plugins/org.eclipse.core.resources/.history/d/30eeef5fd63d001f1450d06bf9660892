@@ -43,9 +43,9 @@ public class Client {
 			waitingForTheOpponentWindow = new WaitingForTheOpponentWindow(this);
 
 		} catch (UnknownHostException e) {
-			handleException("Unknown host: "+serverAdress+"!");
+			handleException("Unknown host: "+serverAdress+"!",e);
 		} catch (IOException e) {
-			handleException("Error while connecting to server!");
+			handleException("Error while connecting to server!",e);
 		}
 
 	}
@@ -65,7 +65,7 @@ public class Client {
 					processServerMessage(message);
 				}
 			}catch (IOException e) {
-				handleException("Connection lost!");
+				handleException("Connection lost!",e);
 			}
 
 		}

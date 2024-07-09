@@ -55,14 +55,14 @@ public class Server {
                 System.out.println("The connection with the client side has been lost!");
             } else {
                 System.out.println("There was an error while working with the socket!");
-                
+                e.printStackTrace();
             }
         } catch (IOException e) {
             System.out.println("There was an error while starting the server!");
-            
+            e.printStackTrace();
         } catch (Exception e) {
             System.out.println("AN ERROR OCCURRED!");
-           
+            e.printStackTrace();
         }
 	}
 

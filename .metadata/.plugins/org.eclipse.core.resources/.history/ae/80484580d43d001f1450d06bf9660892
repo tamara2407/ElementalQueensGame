@@ -7,7 +7,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 public class Client {
@@ -43,9 +42,11 @@ public class Client {
 			waitingForTheOpponentWindow = new WaitingForTheOpponentWindow(this);
 
 		} catch (UnknownHostException e) {
-			handleException("Unknown host: "+serverAdress+"!");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (IOException e) {
-			handleException("Error while connecting to server!");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
@@ -64,8 +65,9 @@ public class Client {
 
 					processServerMessage(message);
 				}
-			}catch (IOException e) {
-				handleException("Connection lost!");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
 		}
@@ -176,21 +178,6 @@ public class Client {
 		}
 
 	}
-	
-	private void handleException(String message) {
-        JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
-        cleanupResources();
-    }
-
-    private void cleanupResources() {
-        try {
-            if (in != null) in.close();
-            if (out != null) out.close();
-            if (socket != null) socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 	public void showLoginWindow() {
 		loginWindow.setVisible(true);
@@ -228,4 +215,25 @@ public class Client {
 		}
 		return input.replaceAll("\\s+", "");
 	}
+	
+	
+	
+	
+	public static void main(String[] args) {
+        String serverAddress = "localhost"; 
+        int serverPort = 13245;
+        
+        
+        
+
+        Client client = new Client(serverAddress, serverPort);
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                client.showLoginWindow();
+            }
+        });
+    }
+	
 }
