@@ -71,7 +71,7 @@ public class Server {
 		if (!(csvFile.exists())) {
 			try (FileWriter writer = new FileWriter(csvFile)) {
 
-				writer.append("username,password,email\n");
+				writer.append("username,hashedPassword,email,wins,losses\n");
 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -124,8 +124,15 @@ public class Server {
 	            while ((line = br.readLine()) != null) {
 	                String[] values = line.split(",");
 	                if (values.length == 5) {
-	                    players.add(new Player(values[0], values[1], values[2], Integer.parseInt(values[3]), Integer.parseInt(values[4])));
+	                    Player player = new Player(values[0], values[1], values[2]);
+	                    player.setWins(Integer.parseInt(values[3]));
+	                    player.setLosses(Integer.parseInt(values[4]));
+	                    players.add(player);
 	                }
+	            }
+	            System.out.println("Players loaded from CSV:");
+	            for (Player p : players) {
+	                System.out.println(p.getUsername() + " | "+p.getHashedPassword()+" | "+ p.getEmail() + " | " + p.getWins() + " | " + p.getLosses());
 	            }
 	        } catch (IOException e) {
 	            e.printStackTrace();

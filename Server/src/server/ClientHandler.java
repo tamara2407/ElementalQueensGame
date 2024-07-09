@@ -95,7 +95,7 @@ public class ClientHandler implements Runnable {
 			if (isTurn) {
 				String spellName = tokens[3];
 				handleSpellCast(this, spellName);
-				toggleTurn();
+				//toggleTurn();
 			} else {
 				out.println("NOT_YOUR_TURN");
 			}
@@ -165,6 +165,11 @@ public class ClientHandler implements Runnable {
 				if (queen.getId() == queenId) {
 					player.setSelectedQueen(queen);
 					 resetQueenStats(player.getSelectedQueen());
+					 
+					 List<Spell> spells= player.getSelectedQueen().getSpells();
+					 for(Spell s : spells) {
+						 s.resertUsageCount();
+					 }
 					
 					out.println("SELECT_QUEEN_SUCCESS:success");
 					matchPlayers();
@@ -249,12 +254,23 @@ public class ClientHandler implements Runnable {
 					
 					Queen opponentQueen=opponentHandler.player.getSelectedQueen();
 					if (spellEffect > 0) {
+						if (spellToCast.getUsageCount() < 2) {
+	                        spellToCast.incrementUsageCount();
+						
 						castingQueen.setHealth(castingQueen.getHealth() + spellEffect);
+						
+						if(castingQueen.getHealth()>100) {
+							castingQueen.setHealth(100);					
+						}
 						out.println("SPELL_CAST_SUCCESS_H:" + spellName + ":" + castingQueen.getMana() + ":"
 								+ castingQueen.getHealth());
 						opponentHandler.out.println("SPELL_CAST_SUCCESS_HO:" + spellName + ":" + castingQueen.getMana()
 								+ ":" + castingQueen.getHealth());
+						toggleTurn();
 						return;
+					}else {
+						out.println("LIMIT_REACHED: limit" );
+					}
 					}
 
 					if (opponentQueen != null && spellEffect < 0) {
@@ -271,6 +287,7 @@ public class ClientHandler implements Runnable {
 								+ ":" + castingQueen.getMana());
 						out.println("SPELL_CAST_SUCCESS:" + spellName + ":" + castingQueen.getMana() + ":"
 								+ opponentQueen.getHealth());
+						toggleTurn();
 					}
 
 				} else {
@@ -326,7 +343,7 @@ public class ClientHandler implements Runnable {
 	    File csvFile = new File(CSV_FILE_PATH);
 	    
 	    try (PrintWriter writer = new PrintWriter(new FileWriter(csvFile))) {
-	        writer.println("username,password,email,wins,losses");
+	        writer.println("username,hashedPassword,email,wins,losses");
 
 	        for (Player player : playerList) {
 	            writer.println(player.getUsername() + "," +

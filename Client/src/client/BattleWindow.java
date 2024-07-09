@@ -282,18 +282,10 @@ public class BattleWindow extends JFrame {
     public void updateOpponentMana(int value) {
         opponentManaBar.setValue(value);
     }
-
-    public static void main(String[] args) {
-        /* Client client = new Client("localhost", 13245);
-        BattleWindow window = new BattleWindow(client, "playerQueen", "opponentQueen", "spell1", "spell2", "spell3");
-        window.setVisible(true);
-
-        // Za testiranje azuriranja health i mana barova
-        window.updatePlayerHealth(100);
-        window.updatePlayerMana(60);
-        window.updateOpponentHealth(14);
-        window.updateOpponentMana(70); */
-    }
+    
+    public void showErrorMessageHealReachedLimit() {
+	    JOptionPane.showMessageDialog(this, "Maximum number of healing has been reached !");
+	}
     
     public void showErrorMessage(String message) {
         JOptionPane.showMessageDialog(this, message);

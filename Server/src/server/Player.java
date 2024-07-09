@@ -14,11 +14,6 @@ public class Player {
     private int losses;
     private Queen selectedQueen;
    
-
-    
-    
-   
-
     public Player(String username, String password, String email) {
         this.username = username;
         this.hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
@@ -27,16 +22,14 @@ public class Player {
         this.losses = 0;
     }
     
-    public Player(String username, String hashedPassword, String email, int wins, int losses) {
-        this.username = username;
-        this.hashedPassword = hashedPassword;
-        this.email = email;
-        this.wins = wins;
-        this.losses = losses;
-    }
+//    public Player(String username, String hashedPassword, String email, int wins, int losses) {
+//        this.username = username;
+//        this.hashedPassword = hashedPassword;
+//        this.email = email;
+//        this.wins = wins;
+//        this.losses = losses;
+//    }
     
-  
-
     public int getId() {
         return id;
     }

@@ -162,6 +162,9 @@ public class Client {
 		case "WAIT_YOUR_TURN":
 			battleWindow.setTurn(false);
 			break;
+		case "LIMIT_REACHED":
+			battleWindow.showErrorMessageHealReachedLimit();
+			break;
 		case "RESULT":
 			String result = parts[1];
 			int wins=Integer.parseInt(parts[2]);

@@ -8,14 +8,27 @@ public class Spell {
     private int effect;
     private String description;
     private int manaCost;
+    private int usageCount;
 
     public Spell(String name, int effect, String description, int manaCost) {
         this.name = name;
         this.effect = effect;
         this.description=description;
         this.manaCost=manaCost;
+        this.usageCount = 0;
+    }
+    
+    public int getUsageCount() {
+        return usageCount;
     }
 
+    public void incrementUsageCount() {
+        this.usageCount++;
+    }
+    
+    public void resertUsageCount(){
+    	usageCount=0;
+    }
     
     public String getName() {
         return name;
