@@ -224,7 +224,6 @@ public class ClientHandler implements Runnable {
 
 	private void handleSpellCast(ClientHandler clientHandler, String spellName) {
 		Queen castingQueen = clientQueenMap.get(clientHandler);
-		
 
 		if (castingQueen != null) {
 			Spell spellToCast = findSpellInQueen(spellName, castingQueen);
@@ -250,8 +249,8 @@ public class ClientHandler implements Runnable {
 
 						opponentQueen.reduceHealth(spellEffect);
 						if (opponentQueen.getHealth() <= 0) {
-							out.println("RESULT:" + "won"+":"+String.valueOf(clientHandler.player.getWins()+1)+":"+String.valueOf(clientHandler.player.getLosses()));
-							opponentHandler.out.println("RESULT:" + "lost"+":"+String.valueOf(opponentHandler.player.getWins())+":"+String.valueOf(opponentHandler.player.getLosses()+1));
+							out.println("RESULT:" + "won");
+							opponentHandler.out.println("RESULT:" + "lost");
 							updatePlayerStats(clientHandler, true);
                             updatePlayerStats(opponentHandler, false);
 						}

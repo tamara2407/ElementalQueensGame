@@ -224,7 +224,6 @@ public class ClientHandler implements Runnable {
 
 	private void handleSpellCast(ClientHandler clientHandler, String spellName) {
 		Queen castingQueen = clientQueenMap.get(clientHandler);
-		
 
 		if (castingQueen != null) {
 			Spell spellToCast = findSpellInQueen(spellName, castingQueen);

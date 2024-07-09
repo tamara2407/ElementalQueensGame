@@ -163,19 +163,17 @@ public class Client {
 			break;
 		case "RESULT":
 			String result = parts[1];
-			int wins=Integer.parseInt(parts[2]);
-			int losses = Integer.parseInt(parts[3]);
 			boolean isWinner;
 			if (result.equals("won")) {
 				isWinner = true;
-				resultWindow = new ResultWindow(this, isWinner, wins, losses);
+				resultWindow = new ResultWindow(this, isWinner, 6, 6);
 				battleWindow.setVisible(false);
-				showResultWindow(resultWindow, isWinner, wins, losses);
+				showResultWindow(resultWindow, isWinner, 6, 6);
 			} else {
 				isWinner = false;
-				resultWindow = new ResultWindow(this, isWinner, wins, losses);
+				resultWindow = new ResultWindow(this, isWinner, 5, 5);
 				battleWindow.setVisible(false);
-				showResultWindow(resultWindow, isWinner, wins, losses);
+				showResultWindow(resultWindow, isWinner, 5, 5);
 			}
 			break;
 		}
