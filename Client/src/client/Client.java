@@ -109,9 +109,11 @@ public class Client {
 			String desc1 = parts[6];
 			String desc2 = parts[7];
 			String desc3 = parts[8];
+			String username1 = parts[9];
+			String username2 = parts[10];
 			waitingForTheOpponentWindow.setVisible(false);
 			battleWindow = new BattleWindow(this, playerQueenName, opponentQueenName, spell1, spell2, spell3, desc1,
-					desc2, desc3);
+					desc2, desc3, username1, username2);
 			showBattleWindow(battleWindow, playerQueenName, opponentQueenName, spell1, spell2, spell3, desc1, desc2,
 					desc3);
 			break;
@@ -155,7 +157,6 @@ public class Client {
 			break;
 
 		case "YOUR_TURN":
-
 			battleWindow.setTurn(true);
 			break;
 		case "WAIT_YOUR_TURN":

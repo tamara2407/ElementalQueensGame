@@ -94,7 +94,11 @@ public class RegisterWindow extends JFrame {
                 String email = emailField.getText();
                 if(username.isEmpty() || password.isEmpty() || email.isEmpty()) {
                 	showErrorMessageEmptyFields();
-                }else {
+                }else if(password.length()<=5){
+					showErrorMessagePasswordLength();
+				}else if(!email.contains("@")){
+					showErrorMessageEmail();
+				}else {
                 client.sendToServer("REGISTER:" + username + ":" + password + ":" + email);
                 setVisible(false);
                 client.showLoginWindow();
@@ -133,5 +137,11 @@ public class RegisterWindow extends JFrame {
     }
     private void showErrorMessageEmptyFields() {
 	    JOptionPane.showMessageDialog(this, "All fields must be filled in!");
+	}
+    public void showErrorMessagePasswordLength() {
+		JOptionPane.showMessageDialog(this, "The password must have at least 5 characters!");
+	}
+    public void showErrorMessageEmail() {
+		JOptionPane.showMessageDialog(this, "The email must contain the @ character!");
 	}
 }

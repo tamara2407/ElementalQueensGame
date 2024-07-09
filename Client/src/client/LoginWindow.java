@@ -82,7 +82,8 @@ public class LoginWindow extends JFrame {
 				String password = new String(passwordField.getPassword());
 				if (username.isEmpty() || password.isEmpty()) {
                     showErrorMessageEmptyFields();
-                } else {
+                }
+				else {
                     client.sendToServer("LOGIN:" + username + ":" + password);
                 }
 			}

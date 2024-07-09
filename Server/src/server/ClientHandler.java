@@ -203,6 +203,9 @@ public class ClientHandler implements Runnable {
 				String player1DescSpell1 = player1Spells.get(0).getDescription();
 				String player1DescSpell2 = player1Spells.get(1).getDescription();
 				String player1DescSpell3 = player1Spells.get(2).getDescription();
+				
+				String player1Username = player1.player.getUsername();
+				
 
 				String player2QueenName = player2.player.getSelectedQueen().getName();
 				List<Spell> player2Spells = player2.player.getSelectedQueen().getSpells();
@@ -211,17 +214,18 @@ public class ClientHandler implements Runnable {
 				String player2Spell3 = player2Spells.get(2).getName();
 
 				String player2DescSpell1 = player2Spells.get(0).getDescription();
-
 				String player2DescSpell2 = player2Spells.get(1).getDescription();
-
 				String player2DescSpell3 = player2Spells.get(2).getDescription();
+				
+				String player2Username = player2.player.getUsername();
 
 				player1.out.println("MATCH_FOUND:" + player1QueenName + ":" + player2QueenName + ":" + player1Spell1
 						+ ":" + player1Spell2 + ":" + player1Spell3 + ":" + player1DescSpell1 + ":" + player1DescSpell2
-						+ ":" + player1DescSpell3);
+						+ ":" + player1DescSpell3+ ":" + player1Username + ":" + player2Username);
+				
 				player2.out.println("MATCH_FOUND:" + player2QueenName + ":" + player1QueenName + ":" + player2Spell1
 						+ ":" + player2Spell2 + ":" + player2Spell3 + ":" + player2DescSpell1 + ":" + player2DescSpell2
-						+ ":" + player2DescSpell3);
+						+ ":" + player2DescSpell3+ ":" + player2Username + ":" + player1Username);
 
 				player1.out.println("YOUR_TURN");
 				player2.out.println("WAIT_YOUR_TURN");
