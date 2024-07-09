@@ -46,6 +46,14 @@ public class Player {
     public int getLosses() {
         return losses;
     }
+    
+    public void setWins(int wins) {
+        this.wins=wins;
+    }
+    
+    public void setLosses(int losses) {
+        this.losses=losses;
+    }
 
 
     public void incrementWins() {

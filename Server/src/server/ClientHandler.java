@@ -1,6 +1,8 @@
 package server;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -147,8 +149,11 @@ public class ClientHandler implements Runnable {
 
 	private void writePlayerToCSV(Player player) {
 		try (FileWriter writer = new FileWriter(CSV_FILE_PATH, true)) {
-			writer.append(player.getUsername()).append(",").append(player.getPassword()).append(",")
-					.append(player.getEmail()).append("\n");
+			  writer.append(player.getUsername()).append(",")
+              .append(player.getPassword()).append(",")
+              .append(player.getEmail()).append(",")
+              .append(String.valueOf(player.getWins())).append(",")
+              .append(String.valueOf(player.getLosses())).append("\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -246,6 +251,8 @@ public class ClientHandler implements Runnable {
 						if (opponentQueen.getHealth() <= 0) {
 							out.println("RESULT:" + "won");
 							opponentHandler.out.println("RESULT:" + "lost");
+							updatePlayerStats(clientHandler, true);
+                            updatePlayerStats(opponentHandler, false);
 						}
 
 						opponentHandler.out.println("SPELL_CAST_TAKEN:" + spellName + ":" + opponentQueen.getHealth()
@@ -259,6 +266,66 @@ public class ClientHandler implements Runnable {
 				}
 			}
 		}
+	}
+	
+	private void updatePlayerStats(ClientHandler clientHandler, boolean won) {
+        Player player = clientHandler.player;
+        if (won) {
+            player.incrementWins();
+        } else {
+            player.incrementLosses();
+        }
+        List<Player> playerList = readPlayersFromCSV();
+        updatePlayerStatsInList(playerList, player);
+        writePlayersToCSV(playerList);
+    }
+ 
+ private List<Player> readPlayersFromCSV() {
+        List<Player> playerList = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(CSV_FILE_PATH))) {
+            String line;
+            reader.readLine(); 
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length >= 5) {
+                    Player p = new Player(parts[0], parts[1], parts[2]);
+                    p.setWins(Integer.parseInt(parts[3]));
+                    p.setLosses(Integer.parseInt(parts[4]));
+                    playerList.add(p);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return playerList;
+    }
+
+ private void updatePlayerStatsInList(List<Player> playerList, Player updatedPlayer) {
+        for (Player player : playerList) {
+            if (player.getUsername().equals(updatedPlayer.getUsername())) {
+                player.setWins(updatedPlayer.getWins());
+                player.setLosses(updatedPlayer.getLosses());
+                break;
+            }
+        }
+    }
+ 
+ private void writePlayersToCSV(List<Player> playerList) {
+	    File csvFile = new File(CSV_FILE_PATH);
+	    
+	    try (PrintWriter writer = new PrintWriter(new FileWriter(csvFile))) {
+	        writer.println("username,password,email,wins,losses");
+
+	        for (Player player : playerList) {
+	            writer.println(player.getUsername() + "," +
+	                           player.getPassword() + "," +
+	                           player.getEmail() + "," +
+	                           player.getWins() + "," +
+	                           player.getLosses());
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	private void handleLogout() {

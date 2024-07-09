@@ -233,7 +233,7 @@ public class BattleWindow extends JFrame {
         this.isTurn = isTurn;
         
         if (isTurn) {
-            middleText.setText("My Turn");
+            middleText.setText("Your turn");
         } else {
             middleText.setText("Opponent's Turn");
         }

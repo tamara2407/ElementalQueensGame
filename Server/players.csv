@@ -1,4 +1,4 @@
-username,password,email
-mica,mica,mica
-tamara,tamara,tamara
-mica2,mica2,mica2
+username,password,email,wins,losses
+tasa,tasa,tasa,1,1
+mica,mica,mica,0,2
+maja,maja,maja,2,0
