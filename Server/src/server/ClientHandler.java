@@ -91,6 +91,8 @@ public class ClientHandler implements Runnable {
 		case "QUEEN_SELECTION":
 			handleSelectQueen(tokens[1]);
 			break;
+		case "BACK_TO_SELECT":
+			handleBackToSelect();
 		case "SPELL_CAST":
 			if (isTurn) {
 				String spellName = tokens[3];
@@ -138,7 +140,9 @@ public class ClientHandler implements Runnable {
 	                    player = p;
 	                    this.username = username;
 	                    loggedInUsers.add(username);
-	                    out.println("LOGIN_SUCCESS:"+username);
+	                    double winRate = ((double) p.getWins() / (p.getWins() + p.getLosses())*100);
+	                    
+	                    out.println("LOGIN_SUCCESS:" + username + ":" + winRate);
 	                    return;
 	                } else {
 	                    out.println("LOGIN_FAILURE_PASSWORD:failure");
@@ -365,6 +369,12 @@ public class ClientHandler implements Runnable {
 			waitingPlayers.remove(this);
 		}
 		System.out.println(username + " has logged out.");
+	}
+	
+	private void handleBackToSelect() {
+		synchronized (waitingPlayers) {
+			waitingPlayers.remove(this);
+		}
 	}
 	
 	private void handleExit(String username) {

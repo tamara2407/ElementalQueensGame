@@ -83,5 +83,9 @@ public class Player {
     public boolean checkPassword(String password) {
         return BCrypt.checkpw(password, hashedPassword);
     }
+    
+    public double getWinRate() {
+    	return wins/(wins+losses);
+    }
 }
 

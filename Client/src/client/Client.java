@@ -22,6 +22,7 @@ public class Client {
 	private WaitingForTheOpponentWindow waitingForTheOpponentWindow;
 	private ResultWindow resultWindow;
 	private String username;
+	private double winRate;
 
 
 	public Client(String serverAdress, int serverPort) {
@@ -35,7 +36,7 @@ public class Client {
 
 			loginWindow = new LoginWindow(this);
 			registerWindow = new RegisterWindow(this);
-			selectWindow = new SelectWindow(this);
+			//selectWindow = new SelectWindow(this);
 			// battleWindow = new BattleWindow(this);
 			waitingForTheOpponentWindow = new WaitingForTheOpponentWindow(this);
 
@@ -75,8 +76,8 @@ public class Client {
 		switch (command) {
 		case "LOGIN_SUCCESS":
 			username = parts[1];
-			loginWindow.setVisible(false);
-			showSelectWindow();
+			winRate = Double.parseDouble(parts[2]);
+			showSelectWindow(winRate);
 			break;
 		case "LOGIN_FAILURE":
 			loginWindow.showErrorMessage();
@@ -209,7 +210,8 @@ public class Client {
 		registerWindow.setVisible(true);
 	}
 
-	public void showSelectWindow() {
+	public void showSelectWindow(double winRate) {
+		selectWindow = new SelectWindow(this, winRate);
 		selectWindow.setVisible(true);
 	}
 
@@ -233,6 +235,10 @@ public class Client {
 	
 	public void sendToServer(String message) {
 		out.println(message);
+	}
+	
+	public double getWinRate() {
+		return winRate;
 	}
 
 	public static String removeSpaces(String input) {
