@@ -26,12 +26,12 @@ public class ResultWindow extends JFrame {
     private JLabel resultLabel;
     private JLabel winsLabel;
     private JLabel lossesLabel;
-    private JLabel usernameLabel;
+    private JLabel usernameLabel;  // Dodao sam labelu za username
     private JButton playAgainButton;
     private JButton logOutButton;
     private Client client;
 
-    public ResultWindow(Client client, boolean isWinner, int wins, int losses, String username) {
+    public ResultWindow(Client client, boolean isWinner, int wins, int losses) {
 
         this.client = client;
         setTitle("Game Result");
@@ -62,15 +62,15 @@ public class ResultWindow extends JFrame {
         resultLabel.setForeground(Color.WHITE);
         backgroundPanel.add(resultLabel, BorderLayout.CENTER);
 
-        JPanel statsPanel = new JPanel(new GridLayout(3, 1));
+        JPanel statsPanel = new JPanel(new GridLayout(3, 1));  // Promenio sam broj redova na 3
         statsPanel.setOpaque(false);
-        usernameLabel = new JLabel("Username: "+username, SwingConstants.CENTER);
+        usernameLabel = new JLabel("Username: Tamara", SwingConstants.CENTER);  // Dodao sam labelu za username
         winsLabel = new JLabel("Wins: " + wins, SwingConstants.CENTER);
         lossesLabel = new JLabel("Losses: " + losses, SwingConstants.CENTER);
         usernameLabel.setForeground(Color.WHITE);
         winsLabel.setForeground(Color.WHITE);
         lossesLabel.setForeground(Color.WHITE);
-        statsPanel.add(usernameLabel);
+        statsPanel.add(usernameLabel);  // Dodao sam labelu za username u statsPanel
         statsPanel.add(winsLabel);
         statsPanel.add(lossesLabel);
 

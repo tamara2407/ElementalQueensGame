@@ -175,12 +175,12 @@ public class Client {
 			boolean isWinner;
 			if (result.equals("won")) {
 				isWinner = true;
-				resultWindow = new ResultWindow(this, isWinner, wins, losses,username);
+				resultWindow = new ResultWindow(this, isWinner, wins, losses);
 				battleWindow.setVisible(false);
 				showResultWindow(resultWindow, isWinner, wins, losses);
 			} else {
 				isWinner = false;
-				resultWindow = new ResultWindow(this, isWinner, wins, losses,username);
+				resultWindow = new ResultWindow(this, isWinner, wins, losses);
 				battleWindow.setVisible(false);
 				showResultWindow(resultWindow, isWinner, wins, losses);
 			}
@@ -190,7 +190,7 @@ public class Client {
 			System.out.println("zdravoo iz pobednika");
 			wins=Integer.parseInt(parts[1]);
 			losses=Integer.parseInt(parts[2]);
-			resultWindow = new ResultWindow(this, true ,wins, losses,username);
+			resultWindow = new ResultWindow(this, true ,wins, losses);
 			battleWindow.setVisible(false);
 			showResultWindow(resultWindow, true, wins, losses);
 			  

@@ -483,4 +483,6 @@ public class ClientHandler implements Runnable {
 		return input.replaceAll("\\s+", "");
 	}
 	
+	public v
+
 }
