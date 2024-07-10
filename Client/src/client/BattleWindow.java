@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class BattleWindow extends JFrame {
 
@@ -41,6 +45,15 @@ public class BattleWindow extends JFrame {
         setSize(1200, 650);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                client.sendToServer("EXIT:"+client.getUsername());
+                System.exit(0);
+            }
+        });
+        
         
 
         JPanel mainPanel = new BackgroundPanel("images/background/bg7.jpg");

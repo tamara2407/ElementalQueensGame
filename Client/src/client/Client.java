@@ -23,9 +23,6 @@ public class Client {
 	private ResultWindow resultWindow;
 	private String username;
 
-	public void sendToServer(String message) {
-		out.println(message);
-	}
 
 	public Client(String serverAdress, int serverPort) {
 
@@ -77,6 +74,7 @@ public class Client {
 
 		switch (command) {
 		case "LOGIN_SUCCESS":
+			username = parts[1];
 			loginWindow.setVisible(false);
 			showSelectWindow();
 			break;
@@ -231,6 +229,10 @@ public class Client {
 
 	public void showWaitingForOpponentWindow() {
 		waitingForTheOpponentWindow.setVisible(true);
+	}
+	
+	public void sendToServer(String message) {
+		out.println(message);
 	}
 
 	public static String removeSpaces(String input) {

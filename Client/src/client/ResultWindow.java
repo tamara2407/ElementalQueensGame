@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 class BackgroundPanel extends JPanel {
 	private Image backgroundImage;
@@ -35,6 +37,14 @@ public class ResultWindow extends JFrame {
 		setSize(1000, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
+		
+		addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                client.sendToServer("EXIT:"+client.getUsername());
+                System.exit(0);
+            }
+        });
 
 		BackgroundPanel backgroundPanel = new BackgroundPanel("images/background/bg7.jpg");
 		backgroundPanel.setLayout(new BorderLayout());
@@ -79,12 +89,14 @@ public class ResultWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				client.showSelectWindow();
+				
 			}
 		});
 
 		logOutButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				client.sendToServer("EXIT:"+client.getUsername());
 				setVisible(false);
 				client.showLoginWindow();
 			}

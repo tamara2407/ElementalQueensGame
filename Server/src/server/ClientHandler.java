@@ -103,6 +103,10 @@ public class ClientHandler implements Runnable {
 		case "LOGOUT":
 			handleLogout();
 			break;
+		case "EXIT":
+			String username = tokens[1];
+			handleExit(tokens[1]);
+			break;
 		}
 	}
 
@@ -123,7 +127,7 @@ public class ClientHandler implements Runnable {
 
 	private void handleLogin(String username, String password) {
 	    synchronized (players) {
-	        if (loggedInUsers.contains(username)) {
+	        if (loggedInUsers!=null && loggedInUsers.contains(username)) {
 	            out.println("LOGIN_FAILURE_ALREADY_LOGGEDIN:already_logged_in");
 	            return;
 	        }
@@ -134,7 +138,7 @@ public class ClientHandler implements Runnable {
 	                    player = p;
 	                    this.username = username;
 	                    loggedInUsers.add(username);
-	                    out.println("LOGIN_SUCCESS:success");
+	                    out.println("LOGIN_SUCCESS:"+username);
 	                    return;
 	                } else {
 	                    out.println("LOGIN_FAILURE_PASSWORD:failure");
@@ -262,6 +266,7 @@ public class ClientHandler implements Runnable {
 						if(castingQueen.getHealth()>100) {
 							castingQueen.setHealth(100);					
 						}
+						
 						out.println("SPELL_CAST_SUCCESS_H:" + spellName + ":" + castingQueen.getMana() + ":"
 								+ castingQueen.getHealth());
 						opponentHandler.out.println("SPELL_CAST_SUCCESS_HO:" + spellName + ":" + castingQueen.getMana()
@@ -280,7 +285,7 @@ public class ClientHandler implements Runnable {
 							out.println("RESULT:" + "won"+":"+String.valueOf(clientHandler.player.getWins()+1)+":"+String.valueOf(clientHandler.player.getLosses()));
 							opponentHandler.out.println("RESULT:" + "lost"+":"+String.valueOf(opponentHandler.player.getWins())+":"+String.valueOf(opponentHandler.player.getLosses()+1));
 							updatePlayerStats(clientHandler, true);
-                            updatePlayerStats(opponentHandler, false);
+                            updatePlayerStats(opponentHandler, false);                       
 						}
 
 						opponentHandler.out.println("SPELL_CAST_TAKEN:" + spellName + ":" + opponentQueen.getHealth()
@@ -317,9 +322,7 @@ public class ClientHandler implements Runnable {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length >= 5) {
-                    Player p = new Player(parts[0], parts[1], parts[2]);
-                    p.setWins(Integer.parseInt(parts[3]));
-                    p.setLosses(Integer.parseInt(parts[4]));
+                    Player p = new Player(parts[0], parts[1], parts[2],Integer.parseInt(parts[3]),Integer.parseInt(parts[4]));
                     playerList.add(p);
                 }
             }
@@ -362,6 +365,10 @@ public class ClientHandler implements Runnable {
 			waitingPlayers.remove(this);
 		}
 		System.out.println(username + " has logged out.");
+	}
+	
+	private void handleExit(String username) {
+		loggedInUsers.remove(username);
 	}
 
 	private Spell findSpellInQueen(String spellName, Queen queen) {

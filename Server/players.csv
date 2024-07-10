@@ -1,11 +1,3 @@
-username,password,email,wins,losses
-mica,$2a$10$vL8.76/wZkjEKZEfHkpB5uM8cG28kvXiYiZ0wJqtt3qoePtO6Cjpq,mica@gmail,1,0
-tamara,$2a$10$9W8hUSJgFFLKSSFoPnAvgOqlRYvX9q1IUMjBGMnjVhvYVF0y44yC2,tamara@gmail,0,1
-matija,$2a$10$8CEwGNN55ttgteEwT94goeiF.sI0bCxyvfgg0UKzp0d3aY6lIm2Dq,matija@gmail.com,0,1
-tamarica,$2a$10$DocHqSnhNV/4WJCRrUxd4uL4y5OTK/mrpDmTC.n9KX/yz/fNMRcW2,tamarica@gmail.com,1,0
-lalala,$2a$10$sRfkIwTPGzRYvPsHY7uFyukPdJCGLvn7d7SQvNduqpDW28hgXII3O,lalala@gmail.com,1,0
-aaaaaa,$2a$10$fbCyNE3yDjEpF/xAVaXsKORNpNZf9r7laW2UuvgfATjZjRUC2Et6e,aaaaaa@gmail.com,0,1
-mamama,$2a$10$aR1Ll/s8ZzB71.EOaE7DGeRmltbnOWszalTie.SZy5.H37N7TwDFW,mamama@gmail.com,1,0
-iiiiii,$2a$10$alABoAihoAoV4lZNOY8lwe7hjE6mXy/gnwygxAGEnBJ47.qapSWuq,iiiiii@gmail.com,0,1
-123456,$2a$10$kOc1MLjGziOy0xtQwWUnWu5CzSYuVb0jPG.90RTe3yv.DwoJSEYYK,123456@,0,1
-654321,$2a$10$bEpz4wA0E2vN4xDGHFHqR.HXw31ndDVMo/IU.9Pgs8R/hRC3DMMUW,654321@,,
+username,hashedPassword,email,wins,losses
+milica,$2a$10$e9nybH4MOWRdyADlSNEoQu54Cmr3HsgQvUvYpzacnhE6eFtPe4KZ6,milica@,3,7
+tamara,$2a$10$e/oIO/BsECuq8W7JRMI8KObvF2R0hEQiyYSSFVys6BfYfg5qnw4oO,tamara@,7,3

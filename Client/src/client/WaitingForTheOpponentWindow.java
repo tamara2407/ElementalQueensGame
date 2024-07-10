@@ -10,6 +10,9 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,6 +31,14 @@ public class WaitingForTheOpponentWindow extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
+		
+		addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                client.sendToServer("EXIT:"+client.getUsername());
+                System.exit(0);
+            }
+        });
 
 		BackgroundPanel mainPanel = new BackgroundPanel(new ImageIcon("images/background/bg5Original.jpg").getImage());
 		mainPanel.setLayout(new BorderLayout());
