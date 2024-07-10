@@ -18,14 +18,6 @@ public class Spell {
         this.usageCount = 0;
     }
     
-    public Spell(Spell other) {
-        this.name = other.name;
-        this.description = other.description;
-        this.manaCost = other.manaCost;
-        this.effect = other.effect;
-        this.usageCount = other.usageCount;
-    }
-    
     public int getUsageCount() {
         return usageCount;
     }

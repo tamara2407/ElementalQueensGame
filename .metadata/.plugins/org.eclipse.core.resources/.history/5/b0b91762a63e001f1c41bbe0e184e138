@@ -401,9 +401,9 @@ public class ClientHandler implements Runnable {
 	}
 
 	private void handleLogout(String username) {
-		synchronized (waitingPlayers) {
+		/*synchronized (waitingPlayers) {
 			waitingPlayers.remove(this);
-		}
+		}*/
 		System.out.println(username + " has logged out.");
 		handleExit(username);
 		

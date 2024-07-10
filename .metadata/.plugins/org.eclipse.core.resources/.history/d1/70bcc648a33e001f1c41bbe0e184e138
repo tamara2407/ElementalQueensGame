@@ -23,17 +23,6 @@ public class Queen {
 	        this.spells = spells;
 	    }
 	    
-	    public Queen(Queen other) {
-	        this.id = other.id;
-	        this.name = other.name;
-	        this.mana = other.mana;
-	        this.health = other.health;
-	        this.spells = new ArrayList<>();
-	        for (Spell spell : other.spells) {
-	            this.spells.add(new Spell(spell)); // Assuming Spell has a copy constructor
-	        }
-	    }
-	    
 	    public void resetHealth() {
 	    	this.health=100;
 	    }

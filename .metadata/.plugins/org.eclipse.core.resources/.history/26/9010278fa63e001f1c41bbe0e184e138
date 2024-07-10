@@ -160,7 +160,7 @@ public class SelectWindow extends JFrame {
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                client.sendToServer("EXIT:" + client.getUsername());
+                client.sendToServer("LOGOUT:" + client.getUsername());
                 dispose();
                 client.showLoginWindow();
             }

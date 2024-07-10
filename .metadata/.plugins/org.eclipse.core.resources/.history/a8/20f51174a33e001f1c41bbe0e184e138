@@ -103,8 +103,7 @@ public class ClientHandler implements Runnable {
 			}
 			break;
 		case "LOGOUT":
-			String username2=tokens[1];
-			handleLogout(username2);
+			handleLogout();
 			break;
 		case "EXIT":
 			String username = tokens[1];
@@ -207,7 +206,7 @@ public class ClientHandler implements Runnable {
 		synchronized (players) {
 			for (Queen queen : queens) {
 				if (queen.getId() == queenId) {
-					 player.setSelectedQueen(new Queen(queen)); 
+					player.setSelectedQueen(queen);
 					 resetQueenStats(player.getSelectedQueen());
 					 
 					 List<Spell> spells= player.getSelectedQueen().getSpells();
@@ -400,13 +399,11 @@ public class ClientHandler implements Runnable {
 	    }
 	}
 
-	private void handleLogout(String username) {
+	private void handleLogout() {
 		synchronized (waitingPlayers) {
 			waitingPlayers.remove(this);
 		}
 		System.out.println(username + " has logged out.");
-		handleExit(username);
-		
 	}
 	
 	private void handleBackToSelect() {
