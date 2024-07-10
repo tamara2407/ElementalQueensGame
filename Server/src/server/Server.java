@@ -121,43 +121,42 @@ public class Server {
 	}
 
 	private static List<Spell> createBlazeSpells() {
-		List<Spell> spells = new ArrayList<>();
-		spells.add(new Spell("Inferno Burst", -20, "20 damage,10 mana", 10));
-		spells.add(new Spell("Ember Storm", -15, "15 damage,5 mana", 5));
-		spells.add(new Spell("Flame Eruption", -30, "30 damage,15 mana", 15));
-		return spells;
+	    List<Spell> spells = new ArrayList<>();
+	    spells.add(new Spell("Inferno Burst", -20, "20 damage, 10 mana", 10));
+	    spells.add(new Spell("Ember Storm", -15, "15 damage, 5 mana", 5));
+	    spells.add(new Spell("Flame Eruption", -30, "30 damage, 25 mana", 25));
+	    return spells;
 	}
 
 	private static List<Spell> createAquaSpells() {
-		List<Spell> spells = new ArrayList<>();
-		spells.add(new Spell("Tsunami Wave", -20, "20 damage,10 mana", 10));
-		spells.add(new Spell("Aqua Surge", -30, "30 damage,15 mana", 15));
-		spells.add(new Spell("Healing Waters", 50, "50 heal,10 mana", 10));
-		return spells;
+	    List<Spell> spells = new ArrayList<>();
+	    spells.add(new Spell("Tsunami Wave", -20, "20 damage, 10 mana", 10));
+	    spells.add(new Spell("Aqua Surge", -30, "30 damage, 25 mana", 25));
+	    spells.add(new Spell("Healing Waters", 35, "35 heal, 20 mana", 20));
+	    return spells;
 	}
 
 	private static List<Spell> createFrostSpells() {
-		List<Spell> spells = new ArrayList<>();
-		spells.add(new Spell("Blizzard Blast", -10, "10 damage,5 mana", 5));
-		spells.add(new Spell("Icicle Spear", -15, "15 damage,7 mana", 7));
-		spells.add(new Spell("Frozen Touch", -30, "30 damage,15 mana", 15));
-		return spells;
+	    List<Spell> spells = new ArrayList<>();
+	    spells.add(new Spell("Blizzard Blast", -10, "10 damage, 5 mana", 5));
+	    spells.add(new Spell("Icicle Spear", -15, "15 damage, 7 mana", 7));
+	    spells.add(new Spell("Frozen Touch", -30, "30 damage, 25 mana", 25));
+	    return spells;
 	}
 
 	private static List<Spell> createIvySpells() {
-		List<Spell> spells = new ArrayList<>();
-		spells.add(new Spell("Thorn Whip", -25, "25 damage,12 mana", 12));
-		spells.add(new Spell("Bloom Heal", 50, "50 heal,10 mana", 10));
-		spells.add(new Spell("Poison Spore", -15, "15 damage,7 mana", 7));
-		return spells;
+	    List<Spell> spells = new ArrayList<>();
+	    spells.add(new Spell("Thorn Whip", -25, "25 damage, 12 mana", 12));
+	    spells.add(new Spell("Bloom Heal", 40, "40 heal, 20 mana", 20));
+	    spells.add(new Spell("Poison Spore", -15, "15 damage, 7 mana", 7));
+	    return spells;
 	}
 
 	private static List<Spell> createTerraSpells() {
-		List<Spell> spells = new ArrayList<>();
-		spells.add(new Spell("Earthquake Smash", -15, "15 damage,7 mana", 7));
-		spells.add(new Spell("Boulder Throw", -20, "20 damage,13 mana", 13));
-		spells.add(new Spell("Root Strike", -25, "25 damage,15 mana", 15));
-		return spells;
+	    List<Spell> spells = new ArrayList<>();
+	    spells.add(new Spell("Earthquake Smash", -15, "15 damage, 7 mana", 7));
+	    spells.add(new Spell("Boulder Throw", -20, "20 damage, 13 mana", 13));
+	    spells.add(new Spell("Root Strike", -25, "25 damage, 15 mana", 15));
+	    return spells;
 	}
-
 }

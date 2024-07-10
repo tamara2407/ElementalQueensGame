@@ -182,12 +182,18 @@ public class ClientHandler implements Runnable {
 	private void handleLogin(String username, String password) {
 
 		synchronized (players) {
-			if (loggedInUsers != null && loggedInUsers.contains(username)) {
-				out.println("LOGIN_FAILURE_ALREADY_LOGGEDIN:login");
-				return;
-			}
+
+//			if (loggedInUsers != null && loggedInUsers.contains(username)) {
+//				out.println("LOGIN_FAILURE_ALREADY_LOGGEDIN:login");
+//				return;
+//			}
 
 			for (Player p : players) {
+				if (loggedInUsers != null && loggedInUsers.contains(username) && p.checkPassword(password)) {
+					out.println("LOGIN_FAILURE_ALREADY_LOGGEDIN:login");
+					return;
+				}
+
 				if (p.getUsername().equals(username)) {
 					if (p.checkPassword(password)) {
 						player = p;
@@ -295,9 +301,86 @@ public class ClientHandler implements Runnable {
 		}
 	}
 
+//	private void handleSpellCast(ClientHandler clientHandler, String spellName) {
+//
+//		Queen castingQueen = clientHandler.player.getSelectedQueen();
+//
+//		if (castingQueen != null) {
+//			Spell spellToCast = findSpellInQueen(spellName, castingQueen);
+//			if (spellToCast != null) {
+//
+//				int manaCost = spellToCast.getManaCost();
+//				int spellEffect = spellToCast.getEffect();
+//
+//				if (castingQueen.getMana() >= manaCost) {
+//					castingQueen.reduceMana(manaCost);
+//					ClientHandler opponentHandler = opponentMap.get(clientHandler);
+//
+//					Queen opponentQueen = opponentHandler.player.getSelectedQueen();
+//					if (spellEffect > 0) {
+//						if (spellToCast.getUsageCount() < 2) {
+//							spellToCast.incrementUsageCount();
+//
+//							castingQueen.setHealth(castingQueen.getHealth() + spellEffect);
+//
+//							if (castingQueen.getHealth() > 100) {
+//								castingQueen.setHealth(100);
+//							}
+//
+//							out.println("SPELL_CAST_SUCCESS_H:" + spellName + ":" + castingQueen.getMana() + ":"
+//									+ castingQueen.getHealth());
+//							opponentHandler.out.println("SPELL_CAST_SUCCESS_HO:" + spellName + ":"
+//									+ castingQueen.getMana() + ":" + castingQueen.getHealth());
+//							toggleTurn();
+//							return;
+//						} else {
+//							out.println("LIMIT_REACHED: limit");
+//						}
+//					}
+//
+//					if (opponentQueen != null && spellEffect < 0) {
+//
+//						opponentQueen.reduceHealth(spellEffect);
+//						if (opponentQueen.getHealth() <= 0) {
+//							out.println("RESULT:" + "won" + ":" + String.valueOf(clientHandler.player.getWins() + 1)
+//									+ ":" + String.valueOf(clientHandler.player.getLosses()));
+//							opponentHandler.out
+//									.println("RESULT:" + "lost" + ":" + String.valueOf(opponentHandler.player.getWins())
+//											+ ":" + String.valueOf(opponentHandler.player.getLosses() + 1));
+//							updatePlayerStats(clientHandler, true);
+//							updatePlayerStats(opponentHandler, false);
+//						}
+//
+//						opponentHandler.out.println("SPELL_CAST_TAKEN:" + spellName + ":" + opponentQueen.getHealth()
+//								+ ":" + castingQueen.getMana());
+//						out.println("SPELL_CAST_SUCCESS:" + spellName + ":" + castingQueen.getMana() + ":"
+//								+ opponentQueen.getHealth());
+//						toggleTurn();
+//					}
+//
+//				} else {
+//					out.println("SPELL_CAST_FAIL:INSUFFICIENT_MANA");
+//				}
+//			}
+//		}
+//	}
+
+	private boolean lessThenEverything(int mana, List<Spell> spells) {
+
+		int minn = Math.min(Math.min(spells.get(0).getManaCost(), spells.get(1).getManaCost()),
+				spells.get(2).getManaCost());
+		if (mana < (minn)) {
+			return true;
+		}
+		return false;
+	}
+
 	private void handleSpellCast(ClientHandler clientHandler, String spellName) {
 
 		Queen castingQueen = clientHandler.player.getSelectedQueen();
+		ClientHandler opponentHandler = opponentMap.get(clientHandler);
+		Queen opponentQueen = opponentHandler.player.getSelectedQueen();
+
 
 		if (castingQueen != null) {
 			Spell spellToCast = findSpellInQueen(spellName, castingQueen);
@@ -308,9 +391,7 @@ public class ClientHandler implements Runnable {
 
 				if (castingQueen.getMana() >= manaCost) {
 					castingQueen.reduceMana(manaCost);
-					ClientHandler opponentHandler = opponentMap.get(clientHandler);
 
-					Queen opponentQueen = opponentHandler.player.getSelectedQueen();
 					if (spellEffect > 0) {
 						if (spellToCast.getUsageCount() < 2) {
 							spellToCast.incrementUsageCount();
@@ -354,6 +435,27 @@ public class ClientHandler implements Runnable {
 
 				} else {
 					out.println("SPELL_CAST_FAIL:INSUFFICIENT_MANA");
+				}
+				
+				if (lessThenEverything(castingQueen.getMana(), castingQueen.getSpells())
+						&& lessThenEverything(opponentQueen.getMana(), opponentQueen.getSpells())) {
+					if (castingQueen.getHealth() > opponentQueen.getHealth()) {
+						out.println("RESULT:" + "won" + ":" + String.valueOf(clientHandler.player.getWins() + 1) + ":"
+								+ String.valueOf(clientHandler.player.getLosses()));
+						opponentHandler.out.println("RESULT:" + "lost" + ":" + String.valueOf(opponentHandler.player.getWins())
+								+ ":" + String.valueOf(opponentHandler.player.getLosses() + 1));
+						updatePlayerStats(clientHandler, true);
+						updatePlayerStats(opponentHandler, false);
+
+					} else if (castingQueen.getHealth() == opponentQueen.getHealth()) {
+						out.println("RESULT:" + "lost" + ":" + String.valueOf(clientHandler.player.getWins()) + ":"
+								+ String.valueOf(clientHandler.player.getLosses() + 1));
+						opponentHandler.out.println("RESULT:" + "lost" + ":" + String.valueOf(opponentHandler.player.getWins())
+								+ ":" + String.valueOf(opponentHandler.player.getLosses() + 1));
+						updatePlayerStats(clientHandler, false);
+						updatePlayerStats(opponentHandler, false);
+
+					}
 				}
 			}
 		}

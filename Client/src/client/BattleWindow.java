@@ -46,6 +46,7 @@ public class BattleWindow extends JFrame {
 		setSize(1200, 650);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
+		setResizable(false);
 
 		addWindowListener(new WindowAdapter() {
 			@Override
