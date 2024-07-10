@@ -181,9 +181,20 @@ public class Client {
 				showResultWindow(resultWindow, isWinner, wins, losses);
 			}
 			break;
+			
+		case "OPPONENT_EXIT_BATTLE":
+			System.out.println("zdravoo iz pobednika");
+			wins=Integer.parseInt(parts[1]);
+			losses=Integer.parseInt(parts[2]);
+			resultWindow = new ResultWindow(this, true ,wins, losses);
+			battleWindow.setVisible(false);
+			showResultWindow(resultWindow, true, wins, losses);
+			  
+			break;
 		}
 
 	}
+	
 	
 	private void handleException(String message) {
         JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);

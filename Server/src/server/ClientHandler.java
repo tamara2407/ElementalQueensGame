@@ -40,7 +40,7 @@ public class ClientHandler implements Runnable {
 		this.queens = queens;
 		this.isTurn = false;
 	}
-
+	
 	@Override
 	public void run() {
 
@@ -109,8 +109,43 @@ public class ClientHandler implements Runnable {
 			String username = tokens[1];
 			handleExit(tokens[1]);
 			break;
+		case "EXIT_BATTLE":
+			String username1 = tokens[1];
+			handleExitBattle(this,tokens[1]);
+			
+			
+			break;
 		}
 	}
+	
+	
+//	private void handleExitBattle(ClientHandler clientHandler,String username) {
+//		clientHandler.player.setLosses(clientHandler.player.getLosses()+1);
+//		System.out.println(player.getUsername());
+//		ClientHandler opponentHandler = opponentMap.get(this);
+//		System.out.println(opponentHandler.player.getUsername());
+//		if(opponentHandler != null) {
+//		opponentHandler.player.setWins(opponentHandler.player.getWins()+1);
+//		updatePlayerStats(opponentHandler, true);
+//		updatePlayerStats(clientHandler,false);
+//		clientHandler.out.println("PLAYER_EXIT_BATTLE:exit");
+//		opponentHandler.out.println("OPPONENT_EXIT_BATTLE:"+opponentHandler.player.getWins()+":"+opponentHandler.player.getLosses());
+//		loggedInUsers.remove(username);
+//		}
+//	}
+	
+	private void handleExitBattle(ClientHandler clientHandler, String username) {
+        //clientHandler.player.setLosses(clientHandler.player.getLosses());
+        ClientHandler opponentHandler = opponentMap.get(clientHandler);
+        if (opponentHandler != null) {
+            //opponentHandler.player.setWins(opponentHandler.player.getWins());
+            updatePlayerStats(opponentHandler, true);
+            updatePlayerStats(clientHandler, false);
+            opponentHandler.out.println("OPPONENT_EXIT_BATTLE:"+opponentHandler.player.getWins()+":"+opponentHandler.player.getLosses());
+        }
+        
+        loggedInUsers.remove(username);
+    }
 
 	private void handleRegister(String username, String password, String email) {
 		synchronized (players) {

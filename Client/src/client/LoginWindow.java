@@ -78,6 +78,7 @@ public class LoginWindow extends JFrame {
 		loginButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				String username = usernameField.getText();
 				String password = new String(passwordField.getPassword());
 				if (username.isEmpty() || password.isEmpty()) {
@@ -85,6 +86,7 @@ public class LoginWindow extends JFrame {
                 }
 				else {
                     client.sendToServer("LOGIN:" + username + ":" + password);
+                    dispose();
                 }
 			}
 		});

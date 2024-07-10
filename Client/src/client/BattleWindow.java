@@ -49,13 +49,18 @@ public class BattleWindow extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                client.sendToServer("EXIT:"+client.getUsername());
-                System.exit(0);
+            	int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit? This will count as a loss.", "Exit Confirmation", JOptionPane.YES_NO_OPTION);
+                if (response == JOptionPane.YES_OPTION) {
+                    client.sendToServer("EXIT_BATTLE:" + client.getUsername());
+                    System.exit(0);
+                }else {
+                	((JFrame) e.getSource()).setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                 
+                }
             }
         });
         
-        
-
+       
         JPanel mainPanel = new BackgroundPanel("images/background/bg7.jpg");
         mainPanel.setLayout(new BorderLayout());
         setContentPane(mainPanel);
@@ -299,7 +304,9 @@ public class BattleWindow extends JFrame {
     public void showErrorMessageHealReachedLimit() {
 	    JOptionPane.showMessageDialog(this, "Maximum number of healing has been reached !");
 	}
-    
+    public void showErrorMessageExitBattle() {
+	    JOptionPane.showMessageDialog(this, "To exit during a battle is considered surrender, meaning you have lost!");
+	}
     public void showErrorMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
     }
