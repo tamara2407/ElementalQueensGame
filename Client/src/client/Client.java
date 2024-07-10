@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import javax.annotation.processing.SupportedSourceVersion;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -86,8 +87,10 @@ public class Client {
 		case "LOGIN_FAILURE_PASSWORD":
 			loginWindow.showErrorMessagePassword();
 			break;
-		case "LOGIN_FAILURE_ALREADY_LOGGEDIN:already_logged_in":
+		case "LOGIN_FAILURE_ALREADY_LOGGEDIN":
+			System.out.println("cao");
 		    loginWindow.showErrorMessageAlreadyLoggedIn();
+		    System.out.println("caoo");
 		    break;
 		case "REGISTER_SUCCESS":
 			registerWindow.setVisible(false);

@@ -82,40 +82,67 @@ public class ClientHandler implements Runnable {
 		System.out.println("command: " + command);
 
 		switch (command) {
+
 		case "REGISTER":
-			handleRegister(tokens[1], tokens[2], tokens[3]);
-			break;
-		case "LOGIN":
-			handleLogin(tokens[1], tokens[2]);
-			break;
-		case "QUEEN_SELECTION":
-			handleSelectQueen(tokens[1]);
-			break;
-		case "BACK_TO_SELECT":
-			handleBackToSelect();
-		case "SPELL_CAST":
-			if (isTurn) {
-				String spellName = tokens[3];
-				handleSpellCast(this, spellName);
-				//toggleTurn();
-			} else {
-				out.println("NOT_YOUR_TURN");
-			}
-			break;
-		case "LOGOUT":
-			String username2=tokens[1];
-			handleLogout(username2);
-			break;
-		case "EXIT":
-			String username = tokens[1];
-			handleExit(tokens[1]);
-			break;
-		case "EXIT_BATTLE":
-			String username1 = tokens[1];
-			handleExitBattle(this,tokens[1]);
-			
-			
-			break;
+            if (tokens.length >= 4) {
+                handleRegister(tokens[1], tokens[2], tokens[3]);
+            } else {
+                out.println("REGISTER_FAILURE:Invalid number of arguments");
+            }
+            break;
+        case "LOGIN":
+            if (tokens.length >= 3) {
+                handleLogin(tokens[1], tokens[2]);
+            } else {
+                out.println("LOGIN_FAILURE:Invalid number of arguments");
+            }
+            break;
+        case "QUEEN_SELECTION":
+            if (tokens.length >= 2) {
+                handleSelectQueen(tokens[1]);
+            } else {
+                out.println("QUEEN_SELECTION_FAILURE:Invalid number of arguments");
+            }
+            break;
+        case "BACK_TO_SELECT":
+            handleBackToSelect();
+            break;
+        case "SPELL_CAST":
+            if (tokens.length >= 4) {
+                if (isTurn) {
+                    String spellName = tokens[3];
+                    handleSpellCast(this, spellName);
+                } else {
+                    out.println("NOT_YOUR_TURN");
+                }
+            } else {
+                out.println("SPELL_CAST_FAILURE:Invalid number of arguments");
+            }
+            break;
+        case "LOGOUT":
+            if (tokens.length >= 2) {
+                String username2 = tokens[1];
+                handleLogout(username2);
+            } else {
+                out.println("LOGOUT_FAILURE:Invalid number of arguments");
+            }
+            break;
+        case "EXIT":
+            if (tokens.length >= 2) {
+                String username = tokens[1];
+                handleExit(username);
+            } else {
+                out.println("EXIT_FAILURE:Invalid number of arguments");
+            }
+            break;
+        case "EXIT_BATTLE":
+            if (tokens.length >= 2) {
+                String username1 = tokens[1];
+                handleExitBattle(this, tokens[1]);
+            } else {
+                out.println("EXIT_BATTLE_FAILURE:Invalid number of arguments");
+            }
+            break;
 		}
 	}
 	
@@ -164,9 +191,12 @@ public class ClientHandler implements Runnable {
 	}
 
 	private void handleLogin(String username, String password) {
+		
 	    synchronized (players) {
 	        if (loggedInUsers!=null && loggedInUsers.contains(username)) {
-	            out.println("LOGIN_FAILURE_ALREADY_LOGGEDIN:already_logged_in");
+	        	System.out.println("zdravo");
+	            out.println("LOGIN_FAILURE_ALREADY_LOGGEDIN:login");
+	            System.out.println("zdravo opet");
 	            return;
 	        }
 
