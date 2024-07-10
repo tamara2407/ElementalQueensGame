@@ -54,15 +54,5 @@ public class Spell {
     	return manaCost;
     }
     
-  
-    
-    public String toString() {
-        return "Spell{" +
-                "name='" + name + '\'' +
-                ", effect=" + effect +
-                ", description='" + description + '\'' +
-                ", manaCost=" + manaCost +
-                '}';
-    }
 
 }

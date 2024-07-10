@@ -49,21 +49,21 @@ public class Server {
 				System.out.println("New client thread created");
 			}
 		} catch (SocketException e) {
-            if (e.getMessage().equals("Socket closed")) {
-                System.out.println("The socket has been closed on the client side!");
-            } else if (e.getMessage().equals("Connection reset")) {
-                System.out.println("The connection with the client side has been lost!");
-            } else {
-                System.out.println("There was an error while working with the socket!");
-                
-            }
-        } catch (IOException e) {
-            System.out.println("There was an error while starting the server!");
-            
-        } catch (Exception e) {
-            System.out.println("AN ERROR OCCURRED!");
-           
-        }
+			if (e.getMessage().equals("Socket closed")) {
+				System.out.println("The socket has been closed on the client side!");
+			} else if (e.getMessage().equals("Connection reset")) {
+				System.out.println("The connection with the client side has been lost!");
+			} else {
+				System.out.println("There was an error while working with the socket!");
+
+			}
+		} catch (IOException e) {
+			System.out.println("There was an error while starting the server!");
+
+		} catch (Exception e) {
+			System.out.println("AN ERROR OCCURRED!");
+
+		}
 	}
 
 	private static void createCSVFile(String filePath) {
@@ -77,70 +77,31 @@ public class Server {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
-/*	private static void loadPlayersFromCSV(String filePath) {
-	    File csvFile = new File(filePath);
-	    if (csvFile.exists()) {
-	        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-	            String line;
-	            boolean headerSkipped = false;  
-	            while ((line = br.readLine()) != null) {
-	                if (!headerSkipped) {
-	                    headerSkipped = true;
-	                    continue;  
-	                }
-
-	                String[] values = line.split(",");
-	                if (values.length >= 5) {
-	                    String username = values[0];
-	                    String password = values[1];
-	                    String email = values[2];
-	                    int wins = Integer.parseInt(values[3].trim());
-	                    int losses = Integer.parseInt(values[4].trim());
-
-	                    Player player = new Player(username, password, email);
-	                    player.setWins(wins);
-	                    player.setLosses(losses);
-
-	                    players.add(player);
-	                }
-	            }
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    } else {
-	        System.out.println("CSV file not found, skipping loading players.");
-	    }
-	}
-*/
 	private static void loadPlayersFromCSV(String filePath) {
-	    File csvFile = new File(filePath);
-	    if (csvFile.exists()) {
-	        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-	            String line;
-	            br.readLine();
-	            while ((line = br.readLine()) != null) {
-	                String[] values = line.split(",");
-	                if (values.length == 5) {
-	                    Player player = new Player(values[0], values[1], values[2],Integer.parseInt(values[3]),Integer.parseInt(values[4]));
-	                    players.add(player);
-	                }
-	            }
-	            System.out.println("Players loaded from CSV:");
-	            for (Player p : players) {
-	                System.out.println(p.getUsername() + " | "+p.getHashedPassword()+" | "+ p.getEmail() + " | " + p.getWins() + " | " + p.getLosses());
-	            }
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    } else {
-	        System.out.println("CSV file not found, skipping loading players.");
-	    }
+		File csvFile = new File(filePath);
+		if (csvFile.exists()) {
+			try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+				String line;
+				br.readLine();
+				while ((line = br.readLine()) != null) {
+					String[] values = line.split(",");
+					if (values.length == 5) {
+						Player player = new Player(values[0], values[1], values[2], Integer.parseInt(values[3]),
+								Integer.parseInt(values[4]));
+						players.add(player);
+					}
+				}
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println("CSV file not found, skipping loading players.");
+		}
 	}
 
-	
 	public static List<Queen> createQueens() {
 		List<Queen> queens = new ArrayList<>();
 
@@ -161,39 +122,39 @@ public class Server {
 
 	private static List<Spell> createBlazeSpells() {
 		List<Spell> spells = new ArrayList<>();
-		spells.add(new Spell("Inferno Burst", -20, "20 damage,13 mana", 13));
-		spells.add(new Spell("Ember Storm", -15, "15 damage,10 mana", 10));
+		spells.add(new Spell("Inferno Burst", -20, "20 damage,10 mana", 10));
+		spells.add(new Spell("Ember Storm", -15, "15 damage,5 mana", 5));
 		spells.add(new Spell("Flame Eruption", -30, "30 damage,15 mana", 15));
 		return spells;
 	}
 
 	private static List<Spell> createAquaSpells() {
 		List<Spell> spells = new ArrayList<>();
-		spells.add(new Spell("Tsunami Wave", -20, "20 damage,13 mana", 13));
+		spells.add(new Spell("Tsunami Wave", -20, "20 damage,10 mana", 10));
 		spells.add(new Spell("Aqua Surge", -30, "30 damage,15 mana", 15));
-		spells.add(new Spell("Healing Waters", 20, "20 heal,10 mana", 10));
+		spells.add(new Spell("Healing Waters", 50, "50 heal,10 mana", 10));
 		return spells;
 	}
 
 	private static List<Spell> createFrostSpells() {
 		List<Spell> spells = new ArrayList<>();
 		spells.add(new Spell("Blizzard Blast", -10, "10 damage,5 mana", 5));
-		spells.add(new Spell("Icicle Spear", -15, "15 damage,10 mana", 10));
-		spells.add(new Spell("Frozen Touch", -20, "20 damage,13 mana", 13));
+		spells.add(new Spell("Icicle Spear", -15, "15 damage,7 mana", 7));
+		spells.add(new Spell("Frozen Touch", -30, "30 damage,15 mana", 15));
 		return spells;
 	}
 
 	private static List<Spell> createIvySpells() {
 		List<Spell> spells = new ArrayList<>();
-		spells.add(new Spell("Thorn Whip", -20, "20 damage,13 mana", 13));
-		spells.add(new Spell("Bloom Heal", 20, "20 heal,10 mana", 10));
-		spells.add(new Spell("Poison Spore", -10, "10 damage,5 mana", 5));
+		spells.add(new Spell("Thorn Whip", -25, "25 damage,12 mana", 12));
+		spells.add(new Spell("Bloom Heal", 50, "50 heal,10 mana", 10));
+		spells.add(new Spell("Poison Spore", -15, "15 damage,7 mana", 7));
 		return spells;
 	}
 
 	private static List<Spell> createTerraSpells() {
 		List<Spell> spells = new ArrayList<>();
-		spells.add(new Spell("Earthquake Smash", -15, "15 damage,10 mana", 10));
+		spells.add(new Spell("Earthquake Smash", -15, "15 damage,7 mana", 7));
 		spells.add(new Spell("Boulder Throw", -20, "20 damage,13 mana", 13));
 		spells.add(new Spell("Root Strike", -25, "25 damage,15 mana", 15));
 		return spells;

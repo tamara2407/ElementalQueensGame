@@ -25,7 +25,6 @@ public class Client {
 	private String username;
 	private double winRate;
 
-
 	public Client(String serverAdress, int serverPort) {
 
 		try {
@@ -37,12 +36,10 @@ public class Client {
 
 			loginWindow = new LoginWindow(this);
 			registerWindow = new RegisterWindow(this);
-			//selectWindow = new SelectWindow(this);
-			// battleWindow = new BattleWindow(this);
 			waitingForTheOpponentWindow = new WaitingForTheOpponentWindow(this);
 
 		} catch (UnknownHostException e) {
-			handleException("Unknown host: "+serverAdress+"!");
+			handleException("Unknown host: " + serverAdress + "!");
 		} catch (IOException e) {
 			handleException("Error while connecting to server!");
 		}
@@ -63,7 +60,7 @@ public class Client {
 
 					processServerMessage(message);
 				}
-			}catch (IOException e) {
+			} catch (IOException e) {
 				handleException("Connection lost!");
 			}
 
@@ -88,10 +85,8 @@ public class Client {
 			loginWindow.showErrorMessagePassword();
 			break;
 		case "LOGIN_FAILURE_ALREADY_LOGGEDIN":
-			System.out.println("cao");
-		    loginWindow.showErrorMessageAlreadyLoggedIn();
-		    System.out.println("caoo");
-		    break;
+			loginWindow.showErrorMessageAlreadyLoggedIn();
+			break;
 		case "REGISTER_SUCCESS":
 			registerWindow.setVisible(false);
 			showLoginWindow();
@@ -170,44 +165,42 @@ public class Client {
 			break;
 		case "RESULT":
 			String result = parts[1];
-			int wins=Integer.parseInt(parts[2]);
+			int wins = Integer.parseInt(parts[2]);
 			int losses = Integer.parseInt(parts[3]);
 			boolean isWinner;
 			if (result.equals("won")) {
 				isWinner = true;
-				resultWindow = new ResultWindow(this, isWinner, wins, losses,username);
+				resultWindow = new ResultWindow(this, isWinner, wins, losses, username);
 				battleWindow.setVisible(false);
 				showResultWindow(resultWindow, isWinner, wins, losses);
 			} else {
 				isWinner = false;
-				resultWindow = new ResultWindow(this, isWinner, wins, losses,username);
+				resultWindow = new ResultWindow(this, isWinner, wins, losses, username);
 				battleWindow.setVisible(false);
 				showResultWindow(resultWindow, isWinner, wins, losses);
 			}
 			break;
-			
+
 		case "OPPONENT_EXIT_BATTLE":
-			System.out.println("zdravoo iz pobednika");
-			wins=Integer.parseInt(parts[1]);
-			losses=Integer.parseInt(parts[2]);
-			resultWindow = new ResultWindow(this, true ,wins, losses,username);
+			wins = Integer.parseInt(parts[1]);
+			losses = Integer.parseInt(parts[2]);
+			resultWindow = new ResultWindow(this, true, wins, losses, username);
 			battleWindow.setVisible(false);
 			showResultWindow(resultWindow, true, wins, losses);
-			  
+
 			break;
 		}
 
 	}
-	
-	
+
 	private void handleException(String message) {
-        JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
-        cleanupResources();
-    }
+		JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
+		cleanupResources();
+	}
 
 	public void showLoginWindow() {
-		if(loginWindow!=null) {
-		loginWindow.setVisible(true);
+		if (loginWindow != null) {
+			loginWindow.setVisible(true);
 		}
 	}
 
@@ -219,10 +212,6 @@ public class Client {
 		selectWindow = new SelectWindow(this, winRate);
 		selectWindow.setVisible(true);
 	}
-
-	/*
-	 * public void showBattleWindow() { battleWindow.setVisible(true); }
-	 */
 
 	public void showBattleWindow(BattleWindow bw, String playerQueenName, String opponentQueenName, String spell1,
 			String spell2, String spell3, String desc1, String desc2, String desc3) {
@@ -237,11 +226,11 @@ public class Client {
 	public void showWaitingForOpponentWindow() {
 		waitingForTheOpponentWindow.setVisible(true);
 	}
-	
+
 	public void sendToServer(String message) {
 		out.println(message);
 	}
-	
+
 	public double getWinRate() {
 		return winRate;
 	}
@@ -252,13 +241,16 @@ public class Client {
 		}
 		return input.replaceAll("\\s+", "");
 	}
-	
+
 	private void cleanupResources() {
 		closeAllWindows();
 		try {
-			if (in != null) in.close();
-			if (out != null) out.close();
-			if (socket != null) socket.close();
+			if (in != null)
+				in.close();
+			if (out != null)
+				out.close();
+			if (socket != null)
+				socket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -266,12 +258,18 @@ public class Client {
 
 	private void closeAllWindows() {
 		SwingUtilities.invokeLater(() -> {
-			if (loginWindow != null) loginWindow.dispose();
-			if (registerWindow != null) registerWindow.dispose();
-			if (selectWindow != null) selectWindow.dispose();
-			if (battleWindow != null) battleWindow.dispose();
-			if (waitingForTheOpponentWindow != null) waitingForTheOpponentWindow.dispose();
-			if (resultWindow != null) resultWindow.dispose();
+			if (loginWindow != null)
+				loginWindow.dispose();
+			if (registerWindow != null)
+				registerWindow.dispose();
+			if (selectWindow != null)
+				selectWindow.dispose();
+			if (battleWindow != null)
+				battleWindow.dispose();
+			if (waitingForTheOpponentWindow != null)
+				waitingForTheOpponentWindow.dispose();
+			if (resultWindow != null)
+				resultWindow.dispose();
 		});
 	}
 
