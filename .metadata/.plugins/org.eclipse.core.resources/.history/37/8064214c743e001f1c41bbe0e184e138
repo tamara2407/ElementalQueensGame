@@ -86,7 +86,7 @@ public class LoginWindow extends JFrame {
                 }
 				else {
                     client.sendToServer("LOGIN:" + username + ":" + password);
-                    
+                    dispose();
                 }
 			}
 		});

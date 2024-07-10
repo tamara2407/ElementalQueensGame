@@ -78,7 +78,6 @@ public class Client {
 			username = parts[1];
 			winRate = Double.parseDouble(parts[2]);
 			showSelectWindow(winRate);
-			loginWindow.setVisible(false);
 			break;
 		case "LOGIN_FAILURE":
 			loginWindow.showErrorMessage();
